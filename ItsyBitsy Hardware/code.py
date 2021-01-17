@@ -17,6 +17,7 @@ servo_max_rate = 90
 mervo_min_rate = 1
 
 servo_position = servo_home
+servo.angle = servo_position
 
 
 def map_range(a, b, s):
@@ -43,17 +44,17 @@ def move_servo(rate=50, direction=1, angle=None):
 
 
 while True:
-    # print(servo_position)
-    # if servo_position <= 0:
-    #     my_direction = 1
-    # if servo_position >= 180:
-    #     my_direction = -1
+    print(servo_position)
+    if servo_position <= 0:
+        my_direction = 1
+    if servo_position >= 180:
+        my_direction = -1
 
 
 
-    for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
-        servo.angle = angle
-        time.sleep(0.05)
-    for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
-        servo.angle = angle
-        time.sleep(0.05)
+    # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
+    #     servo.angle = angle
+    #     time.sleep(0.05)
+    # for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
+    #     servo.angle = angle
+    #     time.sleep(0.05)
