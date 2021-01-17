@@ -73,7 +73,7 @@ while True:
 
 
     servo_position = set_servo(servo_position=servo_position,
-                                rate=90, direction=direction)
+                                rate=10, direction=direction)
 
     print(servo_position, direction)
 
