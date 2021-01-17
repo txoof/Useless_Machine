@@ -35,7 +35,7 @@ def move_servo(rate=50, direction=1, angle=None):
         angle(int): move to given angle
     '''
     if angle:
-        servo_position = add_angle
+        servo_position = angle
     else:
         add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
         servo_position = servo_position + add_angle * direction
