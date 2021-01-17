@@ -64,7 +64,7 @@ while True:
     print(servo_position, direction)
 
     servo_position = move_servo(servo_position=servo_position,
-                                rate=50, direction=direction)
+                                rate=100, direction=direction)
 
 
 
