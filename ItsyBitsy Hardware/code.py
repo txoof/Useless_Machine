@@ -12,6 +12,7 @@ servo = servo.Servo(pwm)
 # endstops for servo
 servo_home = 0
 servo_max = 180
+my_direction = 1
 
 servo_max_rate = 90
 servo_min_rate = 1
