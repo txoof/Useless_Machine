@@ -17,7 +17,7 @@ servo_max_rate = 90
 mervo_min_rate = 1
 
 servo_position = servo_home
-servo.angle = servo_home
+
 
 def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
