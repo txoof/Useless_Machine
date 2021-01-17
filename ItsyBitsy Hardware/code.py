@@ -55,6 +55,7 @@ def set_servo(servo_position, rate=50, direction=1):
     servo.angle = servo_position
     time.sleep(0.01)
 
+    print(f'returning: {servo_position}')
     return servo_position
 
 
