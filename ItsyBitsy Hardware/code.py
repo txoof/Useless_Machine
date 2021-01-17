@@ -34,25 +34,21 @@ def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
     return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
 
-def move_servo(servo_position, rate=50, direction=1, angle=None):
+def move_servo(servo_position, rate=50, direction=1):
     '''
     move servo forward or backwards in steps proportional to the rate
 
     Args:
         rate(int): 1-100 - higher rates move in larger steps
         direction(0, 1): 0 anti clockwise, 1 clockwise
-        angle(int): move to given angle
     '''
-    if angle:
-        servo_position = angle
-    else:
-        add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
-        print(add_angle)
-        servo_position = int((servo_position + add_angle) * direction)
-        if servo_position > 180:
-            servo_position = 180
-        if servo_position < 0:
-            servo_position = 0
+
+    add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
+    servo_position = int((servo_position + add_angle) * direction)
+    if servo_position > 180:
+        servo_position = 180
+    if servo_position < 0:
+        servo_position = 0
 
     servo.angle = servo_position
     time.sleep(0.01)
@@ -65,10 +61,12 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
 
 while True:
     print(servo_position)
-    if servo_position <= 0:
+    if servo_position <= servo_home:
         direction = 1
-    if servo_position >= 180:
+        time.sleep(3)
+    if servo_position >= servo_max:
         direction = -1
+        time.sleep(3)
 
 
 
