@@ -14,7 +14,7 @@ servo_home = 0
 servo_max = 180
 
 servo_max_rate = 90
-mervo_min_rate = 1
+servo_min_rate = 1
 
 servo_position = servo_home
 servo.angle = servo_position
