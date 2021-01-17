@@ -10,7 +10,7 @@ pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=50)
 servo = servo.Servo(pwm)
 
 # endstops for servo
-servo_home = 0
+servo_home = 1
 servo_max = 180
 direction = 1
 
@@ -19,15 +19,12 @@ servo_min_rate = 1
 
 servo_position = servo_home
 servo.angle = servo_position
-time.sleep(3)
-servo.angle = 1
-
-for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
-    servo.angle = angle
-    time.sleep(0.05)
-for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
-    servo.angle = angle
-    time.sleep(0.05)
+# for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
+#     servo.angle = angle
+#     time.sleep(0.05)
+# for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
+#     servo.angle = angle
+#     time.sleep(0.05)
 
 
 
