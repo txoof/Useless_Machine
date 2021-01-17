@@ -60,7 +60,6 @@ def move_servo(servo_position, rate=50, direction=1):
 
 
 while True:
-    print(servo_position)
     if servo_position <= servo_home:
         direction = 1
         time.sleep(3)
