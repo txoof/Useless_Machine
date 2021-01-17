@@ -19,7 +19,7 @@ servo_min_rate = 1
 
 servo_position = servo_home
 servo.angle = servo_position
-time.sleep(1)
+time.sleep(3)
 servo.angle = 1
 
 
