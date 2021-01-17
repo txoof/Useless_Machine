@@ -10,21 +10,21 @@ pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=50)
 servo = servo.Servo(pwm)
 
 # endstops for servo
-servo_home = 1
+servo_home = 0
 servo_max = 180
 direction = 1
 
-servo_max_rate = 90
+servo_max_rate = 5
 servo_min_rate = 1
 
 servo_position = servo_home
 servo.angle = servo_position
-for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
-    servo.angle = angle
-    time.sleep(0.01)
-for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
-    servo.angle = angle
-    time.sleep(0.01)
+# for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
+#     servo.angle = angle
+#     time.sleep(0.01)
+# for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
+#     servo.angle = angle
+#     time.sleep(0.01)
 
 
 
@@ -55,7 +55,7 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
             servo_position = 0
 
     servo.angle = servo_position
-    time.sleep(1)
+    time.sleep(0.01)
 
     return servo_position
 
@@ -63,18 +63,19 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
 
 
 
-# while True:
-#     print(servo_position)
-#     if servo_position <= 0:
-#         direction = 1
-#     if servo_position >= 180:
-#         direction = -1
-#
-#     print(servo_position, direction)
-#
-#     servo_position = move_servo(servo_position=servo_position,
-#                                 rate=22, direction=direction)
+while True:
+    print(servo_position)
+    if servo_position <= 0:
+        direction = 1
+    if servo_position >= 180:
+        direction = -1
 
+
+
+    servo_position = move_servo(servo_position=servo_position,
+                                rate=22, direction=direction)
+
+    print(servo_position, direction)
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
