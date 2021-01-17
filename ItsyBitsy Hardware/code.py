@@ -39,7 +39,7 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
     else:
         add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
         print(add_angle)
-        servo_position = (servo_position + add_angle) * direction
+        servo_position = int((servo_position + add_angle) * direction)
         if servo_position > 180:
             servo_position = 180
         if servo_position < 0:
