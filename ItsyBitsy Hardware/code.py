@@ -54,7 +54,8 @@ while True:
     if servo_position >= 180:
         my_direction = -1
 
-    servo_position = move_servo(rate=50, direction=my_direction)
+    servo_position = move_servo(servo_position=servo_position,
+                                rate=50, direction=my_direction)
 
 
 
