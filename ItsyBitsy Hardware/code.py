@@ -34,7 +34,7 @@ def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
     return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
 
-def move_servo(servo_position, rate=50, direction=1):
+def set_servo(servo_position, rate=50, direction=1):
     '''
     move servo forward or backwards in steps proportional to the rate
 
@@ -69,8 +69,8 @@ while True:
 
 
 
-    servo_position = move_servo(servo_position=servo_position,
-                                rate=22, direction=direction)
+    servo_position = set_servo(servo_position=servo_position,
+                                rate=100, direction=direction)
 
     print(servo_position, direction)
 
