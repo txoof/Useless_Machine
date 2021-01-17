@@ -1,0 +1,21 @@
+Build Instructions
+
+01) Etch board on a single sided copper clad pcb
+02) Component holes are 1mm
+03) Mounting holes and wire routing hole (near GND) are 3mm
+04) Solder in components as shown in the board layout
+05) Add a jumper wire betwen J2 and J6
+06) DPDT switch should be connected as follows:
+    SJ1 - pin 1 (same position as pin 4)  
+    SJ2 - common   
+    SJ4 - pin 4 (same position as pin 1)  
+    SJ5 - common  
+    SJ6 - pin 6  
+    
+    The Servo should run anti-clockwise when the microswitch is CLOSED and the toggle
+    switch is flipped toward the door.  The servo should run clockwise when the toggle
+    switch is flipped away from the door.  
+
+07) Snap Switch/Micro Switch should be connected as NO 
+08) The signal wire (white on Futaba servos) should be connected to pin 3 of the header;
+    this is the pin closest to the 2N2222 transistor

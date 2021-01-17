@@ -1,0 +1,45 @@
+Useless Machine Bill of Materials
+
+Circuit Components
+Part    	Value          			Package      
+
+C1       	100n           			C025-025X050 
+C2       	10n            			C025-025X050 
+IC1      	NE555          			DIL-08       
+IC1 (optional)	DIL8 Socket			Socket
+R1       	68K            			0207/7       
+R2       	10K            			0207/7       
+R3-0     	6.7K           			0207/7       
+R3-1     	27K            			0207/7       
+R4       	1K             			0207/7       
+R5       	47K            			0207/7       
+S1       	DPDT           			320-916      
+S2       	MicroSwitch    			M9040P2      
+T1       	2N222          			TO92-CBE     
+SV1		3Xpin Header			Mouser: 571-5-146278-2
+
+Additional Circuit Components
+Part		Value				Part Number
+
+Battery Holder	4xAA				Mouser: 534-2478
+Servo		6V, 4.1kg/cm			Futaba S3004
+DPDT Switch	6mm panel mount ON-ON		Mouser: 108-1MD1T2B3M1QE-EVX
+SPST Switch	ON-(OFF)			Mouser: 653-D3V-11G2M-3C24-K
+Stranded Wire	AWG 18
+AA Battery	4x
+
+
+Hardware
+Part						QTY	
+
+3.8mm Plywood
+Standard Hinge: Plate Dimensions 18.8x25.5	1
+M3x10 Bolt					4
+M3x15 Bolt					10
+M3 Washer					2
+M3 Nut						14
+2mm Wood Screws					6
+Zip Ties					4
+Elastic 					5cm
+Hook & Loop Fasteners				2
+PVA (wood) glue
