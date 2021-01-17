@@ -46,7 +46,7 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
             servo_position = 0
 
         servo.angle = servo_position
-        time.sleep(0.5)
+        time.sleep(0.2)
 
         return servo_position
 
