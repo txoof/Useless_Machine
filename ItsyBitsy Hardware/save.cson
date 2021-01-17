@@ -1,0 +1,1 @@
+"*.py": "cp ${file} '/Users/aaronciuffo/Documents/Hobby/Projects/Useless\ Machine/ItsyBitsy\ Hardware/${file}'; pushd '/Users/aaronciuffo/Documents/Hobby/Projects/Useless\ Machine/ItsyBitsy\ Hardware'; git commit -m 'atom auto copy' ${file}; popd"
