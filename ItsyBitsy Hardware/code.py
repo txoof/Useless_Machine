@@ -12,7 +12,7 @@ servo = servo.Servo(pwm)
 # endstops for servo
 servo_home = 0
 servo_max = 180
-my_direction = 1
+direction = 1
 
 servo_max_rate = 90
 servo_min_rate = 1
@@ -50,14 +50,14 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
 while True:
     print(servo_position)
     if servo_position <= 0:
-        my_direction = -1
+        direction = -1
     if servo_position >= 180:
-        my_direction = 1
+        direction = 1
 
     print(servo_position, direction)
 
     servo_position = move_servo(servo_position=servo_position,
-                                rate=50, direction=my_direction)
+                                rate=50, direction=direction)
 
 
 
