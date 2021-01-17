@@ -46,8 +46,10 @@ def set_servo(servo_position, rate=50, direction=1):
     add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
     servo_position = int((servo_position + add_angle) * direction)
     if servo_position > 180:
+        print(f'position greater than 180 {servo_position}')
         servo_position = 180
     if servo_position < 0:
+        print(f'position lessthan than 0 {servo_position}')
         servo_position = 0
 
     servo.angle = servo_position
