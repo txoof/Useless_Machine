@@ -50,9 +50,9 @@ def move_servo(servo_position, rate=50, direction=1, angle=None):
 while True:
     print(servo_position)
     if servo_position <= 0:
-        my_direction = 1
-    if servo_position >= 180:
         my_direction = -1
+    if servo_position >= 180:
+        my_direction = 1
 
     servo_position = move_servo(servo_position=servo_position,
                                 rate=50, direction=my_direction)
