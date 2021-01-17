@@ -50,6 +50,8 @@ while True:
     if servo_position >= 180:
         my_direction = -1
 
+    move_servo(rate=50, direction=my_direction)
+
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
