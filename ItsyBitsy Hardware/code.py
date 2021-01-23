@@ -15,7 +15,7 @@ servo_home = 0
 servo_max = 179
 direction = 1
 
-servo_max_rate = 10
+servo_max_rate = 50
 servo_min_rate = 0.05
 
 servo_position = servo_home
