@@ -5,10 +5,10 @@ import random
 from adafruit_motor import servo
 print('#START#')
 # create a PWMOut object on Pin D5.
-pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=80)
+pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=50)
 
 # Create a servo object.
-servo = servo.Servo(pwm)
+servo = servo.Servo(pwm, min_pulse=500, max_pulse=2100)
 
 # endstops for servo
 servo_home = 0
