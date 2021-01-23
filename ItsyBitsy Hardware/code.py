@@ -75,7 +75,7 @@ while True:
 
     servo_position = set_servo(servo_position=servo_position,
                                 rate=my_rate, direction=direction)
-    time.sleep(0.08)
+    time.sleep(0.07)
 
     print(f'position: {servo_position}, direction: {direction}')
 
