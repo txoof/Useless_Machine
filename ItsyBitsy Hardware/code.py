@@ -2,6 +2,7 @@ import board
 import digitalio
 import time
 import pulseio
+import random
 
 from adafruit_debouncer import Debouncer
 # from adafruit_motor import servo
@@ -59,7 +60,7 @@ while True:
         current = current + resolution * direction
         # print(f'direction: {direction}; current: {current}')
         servo.duty_cycle = servo_duty_cycle(current)
-        
+
     if current >= end or current <=start:
         direction = direction * -1
 
