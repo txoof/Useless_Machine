@@ -58,7 +58,7 @@ def set_servo(servo_position, rate, direction, endstop_switch):
     endstop_switch.update()
     if endstop_switch.value:
         print('enstop closed - refusing to move')
-        return
+        return servo_position
     add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
     sleep_value = add_angle * 0.01
     servo_position = (servo_position + (add_angle * direction))
