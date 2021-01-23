@@ -38,7 +38,7 @@ servo_min_rate = 0.05
 
 
 
-def home_arm(angle, endstop_switch, servo):
+def home_arm(angle):
     endstop_switch.update()
     while not endstop_switch.value():
         print('endstop open')
@@ -82,7 +82,7 @@ def set_servo(servo_position, rate, direction, endstop_switch):
 # servo_position = servo_home
 # servo.angle = servo_position
 
-home_arm(servo_home, endstop_switch, servo=servo)
+home_arm(servo_home)
 
 
 while True:
