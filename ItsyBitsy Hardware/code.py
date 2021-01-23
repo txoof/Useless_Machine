@@ -65,8 +65,12 @@ while True:
     if servo_position <= servo_home:
         direction = 1
         time.sleep(3)
+        print('hit endstop')
+        print('*'*10)
     if servo_position >= servo_max:
         direction = -1
+        print('hit endstop')
+        print('*'*10)        
         time.sleep(3)
 
     my_rate = random.randint(5, 10)
