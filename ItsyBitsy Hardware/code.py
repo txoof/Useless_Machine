@@ -14,7 +14,7 @@ endstop_pin = board.D9
 # input/output
 endstop = digitalio.DigitalInOut(endstop_pin)
 endstop.direction = digitalio.Direction.INPUT
-endstop.pull = digitalio.Pull.down
+endstop.pull = digitalio.Pull.DOWN
 endstop_switch = Debouncer(endstop)
 
 # create a PWMOut object on Pin D5.
