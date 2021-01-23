@@ -1,6 +1,8 @@
 import board
 import digitalio
 from adafruit_debouncer import Debouncer
+from adafruit_motor import servo
+
 
 # physical pins
 # limit switch physical pin
@@ -14,7 +16,10 @@ limitsw_pin = digitalio.DigitalInOut(limitsw_phy)
 limitsw_pin.direction = digitalio.Direction.INPUT
 limitsw_pin.pull = digitalio.Pull.DOWN
 
+# debounce object
 limitsw = Debouncer(limitsw_pin)
+
+
 
 limitsw.update()
 limitsw_last = limitsw.value
