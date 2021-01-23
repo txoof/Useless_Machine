@@ -39,10 +39,13 @@ servo_min_rate = 0.05
 
 
 def home_arm(angle, endstop_switch):
-    endstpo_switch.update()
+    endstop_switch.update()
     while not endstop_switch.value():
+        print('endstop open')
         endstop_switch.update()
         servo.angle = angle
+    print('endstop closed')
+
 
 def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
