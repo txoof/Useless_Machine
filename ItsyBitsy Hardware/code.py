@@ -38,15 +38,6 @@ def servo_duty_cycle(pulse_ms, frequency=50):
     duty_cycle = int(pulse_ms / (period_ms / 65535.0))
     return duty_cycle
 
-# def rotate_arm(speed, direction):
-    
-
-
-def home_arm():
-    limitsw.update
-    if not limitsw.value
-
-
 
 limitsw.update()
 limitsw_last = limitsw.value
