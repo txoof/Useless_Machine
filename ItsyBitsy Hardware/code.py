@@ -92,4 +92,5 @@ while True:
     print(f'servo rate: {my_rate}')
 
     servo_position = set_servo(servo_position=servo_position,
-                                rate=my_rate, direction=direction)
+                                rate=my_rate, direction=direction
+                                endstop_switch=endstop_switch)
