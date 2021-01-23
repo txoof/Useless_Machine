@@ -50,5 +50,5 @@ while True:
         limitsw_last = limitsw.value
     servo.duty_cycle = servo_duty_cycle(.5)
     time.sleep(1.0)
-    servo.duty_cycle = servo_duty_cycle(2.0)
+    servo.duty_cycle = servo_duty_cycle(2.5)
     time.sleep(1.0)
