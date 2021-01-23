@@ -49,6 +49,11 @@ def servo_duty_cycle(pulse_ms, frequency=50):
     return duty_cycle
 
 
+def rotate(current, degrees, speed):
+    limitsw.update()
+    resolution = map_range((1,100), (0.005, .8), speed)
+
+
 limitsw.update()
 limitsw_last = limitsw.value
 
