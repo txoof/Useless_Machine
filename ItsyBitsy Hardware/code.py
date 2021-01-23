@@ -73,7 +73,7 @@ def set_servo(servo_position, rate, direction):
 
 
 while True:
-    switfch.update()
+    endstop_switch.update()
     if switch.value:
         print('not pressed')
     else:
