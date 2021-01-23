@@ -48,7 +48,7 @@ while True:
     if  limitsw.value != limitsw_last:
         print(f'limitsw statechange: {not  limitsw.value}')
         limitsw_last = limitsw.value
-    servo.duty_cycle = servo_duty_cycle(1.5)
+    servo.duty_cycle = servo_duty_cycle(0)
     time.sleep(1.0)
     servo.duty_cycle = servo_duty_cycle(2.0)
     time.sleep(1.0)
