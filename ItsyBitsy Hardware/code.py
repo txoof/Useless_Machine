@@ -52,4 +52,4 @@ while True:
     # time.sleep(1.5)
     # servo.duty_cycle = servo_duty_cycle(2.5)
     # time.sleep(1.5)
-    servo.duty_cycle = servo_duty_cycle(.7)
+    servo.duty_cycle = servo_duty_cycle(.8)
