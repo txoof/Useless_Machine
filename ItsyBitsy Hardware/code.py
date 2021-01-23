@@ -3,7 +3,7 @@ import board
 import pulseio
 import random
 from adafruit_motor import servo
-
+print('#START#')
 # create a PWMOut object on Pin D5.
 pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=50)
 
@@ -70,7 +70,7 @@ while True:
     if servo_position >= servo_max:
         direction = -1
         print('hit endstop')
-        print('*'*10)        
+        print('*'*10)
         time.sleep(3)
 
     my_rate = random.randint(5, 10)
