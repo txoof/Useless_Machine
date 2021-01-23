@@ -73,7 +73,7 @@ while True:
 
 
     servo_position = set_servo(servo_position=servo_position,
-                                rate=50, direction=direction)
+                                rate=random.randint(1,80), direction=direction)
 
     print(servo_position, direction)
     print('random: ',random.randint(0,10))
