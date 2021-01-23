@@ -47,7 +47,7 @@ def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
     return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
 
-def set_servo(servo_position, rate, direction):
+def set_servo(servo_position, rate, direction, endstop_switch):
     '''
     move servo forward or backwards in steps proportional to the rate
 
@@ -55,6 +55,10 @@ def set_servo(servo_position, rate, direction):
         rate(int): 1-100 - higher rates move in larger steps
         direction(0, 1): 0 anti clockwise, 1 clockwise
     '''
+    endstop_switch.update()
+    if endstop_switch.value:
+        print('enstop closed - refusing to move')
+        return
     add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
     sleep_value = add_angle * 0.01
     servo_position = (servo_position + (add_angle * direction))
@@ -73,21 +77,19 @@ def set_servo(servo_position, rate, direction):
 
 
 while True:
-    endstop_switch.update()
-    print(endstop_switch.value)
-    # if servo_position <= servo_home:
-    #     direction = 1
-    #     time.sleep(3)
-    #     print('hit endstop')
-    #     print('*'*10)
-    # if servo_position >= servo_max:
-    #     direction = -1
-    #     print('hit endstop')
-    #     print('*'*10)
-    #     time.sleep(3)
-    #
-    # my_rate = random.randint(1, 100)
-    # print(f'servo rate: {my_rate}')
-    #
-    # servo_position = set_servo(servo_position=servo_position,
-    #                             rate=my_rate, direction=direction)
+    if servo_position <= servo_home:
+        direction = 1
+        time.sleep(3)
+        print('hit endstop')
+        print('*'*10)
+    if servo_position >= servo_max:
+        direction = -1
+        print('hit endstop')
+        print('*'*10)
+        time.sleep(3)
+
+    my_rate = random.randint(1, 100)
+    print(f'servo rate: {my_rate}')
+
+    servo_position = set_servo(servo_position=servo_position,
+                                rate=my_rate, direction=direction)
