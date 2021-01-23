@@ -18,7 +18,7 @@ SERVO_OUT_PHY = board.D10
 
 # pin objects
 limitsw_pin = digitalio.DigitalInOut(LIMIT_SW_PHY)
-servo = pulseio.PWMOut(SERVO_OUT_PHY, duty_cycle=2 **15, frequency=20)
+servo = pulseio.PWMOut(SERVO_OUT_PHY, duty_cycle=2 **15, frequency=50)
 
 
 
