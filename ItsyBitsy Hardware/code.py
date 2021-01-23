@@ -76,7 +76,7 @@ while True:
                                 rate=50, direction=direction)
 
     print(servo_position, direction)
-    print(random.randint(0,10))
+    print('random: ',random.randint(0,10))
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
