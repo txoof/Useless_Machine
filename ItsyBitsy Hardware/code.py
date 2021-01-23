@@ -1,6 +1,7 @@
 import time
 import board
 import pulseio
+import random
 from adafruit_motor import servo
 
 # create a PWMOut object on Pin D5.
@@ -60,9 +61,8 @@ def set_servo(servo_position, rate, direction):
 
 
 
-
-
 while True:
+
     if servo_position <= servo_home:
         direction = 1
         time.sleep(3)
@@ -76,6 +76,7 @@ while True:
                                 rate=50, direction=direction)
 
     print(servo_position, direction)
+    print(random.randint(0,10))
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
