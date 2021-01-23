@@ -13,8 +13,8 @@ from adafruit_debouncer import Debouncer
 LIMIT_SW_PHY = board.D9
 SERVO_OUT_PHY = board.D10
 
-
-
+MIN_DUTY = 0.5
+MAX_DUTY = 2.5
 
 
 # pin objects
@@ -33,6 +33,16 @@ limitsw_pin.pull = digitalio.Pull.DOWN
 # debounce object
 limitsw = Debouncer(limitsw_pin)
 
+def map_range(a, b, s):
+    '''Map range (min a, max a) to range (min b, max b) for value s
+    '''
+    (a1, a2), (b1, b2) = a, b
+    return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
+
+
+
+
+
 def servo_duty_cycle(pulse_ms, frequency=50):
     period_ms = 1.0 / frequency * 1000.0
     duty_cycle = int(pulse_ms / (period_ms / 65535.0))
@@ -42,8 +52,8 @@ def servo_duty_cycle(pulse_ms, frequency=50):
 limitsw.update()
 limitsw_last = limitsw.value
 
-start = .5
-end = 2.5
+start = MIN_DUTY
+end = MAX_DUTY
 current = start
 direction = 1
 
