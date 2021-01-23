@@ -13,8 +13,10 @@ from adafruit_debouncer import Debouncer
 LIMIT_SW_PHY = board.D9
 SERVO_OUT_PHY = board.D10
 
-MIN_DUTY = 0.5
-MAX_DUTY = 2.5
+DUTY_MIN = 0.5
+DUTY_MAX = 2.5
+
+RESOLUTION_MAX = 0.04
 
 
 # pin objects
@@ -57,8 +59,8 @@ def rotate(current, degrees, speed):
 limitsw.update()
 limitsw_last = limitsw.value
 
-start = MIN_DUTY
-end = MAX_DUTY
+start = DUTY_MIN
+end = DUTY_MAX
 current = start
 direction = 1
 
