@@ -36,12 +36,13 @@ direction = 1
 servo_max_rate = 50
 servo_min_rate = 0.05
 
-servo_position = servo_home
-servo.angle = servo_position
 
 
-
-
+def home_arm(angle, endstop_switch):
+    endstpo_switch.update()
+    while not endstop_switch.value():
+        endstop_switch.update()
+        servo.angle = angle
 
 def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
@@ -74,6 +75,11 @@ def set_servo(servo_position, rate, direction, endstop_switch):
     print(f'deg: {add_angle}; current pos: {servo_position}; direction: {direction}')
     return servo_position
 
+
+# servo_position = servo_home
+# servo.angle = servo_position
+
+home_arm(servo_home, endstop_switch)
 
 
 while True:
