@@ -79,7 +79,7 @@ def set_servo(servo_position, rate, direction, endstop_switch):
     return servo_position
 
 
-# servo_position = servo_home
+servo_position = servo_home
 # servo.angle = servo_position
 
 home_arm(servo_home)
