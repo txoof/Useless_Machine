@@ -48,7 +48,7 @@ end = 2.5
 current = start
 direction = 1
 
-resolution = 0.01
+resolution = 0.005
 
 servo.duty_cycle = servo_duty_cycle(start)
 while True:
