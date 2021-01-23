@@ -54,8 +54,9 @@ servo.duty_cycle = servo_duty_cycle(start)
 while True:
     limitsw.update()
 
+
     current = current + resolution * direction
-    print(f'direction: {direction}; current: {current}')
+    # print(f'direction: {direction}; current: {current}')
     servo.duty_cycle = servo_duty_cycle(current)
     if current >= end or current <=start:
         direction = direction * -1
