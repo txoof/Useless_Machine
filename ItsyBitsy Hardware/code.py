@@ -3,12 +3,27 @@ import board
 import pulseio
 import random
 from adafruit_motor import servo
-print('#START#')
+# handle switch reading
+from digitalio import DigitalInOut, Direction, Pull
+
+# pin definitions
+servo_pin = board.D10
+endstop_pin = board.D9
+
+# input/output
+endstop = digitalio.DigitalInOut(endstop_pin)
+endstop.direction = digitalio.Direction.INPUT
+endstop.pull = digitalio.Pull.down
+endstop_switch = Debouncer(endstop)
+
 # create a PWMOut object on Pin D5.
-pwm = pulseio.PWMOut(board.D10, duty_cycle=2 ** 15,  frequency=50)
+pwm = pulseio.PWMOut(servo_pin, duty_cycle=2 ** 15,  frequency=50)
+
+
 
 # Create a servo object.
 servo = servo.Servo(pwm, min_pulse=500, max_pulse=2100)
+
 
 # endstops for servo
 servo_home = 0
@@ -20,12 +35,6 @@ servo_min_rate = 0.05
 
 servo_position = servo_home
 servo.angle = servo_position
-# for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
-#     servo.angle = angle
-#     time.sleep(0.01)
-# for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
-#     servo.angle = angle
-#     time.sleep(0.01)
 
 
 
@@ -61,27 +70,24 @@ def set_servo(servo_position, rate, direction):
 
 
 while True:
-
-    if servo_position <= servo_home:
-        direction = 1
-        time.sleep(3)
-        print('hit endstop')
-        print('*'*10)
-    if servo_position >= servo_max:
-        direction = -1
-        print('hit endstop')
-        print('*'*10)
-        time.sleep(3)
-
-    my_rate = random.randint(1, 100)
-    print(f'servo rate: {my_rate}')
-
-    servo_position = set_servo(servo_position=servo_position,
-                                rate=my_rate, direction=direction)
-
-    # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
-    #     servo.angle = angle
-    #     time.sleep(0.05)
-    # for angle in range(180, 0, -1): # 180 - 0 degrees, 5 degrees at a time.
-    #     servo.angle = angle
-    #     time.sleep(0.05)
+    switfch.update()
+    if switch.value:
+        print('not pressed')
+    else:
+        print('pressed')
+    # if servo_position <= servo_home:
+    #     direction = 1
+    #     time.sleep(3)
+    #     print('hit endstop')
+    #     print('*'*10)
+    # if servo_position >= servo_max:
+    #     direction = -1
+    #     print('hit endstop')
+    #     print('*'*10)
+    #     time.sleep(3)
+    #
+    # my_rate = random.randint(1, 100)
+    # print(f'servo rate: {my_rate}')
+    #
+    # servo_position = set_servo(servo_position=servo_position,
+    #                             rate=my_rate, direction=direction)
