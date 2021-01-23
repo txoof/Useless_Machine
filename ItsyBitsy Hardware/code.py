@@ -44,7 +44,6 @@ def set_servo(servo_position, rate, direction):
         direction(0, 1): 0 anti clockwise, 1 clockwise
     '''
     add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
-    print(f'angle delta: {add_angle}')
     sleep_value = add_angle * 0.01
     servo_position = (servo_position + (add_angle * direction))
     if servo_position > servo_max:
