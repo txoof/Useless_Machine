@@ -73,7 +73,7 @@ while True:
         print('*'*10)
         time.sleep(3)
 
-    my_rate = random.randint(1, 70)
+    my_rate = random.randint(1, 100)
     print(f'servo rate: {my_rate}')
 
     servo_position = set_servo(servo_position=servo_position,
