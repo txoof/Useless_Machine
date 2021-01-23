@@ -1,5 +1,7 @@
 import board
 import digitalio
+import pulseio
+
 from adafruit_debouncer import Debouncer
 # from adafruit_motor import servo
 
@@ -48,4 +50,4 @@ while True:
     servo.duty_cycle = servo_duty_cycle(1.0)
     time.sleep(1.0)
     servo.duty_cycle = servo_duty_cycle(2.0)
-    time.sleep(1.0)    
+    time.sleep(1.0)
