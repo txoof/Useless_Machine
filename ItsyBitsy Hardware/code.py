@@ -62,7 +62,7 @@ end = MAX_DUTY
 current = start
 direction = 1
 
-resolution = 0.1
+resolution = 0.05 
 
 servo.duty_cycle = servo_duty_cycle(start)
 while True:
