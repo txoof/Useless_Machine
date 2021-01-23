@@ -70,13 +70,13 @@ while True:
         direction = -1
         time.sleep(3)
 
-
+    my_rate = random(randint(1, 80))
+    print(f'servo rate: {my_rate}')
 
     servo_position = set_servo(servo_position=servo_position,
-                                rate=random.randint(1,80), direction=direction)
+                                rate=my_rate, direction=direction)
 
     print(servo_position, direction)
-    print('random: ',random.randint(0,10))
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
