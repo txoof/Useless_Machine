@@ -43,9 +43,9 @@ def set_servo(servo_position, rate, direction):
         rate(int): 1-100 - higher rates move in larger steps
         direction(0, 1): 0 anti clockwise, 1 clockwise
     '''
-
     add_angle = map_range((0, 100), (servo_min_rate, servo_max_rate), rate)
     print(f'angle delta: {add_angle}')
+    sleep_value = add_angle * 0.01
     servo_position = (servo_position + (add_angle * direction))
     if servo_position > servo_max:
         print(f'position greater than 180 {servo_position}')
@@ -55,6 +55,7 @@ def set_servo(servo_position, rate, direction):
         servo_position = servo_home
 
     servo.angle = servo_position
+    time.sleep(sleep_value)
     print(f'direction: {direction}')
     print(f'current servo position: {servo_position}')
     return servo_position
