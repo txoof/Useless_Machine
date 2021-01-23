@@ -4,7 +4,8 @@ import pulseio
 import random
 from adafruit_motor import servo
 # handle switch reading
-from digitalio import DigitalInOut, Direction, Pull
+import digitalio
+ # import DigitalInOut, Direction, Pull
 
 # pin definitions
 servo_pin = board.D10
