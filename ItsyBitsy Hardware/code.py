@@ -42,9 +42,24 @@ def servo_duty_cycle(pulse_ms, frequency=50):
 
 limitsw.update()
 limitsw_last = limitsw.value
+
+start = .5
+end = 2.5
+current = start
+direction = 1
+
+resolution = 0.01
+
+servo.duty_cycle = servo_duty_cycle(start)
 while True:
     limitsw.update()
-    # print(limitsw.value)
+
+    current = current + resolution * direction
+    print(f'direction: {direction}; current: {current}')
+    servo.duty_cycle = servo_duty_cycle(current)
+    if current >= end or current <=start:
+        direction = direction * -1
+
     if  limitsw.value != limitsw_last:
         print(f'limitsw statechange: {not  limitsw.value}')
         limitsw_last = limitsw.value
@@ -52,4 +67,3 @@ while True:
     # time.sleep(1.5)
     # servo.duty_cycle = servo_duty_cycle(2.5)
     # time.sleep(1.5)
-    servo.duty_cycle = servo_duty_cycle(.8)
