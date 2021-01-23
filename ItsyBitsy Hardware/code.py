@@ -55,7 +55,8 @@ def set_servo(servo_position, rate, direction):
 
     servo.angle = servo_position
     time.sleep(0.1)
-    print(f'returning: {servo_position}')
+    print(f'direction: {direction}')
+    print(f'current servo position: {servo_position}')
     return servo_position
 
 
@@ -78,10 +79,6 @@ while True:
 
     servo_position = set_servo(servo_position=servo_position,
                                 rate=my_rate, direction=direction)
-    time.sleep(0.07)
-
-    print(f'position: {servo_position}, direction: {direction}')
-
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
     #     servo.angle = angle
