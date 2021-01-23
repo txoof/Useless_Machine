@@ -77,7 +77,7 @@ while True:
                                 rate=my_rate, direction=direction)
     time.sleep(0.5)
 
-    print(servo_position, direction)
+    print(f'position: {servo_position}, direction: {direction}')
 
 
     # for angle in range(0, 180, 1):  # 0 - 180 degrees, 5 degrees at a time.
