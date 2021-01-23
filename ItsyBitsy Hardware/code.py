@@ -17,6 +17,7 @@ DUTY_MIN = 0.5
 DUTY_MAX = 2.5
 
 RESOLUTION_MAX = 0.04
+RESOLUTION_MIN = 0.002
 
 
 # pin objects
@@ -64,7 +65,7 @@ end = DUTY_MAX
 current = start
 direction = 1
 
-resolution = 0.04
+resolution = 0.002
 
 servo.duty_cycle = servo_duty_cycle(start)
 while True:
