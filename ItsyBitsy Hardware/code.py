@@ -93,6 +93,11 @@ while True:
     limit_switch.update()
     direction_switch.update()
 
+    if not direction_switch.value:
+        print('run forward')
+
+    
+
     # run forward (cc towards switch)
     # if not direction_switch.value and  limit_switch.value:
     #     print('attacking switch')
