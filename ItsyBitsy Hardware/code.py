@@ -55,7 +55,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     '''
 
     direction = 1 if current_angle < dest_angle else -1
-    endstop = limit_switch if direction == -1 else direction_switch_pin
+    endstop = limit_switch if direction == -1 else direction_switch
 
     endstop.update()
 
