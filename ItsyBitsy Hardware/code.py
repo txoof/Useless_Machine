@@ -122,13 +122,16 @@ direction = 1
 resolution = 0.002
 
 # servo.duty_cycle = servo_duty_cycle(start)
+current_angle = rotate_to_position(current_angle, 0, 10)
+
+
+
 while True:
     limitsw.update()
 
     # move to 90 degrees
     # servo.duty_cycle = servo_duty_cycle(1.5)
 
-    current_angle = rotate_to_position(current_angle, 0, 10)
 
     # if limitsw.value:
     #     current = current + resolution * direction
