@@ -32,6 +32,7 @@ import board
 import digitalio
 import time
 import pulseio
+from math import ceil
 # import random
 
 from adafruit_debouncer import Debouncer
@@ -84,11 +85,15 @@ def servo_duty_cycle(pulse_ms, frequency=50):
     return duty_cycle
 
 
-# def rotate(current, degrees, speed):
-#     limitsw.update()
-#     if limitsw.value:
-#         resolution = map_range((1,100), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
-#         for i in range (current, range)
+def rotate_to_position(current_angle, dest_angle, speed):
+    if current_angle > dest_angle:
+        direction = -1
+    else:
+        direction = 0
+
+    step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
+    steps = ceil(abs(current_angle - dest_angle)/step_size)
+
 
 
 limitsw.update()
