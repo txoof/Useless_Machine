@@ -86,7 +86,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 #     last = i
 
 limit_last = limit_switch.update()
-direction_last = direction_last.update()
+direction_last = direction_switch.update()
 while True:
     limit_switch.update()
     direction_switch.update()
