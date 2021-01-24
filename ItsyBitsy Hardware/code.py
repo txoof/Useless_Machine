@@ -49,6 +49,10 @@ def angle_to_duty(angle, frequency=50):
     period_ms = 1.0 / frequency * 1000.0
     return int(pulse_ms / (period_ms / 65535.0))
 
+def go_to_angle(dest_angle, speed):
+    break_out = False
+    servo.duty_cycle = angle_to_duty(dest_angle)
+
 
 def rotate_to_angle(current_angle, dest_angle, speed):
     '''rotate from current_angle to dest_angle at speed
@@ -59,6 +63,10 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     '''
     break_out = False
     direction = 1 if current_angle < dest_angle else -1
+    if current_angle == dest_angle:
+        return(current_angle)
+
+    # choose the appropriate limit switch to monitor
     endstop = limit_switch if direction == -1 else direction_switch
 
     endstop.update()
@@ -93,14 +101,18 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     return current_angle
 
 
+current_angle = HOME_LOW
+go_to_angle(HOME_LOW)
 
-l = [80, 170, 100, 169, 90] #, 100, 110, 90, 70, 60]
-current = 65
-for i in l:
-    print(f'current: {current}, dest: {i}')
-    current = rotate_to_angle(current, i, 0.05)
-    time.sleep(3)
-servo.duty_cycle = 0
+# l = [80, 170, 100, 169, 90] #, 100, 110, 90, 70, 60]
+# current = 65
+# for i in l:
+#     print(f'current: {current}, dest: {i}')
+#     current = rotate_to_angle(current, i, 0.05)
+#     time.sleep(3)
+# servo.duty_cycle = 0
+#
+
 
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
