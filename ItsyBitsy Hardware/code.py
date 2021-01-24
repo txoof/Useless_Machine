@@ -99,7 +99,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
             break
         current_angle = current_angle + (step_size * direction)
         servo.duty_cycle = angle_to_duty(current_angle)
-
+    print(f'returning: {current_angle}')
     return current_angle
 
 
