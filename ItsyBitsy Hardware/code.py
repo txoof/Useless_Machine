@@ -114,10 +114,12 @@ while True:
     limit_switch.update()
     direction_switch.update()
 
+    # run forward (cc towards switch)
     if not direction_switch.value:
         print('attacking switch')
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.2)
 
+    # run reverse (cw away from switch)
     if direction_switch.value and current_angle != HOME_LOW:
         print('retreating')
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.2)
