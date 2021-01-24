@@ -15,7 +15,7 @@ DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
 RESOLUTION_MIN = 0.002 # smallest steps to take when moving
-RESOLUTION_MAX = 0.1 # largest steps to take when moving
+RESOLUTION_MAX = 0.2 # largest steps to take when moving
 
 ANGLE_MIN = 0
 ANGLE_MAX = 180
