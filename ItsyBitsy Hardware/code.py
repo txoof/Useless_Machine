@@ -95,12 +95,14 @@ def rotate_to_angle(current_angle, dest_angle, speed):
                 current_angle = HOME_LOW
                 break_out = True
 
-            print(f'current_angle: {current_angle}')
-            servo.duty_cycle = angle_to_duty(current_angle)
-
             if break_out:
                 print('breaking out early')
                 break
+
+            print(f'current_angle: {current_angle}')
+            servo.duty_cycle = angle_to_duty(current_angle)
+
+
 
     return current_angle
 
