@@ -20,7 +20,8 @@ RESOLUTION_MAX = 10 # largest angle steps to take when moving
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
-HOME = 30
+HOME_LOW = 30
+HOME_HIGH = 115
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -71,6 +72,15 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         if endstop.value:
             print('hit endstop')
             break
+
+        if current_angle < HOME_LOW:
+            current_angle = HOME_LOW
+            print('hit lower limit value')
+
+        if current_angle > HOME_HIGH:
+            current_angle = HOME_HIGH
+            print('hit upper limit value')
+
         current_angle = current_angle + (step_size * direction)
         servo.duty_cycle = angle_to_duty(current_angle)
 
