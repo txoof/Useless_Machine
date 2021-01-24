@@ -97,7 +97,7 @@ last = 65
 for i in l:
     print(f'current: {last}, dest: {i}')
     rotate_to_angle(last, i, 0.05)
-    time.sleep(1.3)
+    time.sleep(3)
     last = i
 
 limit_last = limit_switch.update()
