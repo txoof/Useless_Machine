@@ -61,47 +61,55 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         dest_angle (real): angle between SERVO_MIN and SERVO_MAX
         speed (real): between 0 and 1
     '''
-    break_out = False
     direction = 1 if current_angle < dest_angle else -1
-    print(f'current angle: {current_angle}')
-    if current_angle == dest_angle:
-        return(current_angle)
+    break_out = False
 
-    # choose the appropriate limit switch to monitor
-    endstop = limit_switch if direction == -1 else direction_switch
+    # if current_angle >= HOME_HIGH:
+    #     print(f'current: {current_angle} over HOME_HIGH: {HOME_HIGH}')
+    #     return HOME_HIGH
+    #
+    # if current_angle <= HOME_LOW:
+    #     print(f'current: {current_angle} under HOME_LOW: {HOME_LOW}')
+    #     return HOME_LOW
+
+    endstop = limit_switch if direction == -1 else direction_switch_pin
 
     endstop.update()
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
-    steps = int(abs(current_angle-dest_angle)/step_size)
+    steps = int(abs((current_angle-dest_angle)/step_size)
 
-    print(f'ROTATING to {dest_angle} dir: {direction} with step_size: {step_size} over {steps} steps')
-    for i in range(0, steps):
-        print(f'step: {i}')
-        endstop.update()
-        if endstop.value:
-            print('hit endstop -- breaking out')
-            break_out = True
-            break
+    print(f'ROTATE -> {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
+    if steps == 0:
+        servo.duty_cycle = angle_to_duty(dest_angle)
+        return(dest_angle)
+    else:
+        for i in range(0, steps):
+            endstop.update()
+            if endstop.value:
+                print('hit endstop -- breaking out')
+                break
 
-        if current_angle < HOME_LOW:
-            current_angle = HOME_LOW
-            print('hit lower limit value -- breaking out')
-            break_out = True
+            current_angle = current_angle + (step_size * direction)
+            if current_angle >= HOME_HIGH:
+                current_angle = HOME_HIGH
+                break_out = True
 
-        if current_angle > HOME_HIGH:
-            current_angle = HOME_HIGH
-            print('hit upper limit value -- breaking out')
-            break_out = True
+            if current_angle <= HOME_LOW:
+                current_angle = HOME_LOW
+                break_out = True
 
+            servo.duty_cycle = angle_to_duty(current_angle)
 
-        if break_out:
-            print('breaking out')
-            break
-        current_angle = current_angle + (step_size * direction)
-        servo.duty_cycle = angle_to_duty(current_angle)
-    print(f'returning: {current_angle}')
+            if break_out:
+                print('breaking out early')
+                break
+
     return current_angle
+
+
+
+
 
 
 current_angle = HOME_LOW
