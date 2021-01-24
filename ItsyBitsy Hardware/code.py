@@ -79,6 +79,12 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
     for i in range(0, steps):
         endstop.update()
+
+        direction_switch.update()
+        if direction == -1 and direction_switch.value:
+            print('change of direction')
+            break_out = True
+
         if endstop.value:
             print(f'hit endstop while running in direction: {direction}, stoping rotation')
             break_out = True
