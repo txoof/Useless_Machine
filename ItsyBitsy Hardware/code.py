@@ -80,7 +80,7 @@ l = [30, 100, 110, 90, 70, 60]
 last = 65
 for i in l:
     print(f'current: {last}, dest: {i}')
-    rotate_to_angle(last, i, 0.99)
+    rotate_to_angle(last, i, 0.75)
     time.sleep(1.3)
     last = i
 
