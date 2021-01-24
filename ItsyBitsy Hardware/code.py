@@ -65,7 +65,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     for i in range(0, steps):
         if endstop.value:
             break
-        current_angel = current_angle + step_size * direction_switch
+        current_angel = current_angle + step_size * direction
         servo.duty_cycle = angle_to_duty(current_angle)
 
     return current_angle
