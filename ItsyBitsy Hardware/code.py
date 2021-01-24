@@ -16,8 +16,8 @@ DUTY_MAX = 2.5 # 180 degrees
 RESOLUTION_MIN = 0.002 # smallest steps to take when moving
 RESOLUTION_MAX = 0.04 # largest steps to take when moving
 
-SERVO_MIN = 0
-SERVO_MAX = 180
+ANGLE_MIN = 0
+ANGLE_MAX = 180
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
