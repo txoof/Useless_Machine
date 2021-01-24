@@ -20,6 +20,8 @@ RESOLUTION_MAX = 10 # largest angle steps to take when moving
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
+HOME = 30
+
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
 limit_switch_pin.direction = digitalio.Direction.INPUT
