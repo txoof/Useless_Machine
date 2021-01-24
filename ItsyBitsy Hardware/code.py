@@ -76,12 +76,12 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
         if current_angle < HOME_LOW:
             current_angle = HOME_LOW
-            print('hit lower limit value')
+            print('hit lower limit value -- breaking out')
             break_out = True
 
         if current_angle > HOME_HIGH:
             current_angle = HOME_HIGH
-            print('hit upper limit value')
+            print('hit upper limit value -- breaking out')
             break_out = True
 
         current_angle = current_angle + (step_size * direction)
