@@ -54,7 +54,7 @@ def angle_to_duty(angle, frequency=50):
     return int(pulse_ms / (period_ms / 65535.0))
 
 def go_to_angle(dest_angle):
-    break_out = False
+    print(f'moving to: {dest_angle}')
     servo.duty_cycle = angle_to_duty(dest_angle)
 
 
