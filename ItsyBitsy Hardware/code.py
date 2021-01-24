@@ -63,6 +63,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     '''
     break_out = False
     direction = 1 if current_angle < dest_angle else -1
+    print(f'current angle: {current_angle}')
     if current_angle == dest_angle:
         return(current_angle)
 
