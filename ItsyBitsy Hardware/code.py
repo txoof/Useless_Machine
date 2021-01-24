@@ -5,11 +5,9 @@ import time
 
 from adafruit_debouncer import Debouncer
 
-class Foo():
-    def __init__(self):
+class ArmRoutine():
+    def __init__(self, name):
         pass
-
-q = Foo()
 
 # physical switches
 LIMIT_SWITCH_PHY = board.D9
@@ -119,6 +117,7 @@ while True:
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.1)
 
     if direction_switch.value and current_angle != HOME_LOW:
+        print('retreating')
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.3)
 
     if  limit_switch.value != limit_last:
