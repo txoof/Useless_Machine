@@ -25,6 +25,7 @@ except OSError as e:
     while True:
         led.value = not led.value
         time.sleep(delay)
+        print('cannot write to storage')
 
 
 # import board
