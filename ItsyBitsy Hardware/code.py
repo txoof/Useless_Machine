@@ -75,12 +75,9 @@ def map_range(a, b, s):
     (a1, a2), (b1, b2) = a, b
     return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
 
-
-def angle_to_duty():
-    pass
-
-def duty_to_angle():
-    pass
+def angle_to_duty(angle):
+    pulse_ms = map_range((ANGLE_MIN, ANGLE_MAX), (DUTY_MIN, DUTY_MAX), angle)
+    return servo_duty_cycle(pulse_ms)
 
 
 def servo_duty_cycle(pulse_ms, frequency=50):
@@ -91,7 +88,6 @@ def servo_duty_cycle(pulse_ms, frequency=50):
 def angle_to_duty(angle):
     pulse_ms = map_range((ANGLE_MIN, ANGLE_MAX), (DUTY_MIN, DUTY_MAX), angle)
     return servo_duty_cycle(pulse_ms)
-
 
 def rotate_to_position(current_angle, dest_angle, speed):
     print(f'rotating from {current_angle} to {dest_angle}')
@@ -111,18 +107,19 @@ def rotate_to_position(current_angle, dest_angle, speed):
 limitsw.update()
 limitsw_last = limitsw.value
 
-start = DUTY_MIN
-end = DUTY_MAX
+home_angle = 0
 
-current_angle = start
+current_angle = home_angle
 direction = 1
 
 resolution = 0.002
 
-servo.duty_cycle = servo_duty_cycle(start)
+# servo.duty_cycle = servo_duty_cycle(start)
 while True:
     limitsw.update()
 
+    # move to
+    servo.duty_cycle = servo_duty_cycle(1.5)
 
     # if limitsw.value:
     #     current = current + resolution * direction
