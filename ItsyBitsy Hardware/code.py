@@ -134,8 +134,6 @@ direction_last = direction_switch.update()
 while True:
     limit_switch.update()
     direction_switch.update()
-    print(f'returning home')
-
 
     if not direction_switch.value:
         print('attacking switch')
