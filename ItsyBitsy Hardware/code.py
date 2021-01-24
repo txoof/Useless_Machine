@@ -98,7 +98,7 @@ for i in l:
     print(f'current: {current}, dest: {i}')
     current = rotate_to_angle(current, i, 0.05)
     time.sleep(3)
-
+servo.duty_cycle = 0
 
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
