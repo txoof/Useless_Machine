@@ -87,6 +87,13 @@ def rotate_to_angle(current_angle, dest_angle, speed):
                 print(f'current_angle: {current_angle}')
                 break
 
+            # # IDEA:
+            if not direction_switch and direction < 0:
+                print('change directions -- breaking out')
+                break
+
+            # IDEA
+
             current_angle = current_angle + (step_size * direction)
             if current_angle >= HOME_HIGH:
                 current_angle = HOME_HIGH
