@@ -57,7 +57,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         dest_angle (real): angle between SERVO_MIN and SERVO_MAX
         speed (real): between 0 and 1
     '''
-
+    break_out = False
     direction = 1 if current_angle < dest_angle else -1
     endstop = limit_switch if direction == -1 else direction_switch
 
@@ -76,13 +76,17 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         if current_angle < HOME_LOW:
             current_angle = HOME_LOW
             print('hit lower limit value')
+            break_out = True
 
         if current_angle > HOME_HIGH:
             current_angle = HOME_HIGH
             print('hit upper limit value')
+            break_out = True
 
         current_angle = current_angle + (step_size * direction)
         servo.duty_cycle = angle_to_duty(current_angle)
+        if break_out:
+            break
 
     return current_angle
 
