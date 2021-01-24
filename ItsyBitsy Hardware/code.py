@@ -113,7 +113,7 @@ limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
 
-rotate_to_angle(60, 30, 0.1)
+rotate_to_angle(90, 30, 0.1)
 
 
 while True:
