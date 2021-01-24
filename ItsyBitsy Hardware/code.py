@@ -112,10 +112,6 @@ go_to_angle(HOME_LOW)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
-
-rotate_to_angle(90, 45, 0.05)
-
-
 while True:
     limit_switch.update()
     direction_switch.update()
