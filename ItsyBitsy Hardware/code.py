@@ -105,29 +105,32 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 
 current_angle = HOME_LOW
-go_to_angle(HOME_LOW)
+go_to_angle(60)
 
 
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
-while True:
-    limit_switch.update()
-    direction_switch.update()
 
-    # run forward (cc towards switch)
-    if not direction_switch.value:
-        print('attacking switch')
-        current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.2)
 
-    # run reverse (cw away from switch)
-    if direction_switch.value and current_angle != HOME_LOW:
-        print('retreating')
-        current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.2)
 
-    if  limit_switch.value != limit_last:
-        limit_last = limit_switch.value
-        print(f'limit: {limit_switch.value}')
-
-    if direction_switch.value != direction_last:
-        direction_last = direction_switch.value
-        print(f'direction: {direction_switch.value}')
+# while True:
+#     limit_switch.update()
+#     direction_switch.update()
+#
+#     # run forward (cc towards switch)
+#     if not direction_switch.value:
+#         print('attacking switch')
+#         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.2)
+#
+#     # run reverse (cw away from switch)
+#     if direction_switch.value and current_angle != HOME_LOW:
+#         print('retreating')
+#         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.2)
+#
+#     if  limit_switch.value != limit_last:
+#         limit_last = limit_switch.value
+#         print(f'limit: {limit_switch.value}')
+#
+#     if direction_switch.value != direction_last:
+#         direction_last = direction_switch.value
+#         print(f'direction: {direction_switch.value}')
