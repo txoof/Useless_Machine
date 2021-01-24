@@ -14,8 +14,8 @@ SERVO_PWM_PHY = board.D10
 DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
-RESOLUTION_MIN = 0.002 # smallest steps to take when moving
-RESOLUTION_MAX = 1.5 # largest steps to take when moving
+RESOLUTION_MIN = 0.009 # smallest steps to take when moving
+RESOLUTION_MAX = 2 # largest steps to take when moving
 
 ANGLE_MIN = 0
 ANGLE_MAX = 180
