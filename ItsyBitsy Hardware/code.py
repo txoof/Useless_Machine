@@ -78,4 +78,4 @@ last = 65
 for i in l:
     rotate_to_angle(last, i, 30)
     time.sleep(.5)
-    last = l
+    last = i
