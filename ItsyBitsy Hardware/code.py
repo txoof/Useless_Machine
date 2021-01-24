@@ -120,7 +120,7 @@ while True:
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.2)
 
     # run reverse (cw away from switch)
-    if direction_switch.value and current_angle != HOME_LOW:
+    if direction_switch.value or current_angle != HOME_LOW:
         print('retreating')
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.2)
 
