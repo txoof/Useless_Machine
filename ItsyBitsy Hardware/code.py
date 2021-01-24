@@ -99,8 +99,15 @@ def rotate_to_position(current_angle, dest_angle, speed):
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = ceil(abs(current_angle - dest_angle)/step_size)
     for i in range (0, steps):
-        current_angle = current_angle + step_size * direction
+        limitsw.update()
         print(current_angle)
+        if limitsw.value:
+            print('endstop found -- stopping')
+            break
+        current_angle = current_angle + step_size * direction
+        
+
+    return current_angle
 
 
 
@@ -118,8 +125,10 @@ resolution = 0.002
 while True:
     limitsw.update()
 
-    # move to
+    # move to 90 degrees
     servo.duty_cycle = servo_duty_cycle(1.5)
+
+    rotate_to_position(current)
 
     # if limitsw.value:
     #     current = current + resolution * direction
