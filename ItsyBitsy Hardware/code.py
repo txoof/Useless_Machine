@@ -76,7 +76,11 @@ def map_range(a, b, s):
     return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
 
 
+def angle_to_duty():
+    pass
 
+def duty_to_angle():
+    pass
 
 
 def servo_duty_cycle(pulse_ms, frequency=50):
@@ -84,8 +88,13 @@ def servo_duty_cycle(pulse_ms, frequency=50):
     duty_cycle = int(pulse_ms / (period_ms / 65535.0))
     return duty_cycle
 
+def angle_to_duty(angle):
+    pulse_ms = map_range((ANGLE_MIN, ANGLE_MAX), (DUTY_MIN, DUTY_MAX), angle)
+    return servo_duty_cycle(pulse_ms)
+
 
 def rotate_to_position(current_angle, dest_angle, speed):
+    print(f'rotating from {current_angle} to {dest_angle}')
     if current_angle > dest_angle:
         direction = -1
     else:
@@ -93,6 +102,9 @@ def rotate_to_position(current_angle, dest_angle, speed):
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = ceil(abs(current_angle - dest_angle)/step_size)
+    for i in range (0, steps):
+        current_angle = current_angle + step_size * direction
+        print(current_angle)
 
 
 
@@ -101,7 +113,8 @@ limitsw_last = limitsw.value
 
 start = DUTY_MIN
 end = DUTY_MAX
-current = start
+
+current_angle = start
 direction = 1
 
 resolution = 0.002
@@ -111,13 +124,13 @@ while True:
     limitsw.update()
 
 
-    if limitsw.value:
-        current = current + resolution * direction
-        # print(f'direction: {direction}; current: {current}')
-        servo.duty_cycle = servo_duty_cycle(current)
-
-    if current >= end or current <=start:
-        direction = direction * -1
+    # if limitsw.value:
+    #     current = current + resolution * direction
+    #     # print(f'direction: {direction}; current: {current}')
+    #     servo.duty_cycle = servo_duty_cycle(current)
+    #
+    # if current >= end or current <=start:
+    #     direction = direction * -1
 
     if  limitsw.value != limitsw_last:
         print(f'limitsw statechange: {not  limitsw.value}')
