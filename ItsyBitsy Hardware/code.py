@@ -70,7 +70,8 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     for i in range(0, steps):
         print(f'{i} of {steps} cur_angle: {current_angle}')
         if endstop.value:
-            print('hit endstop')
+            print('hit endstop -- breaking out')
+            break_out = True
             break
 
         if current_angle < HOME_LOW:
@@ -86,6 +87,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         current_angle = current_angle + (step_size * direction)
         servo.duty_cycle = angle_to_duty(current_angle)
         if break_out:
+            print('breaking out')
             break
 
     return current_angle
