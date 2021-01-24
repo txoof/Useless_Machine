@@ -21,7 +21,7 @@ ANGLE_MIN = 0
 ANGLE_MAX = 180
 
 HOME_LOW = 30
-HOME_HIGH = 150
+HOME_HIGH = 171
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -92,7 +92,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 
 
-l = [80, 100, 120, 125, 130, 135] #, 100, 110, 90, 70, 60]
+l = [80, 170] #, 100, 110, 90, 70, 60]
 current = 65
 for i in l:
     print(f'current: {current}, dest: {i}')
