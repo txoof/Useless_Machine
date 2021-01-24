@@ -76,42 +76,8 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     steps = int(abs((current_angle-dest_angle)/step_size))
 
     print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
-    if steps == 0:
-        servo.duty_cycle = angle_to_duty(dest_angle)
-        return(dest_angle)
-    else:
-        for i in range(0, steps):
-            endstop.update()
-            if endstop.value:
-                print('hit endstop -- breaking out')
-                print(f'current_angle: {current_angle}')
-                break
 
-            # # IDEA:
-            direction_switch.update()
-            if not direction_switch and direction < 0:
-                print('change directions -- breaking out')
-                break
-
-            # IDEA
-
-            current_angle = current_angle + (step_size * direction)
-            if current_angle >= HOME_HIGH:
-                current_angle = HOME_HIGH
-                break_out = True
-
-            if current_angle <= HOME_LOW:
-                current_angle = HOME_LOW
-                break_out = True
-
-            if break_out:
-                print('breaking out early')
-                break
-
-            # print(f'current_angle: {current_angle}')
-            servo.duty_cycle = angle_to_duty(current_angle)
-
-
+    
 
     return current_angle
 
