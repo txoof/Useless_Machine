@@ -77,10 +77,24 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 
 
-l = [70, 80, 90, 100, 110, 90, 70, 60]
-last = 65
-for i in l:
-    print(f'current: {last}, dest: {i}')
-    rotate_to_angle(last, i, 1)
-    time.sleep(.5)
-    last = i
+# l = [70, 80, 90, 100, 110, 90, 70, 60]
+# last = 65
+# for i in l:
+#     print(f'current: {last}, dest: {i}')
+#     rotate_to_angle(last, i, 1)
+#     time.sleep(.5)
+#     last = i
+
+limit_last = limit_switch.update()
+direction_last = direction_last.update()
+while True:
+    limit_switch.update()
+    direction_switch.update()
+
+    if  limit_switch.value != limit_last:
+        limit_last = limit_switch.value
+        print(f'limit: {limit_switch.value}')
+
+    if direction_switch.value != direction_last:
+        direction_last = direction_switch.value
+        print(f'direction: {direction_switch.value}')
