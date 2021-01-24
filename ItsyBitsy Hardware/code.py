@@ -66,7 +66,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     for i in range(0, steps):
         if endstop.value:
             break
-        current_angel = current_angle + step_size * direction
+        current_angel = current_angle + (step_size * direction)
         servo.duty_cycle = angle_to_duty(current_angle)
 
     return current_angle
@@ -77,6 +77,6 @@ l = [70, 75, 80, 85, 90, 95, 100, 95, 90, 70, 60, 90]
 last = 65
 for i in l:
     print(f'current: {last}, dest: {i}')
-    rotate_to_angle(last, i, 30)
+    rotate_to_angle(last, i, 1)
     time.sleep(.5)
     last = i
