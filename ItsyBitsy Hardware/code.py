@@ -96,7 +96,7 @@ while True:
     if not direction_switch.value:
         print('run forward')
 
-    if direction_switch.value:
+    if direction_switch.value and not limit_switch.value:
         print('run backwards')
 
     # run forward (cc towards switch)
