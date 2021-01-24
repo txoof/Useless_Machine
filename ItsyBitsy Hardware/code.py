@@ -88,6 +88,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
                 break
 
             # # IDEA:
+            direction_switch.update()
             if not direction_switch and direction < 0:
                 print('change directions -- breaking out')
                 break
