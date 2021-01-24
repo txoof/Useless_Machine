@@ -83,7 +83,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 
 current_angle = HOME_LOW
-# go_to_angle(HOME_LOW)
+go_to_angle(HOME_LOW)
 
 
 limit_last = limit_switch.update()
