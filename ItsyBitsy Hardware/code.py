@@ -126,7 +126,7 @@ while True:
 
     if not direction_switch.value:
         print('attacking')
-        current_angle = rotate_to_angle(current_angle, HOME_HIGH 0.3)
+        current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.3)
 
     if direction_switch.value:
         print('returning')
