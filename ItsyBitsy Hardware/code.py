@@ -63,7 +63,9 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs(current_angle-dest_angle))
 
+    print('ROTATING to {dest_angle}')
     for i in range(0, steps):
+        print(f'{i} of {steps}: ')
         if endstop.value:
             break
         current_angel = current_angle + (step_size * direction)
@@ -73,7 +75,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 
 
-l = [70, 75, 80, 85, 90, 95, 100, 95, 90, 70, 60, 90]
+l = [70, 80, 90, 100, 110, 90, 70, 60]
 last = 65
 for i in l:
     print(f'current: {last}, dest: {i}')
