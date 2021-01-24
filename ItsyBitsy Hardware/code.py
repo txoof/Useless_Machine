@@ -77,13 +77,13 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
     print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
 
-    
+
 
     return current_angle
 
 
 current_angle = HOME_LOW
-go_to_angle(HOME_LOW)
+# go_to_angle(HOME_LOW)
 
 
 limit_last = limit_switch.update()
