@@ -73,8 +73,8 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
 rotate_to_angle(85, 90, 10)
 
-l = [50, 60, 70, 80, 90]
-last = 40
+l = [70, 75, 80, 85, 90, 95, 100]
+last = 65
 for i in l:
     rotate_to_angle(last, i, 30)
     last = l
