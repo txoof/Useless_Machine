@@ -68,7 +68,9 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     direction = 1 if current_angle < dest_angle else -1
     break_out = False
 
-    endstop = limit_switch if direction == -1 else direction_switch
+
+    endstop = direction_switch
+    # endstop = limit_switch if direction == -1 else direction_switch
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
