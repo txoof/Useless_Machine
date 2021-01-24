@@ -64,22 +64,12 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     direction = 1 if current_angle < dest_angle else -1
     break_out = False
 
-    # if current_angle >= HOME_HIGH:
-    #     print(f'current: {current_angle} over HOME_HIGH: {HOME_HIGH}')
-    #     return HOME_HIGH
-    #
-    # if current_angle <= HOME_LOW:
-    #     print(f'current: {current_angle} under HOME_LOW: {HOME_LOW}')
-    #     return HOME_LOW
-
     endstop = limit_switch if direction == -1 else direction_switch
-
-    endstop.update()
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
 
-    print(f'ROTATE -> {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
+    print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
     if steps == 0:
         servo.duty_cycle = angle_to_duty(dest_angle)
         return(dest_angle)
@@ -108,10 +98,6 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     return current_angle
 
 
-
-
-
-
 current_angle = HOME_LOW
 go_to_angle(HOME_LOW)
 
@@ -124,7 +110,7 @@ while True:
 
     if not direction_switch.value:
         print('attacking switch')
-        current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.3)
+        current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.1)
 
     if direction_switch.value and current_angle != HOME_LOW:
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.3)
