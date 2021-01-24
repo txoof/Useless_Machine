@@ -21,7 +21,7 @@ ANGLE_MIN = 0
 ANGLE_MAX = 180
 
 HOME_LOW = 30
-HOME_HIGH = 171
+HOME_HIGH = 168
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
