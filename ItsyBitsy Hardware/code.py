@@ -76,6 +76,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
     print(f'ROTATING to {dest_angle} dir: {direction} with step_size: {step_size}')
     for i in range(0, steps):
+        print(f'step: {i}')
         endstop.update()
         if endstop.value:
             print('hit endstop -- breaking out')
@@ -124,11 +125,11 @@ direction_last = direction_switch.update()
 while True:
     limit_switch.update()
     direction_switch.update()
-    print(f'returning current: {current_angle}')
+    print(f'returning home')
 
 
     if not direction_switch.value:
-        print('attacking')
+        print('attacking switch')
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.3)
 
     if direction_switch.value and current_angle != HOME_LOW:
