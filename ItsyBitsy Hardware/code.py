@@ -95,6 +95,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
                 current_angle = HOME_LOW
                 break_out = True
 
+            print(f'current_angle: {current_angle}')
             servo.duty_cycle = angle_to_duty(current_angle)
 
             if break_out:
@@ -111,6 +112,8 @@ go_to_angle(HOME_LOW)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
+
+rotate_to_angle(60, 30, 0.1)
 
 
 while True:
