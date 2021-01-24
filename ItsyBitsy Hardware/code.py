@@ -115,19 +115,6 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 current_angle = HOME_LOW
 go_to_angle(HOME_LOW)
 
-# l = [80, 170, 100, 169, 90] #, 100, 110, 90, 70, 60]
-# current = 65
-# for i in l:
-#     print(f'current: {current}, dest: {i}')
-#     current = rotate_to_angle(current, i, 0.05)
-#     time.sleep(3)
-# servo.duty_cycle = 0
-
-
-def on_off(current_angle):
-    speed = 0.3
-
-
 
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
