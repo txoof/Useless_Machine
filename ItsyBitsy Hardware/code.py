@@ -111,7 +111,11 @@ go_to_angle(HOME_LOW)
 #     current = rotate_to_angle(current, i, 0.05)
 #     time.sleep(3)
 # servo.duty_cycle = 0
-#
+
+
+def on_off(current_angle):
+    speed = 0.3
+
 
 
 limit_last = limit_switch.update()
@@ -119,6 +123,14 @@ direction_last = direction_switch.update()
 while True:
     limit_switch.update()
     direction_switch.update()
+
+    if not direction_switch.value:
+        print('attacking')
+        current_angle = rotate_to_angle(current_angle, HOME_HIGH 0.3)
+
+    if direction_switch.value:
+        print('returning')
+        current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.3)
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
