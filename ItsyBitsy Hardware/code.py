@@ -5,6 +5,12 @@ import time
 
 from adafruit_debouncer import Debouncer
 
+class Foo():
+    def __init__(self):
+        pass
+
+q = Foo()
+
 # physical switches
 LIMIT_SWITCH_PHY = board.D9
 DIRECTION_SWITCH_PHY = board.D7
