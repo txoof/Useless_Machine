@@ -77,6 +77,14 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
     print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
 
+    for i in range(0, steps):
+        endstop.update()
+        if endstop.value:
+            print(f'hit endstop while running in direction: {direction}, stoping rotation')
+            break_out = True
+
+        if break_out:
+            break
 
 
     return current_angle
