@@ -124,13 +124,14 @@ direction_last = direction_switch.update()
 while True:
     limit_switch.update()
     direction_switch.update()
+    print(f'returning current: {current_angle}')
+
 
     if not direction_switch.value:
         print('attacking')
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.3)
 
     if direction_switch.value and current_angle != HOME_LOW:
-        print(f'returning current: {current_angle}')
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.3)
 
     if  limit_switch.value != limit_last:
