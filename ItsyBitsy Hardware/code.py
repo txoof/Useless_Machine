@@ -68,6 +68,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
 
     print(f'ROTATING to {dest_angle} dir: {direction} with step_size: {step_size}')
     for i in range(0, steps):
+        endstop.update()
         if endstop.value:
             print('hit endstop -- breaking out')
             break_out = True
