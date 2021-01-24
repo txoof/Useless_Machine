@@ -1,6 +1,7 @@
 import board
 import digitalio
 import pulseio
+import time
 
 from adafruit_debouncer import Debouncer
 
@@ -71,10 +72,10 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     return current_angle
 
 
-rotate_to_angle(85, 90, 10)
 
 l = [70, 75, 80, 85, 90, 95, 100]
 last = 65
 for i in l:
     rotate_to_angle(last, i, 30)
+    time.sleep(.5)
     last = l
