@@ -124,7 +124,7 @@ servo.duty_cycle = 0
 print('sleep 1 sec')
 time.sleep(1)
 print('home arm')
-rotate_to_angle(HOME_LOW - 5, HOME_LOW, .9)
+rotate_to_angle(HOME_LOW - 20, HOME_LOW, .9)
 current_angle = HOME_LOW
 # go_to_angle(HOME_LOW)
 
