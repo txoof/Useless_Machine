@@ -122,7 +122,7 @@ direction_last = direction_switch.update()
 # Startup
 servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
-time.sleep(0.25)
+time.sleep(0.5)
 rotate_to_angle(HOME_LOW + 20, HOME_LOW, .9)
 time.sleep(1)
 current_angle = HOME_LOW
@@ -137,15 +137,16 @@ while True:
     direction_switch.update()
 
     if not direction_switch.value:
+        # reset current angle to max/min
         if current_angle >= HOME_HIGH:
-            pass
+            current_angle = HOME_HIGH
         else:
             print('run forwards')
             current_angle = rotate_to_angle(current_angle, HOME_HIGH)
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
-            pass
+            current_angle = HOME_LOW
         else:
             print('run backwards')
             current_angle = rotate_to_angle(current_angle, HOME_LOW)
