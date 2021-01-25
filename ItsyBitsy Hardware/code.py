@@ -110,6 +110,9 @@ while True:
     if not direction_switch.value:
         print('run forwards')
 
+    if not limit_switch.value and direction_switch.value:
+        print('run backwards')
+
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
