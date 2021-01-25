@@ -80,6 +80,7 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
         limit_switch.update()
         direction_switch.update()
 
+        # check for limit switch collisions
         if direction == -1 and limit_switch.value:
             break_out = True
             endstop_hit = 'limit_switch'
@@ -88,6 +89,9 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             break_out = True
             endstop_hit = 'direction_switch'
 
+        if direction == -1 and not direction_switch.value:
+            break_out = True
+            endstop_hit = 'direction_switch changed while returning'
 
         if break_out:
             print(f'hit endstop: {endstop_hit}')
