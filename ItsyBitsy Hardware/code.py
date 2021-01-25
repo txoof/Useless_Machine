@@ -85,7 +85,7 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
 
     print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
 
-    for i in range(0, steps):
+    for i in range(0, steps+1):
         limit_switch.update()
         direction_switch.update()
 
