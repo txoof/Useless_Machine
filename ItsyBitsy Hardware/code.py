@@ -66,11 +66,10 @@ def rotate_to_angle(current_angle, dest_angle, speed):
         speed (real): between 0 and 1
     '''
     direction = 1 if current_angle < dest_angle else -1
+
     break_out = False
 
-
-
-    endstop = limit_switch if direction == -1 else direction_switch
+    endstop_hit = None
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
@@ -78,19 +77,33 @@ def rotate_to_angle(current_angle, dest_angle, speed):
     print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
 
     for i in range(0, steps):
-        endstop.update()
+        limit_switch.update()
+        direction_switch.update()
 
-
-        if endstop.value:
-            print(f'hit endstop while running in direction: {direction}, stoping rotation')
+        if direction == -1 and limit_switch.value:
             break_out = True
+            endstop_hit = 'limit_switch'
+
+        if direction == 1 and direction_switch.value:
+            break_out = True
+            endstop_hit = 'direction_switch'
+
 
         if break_out:
-            print('breaking out')
+            print(f'hit endstop: {endstop_hit}')
             break
         else:
             current_angle = current_angle + (step_size * direction)
+
+            # if over-run in positive or negative, set to max or min as appropriate
+            if current_angle > HOME_HIGH:
+                current_angle = HOME_HIGH
+            if current_angle < HOME_LOW:
+                current_angle = HOME_LOW
+
+
             servo.duty_cycle = angle_to_duty(current_angle)
+
 
     print(f'returning current_angle: {current_angle}')
     return current_angle
@@ -109,9 +122,11 @@ while True:
 
     if not direction_switch.value:
         print('run forwards')
+        current_angle = rotate_to_angle(current_angle, HOME_HIGH)
 
     if not limit_switch.value and direction_switch.value:
         print('run backwards')
+        current_angle = rotate_to_angle(current_angle, HOME_LOW)
 
 
     if  limit_switch.value != limit_last:
