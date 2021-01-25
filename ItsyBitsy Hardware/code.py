@@ -129,8 +129,11 @@ while True:
     direction_switch.update()
 
     if not direction_switch.value:
-        print('run forwards')
-        current_angle = rotate_to_angle(current_angle, HOME_HIGH)
+        if current_angle >= HOME_HIGH:
+            pass
+        else:
+            print('run forwards')
+            current_angle = rotate_to_angle(current_angle, HOME_HIGH)
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
