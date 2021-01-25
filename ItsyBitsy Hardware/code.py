@@ -66,10 +66,12 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
         speed (real): between 0 and 1
     '''
     def check_angle(angle):
+        print(f'checking angle: {angle}')
         if angle > HOME_HIGH:
             angle = HOME_HIGH
         if angle < HOME_LOW:
             angle = HOME_LOW
+        print(f'set to: {angle}')
         return angle
 
     direction = 1 if current_angle < dest_angle else -1
