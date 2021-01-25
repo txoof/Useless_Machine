@@ -107,11 +107,11 @@ while True:
     direction_switch.update()
 
     if not direction_switch.value:
-        print('run forward')
+        # print('run forward')
         current_angle = rotate_to_angle(current_angle, HOME_HIGH, 0.1)
 
     if direction_switch.value and not limit_switch.value:
-        print('run backwards')
+        # print('run backwards')
         current_angle = rotate_to_angle(current_angle, HOME_LOW, 0.1)
 
     # run forward (cc towards switch)
