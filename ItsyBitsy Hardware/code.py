@@ -86,6 +86,7 @@ def rotate_to_angle(current_angle, dest_angle, speed):
             break_out = True
 
         if break_out:
+            print('breaking out')
             break
         else:
             current_angle = current_angle + (step_size * direction)
