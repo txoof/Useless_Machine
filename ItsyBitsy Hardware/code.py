@@ -122,7 +122,7 @@ direction_last = direction_switch.update()
 # Startup
 current_angle = HOME_LOW
 # go_to_angle(HOME_LOW)
-rotate_to_angle(HOME_LOW - 5, HOME_LOW, .9)
+# rotate_to_angle(HOME_LOW - 5, HOME_LOW, .9)
 
 
 
