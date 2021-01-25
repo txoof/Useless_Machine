@@ -58,7 +58,7 @@ def go_to_angle(dest_angle):
     servo.duty_cycle = angle_to_duty(dest_angle)
 
 
-def rotate_to_angle(current_angle, dest_angle, speed):
+def rotate_to_angle(current_angle, dest_angle, speed=0.08):
     '''rotate from current_angle to dest_angle at speed
     Args:
         current_angle (real): angle between SERVO_MIN and SERVO_MAX
