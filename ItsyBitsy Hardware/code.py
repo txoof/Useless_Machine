@@ -27,18 +27,6 @@ ANGLE_MAX = 180
 HOME_LOW = 45
 HOME_HIGH = 168
 
-# pin objects
-limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
-limit_switch_pin.direction = digitalio.Direction.INPUT
-limit_switch_pin.pull = digitalio.Pull.DOWN
-limit_switch = Debouncer(limit_switch_pin)
-
-direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
-direction_switch_pin.direction = digitalio.Direction.INPUT
-direction_switch_pin.pull = digitalio.Pull.DOWN
-direction_switch = Debouncer(direction_switch_pin)
-
-servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
 def map_range(a, b, s):
     '''Map range (min a, max a) to range (min b, max b) for value s
@@ -115,13 +103,29 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
     current_angle = check_angle(current_angle)
     return current_angle
 
+# pin objects
+limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
+limit_switch_pin.direction = digitalio.Direction.INPUT
+limit_switch_pin.pull = digitalio.Pull.DOWN
+limit_switch = Debouncer(limit_switch_pin)
 
-current_angle = HOME_LOW
-go_to_angle(HOME_LOW)
+direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
+direction_switch_pin.direction = digitalio.Direction.INPUT
+direction_switch_pin.pull = digitalio.Pull.DOWN
+direction_switch = Debouncer(direction_switch_pin)
 
-
+servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
+
+
+# Startup
+current_angle = HOME_LOW
+# go_to_angle(HOME_LOW)
+rotate_to_angle(HOME_LOW - 5, HOME_LOW, .9)
+
+
+
 
 while True:
     limit_switch.update()
