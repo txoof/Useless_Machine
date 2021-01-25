@@ -120,7 +120,7 @@ direction_last = direction_switch.update()
 
 
 # Startup
-servo.duty_cycle = angle_to_duty(HOME_LOW-10)
+servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
 time.sleep(1)
 print('home arm')
