@@ -121,7 +121,7 @@ direction_last = direction_switch.update()
 
 # Startup
 print('sleep 1 sec')
-timee.sleep(1)
+time.sleep(1)
 print('home arm')
 rotate_to_angle(HOME_LOW - 5, HOME_LOW, .9)
 current_angle = HOME_LOW
