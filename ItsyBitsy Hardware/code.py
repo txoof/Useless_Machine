@@ -65,6 +65,13 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
         dest_angle (real): angle between SERVO_MIN and SERVO_MAX
         speed (real): between 0 and 1
     '''
+    def check_angle(angle):
+        if angle > HOME_HIGH:
+            angle = HOME_HIGH
+        if angle < HOME_LOW:
+            angle = HOME_LOW
+        return angle
+
     direction = 1 if current_angle < dest_angle else -1
 
     break_out = False
@@ -100,15 +107,12 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             current_angle = current_angle + (step_size * direction)
 
             # if over-run in positive or negative, set to max or min as appropriate
-            if current_angle > HOME_HIGH:
-                current_angle = HOME_HIGH
-            if current_angle < HOME_LOW:
-                current_angle = HOME_LOW
+            current_angle = check_angle(current_angle)
 
 
             servo.duty_cycle = angle_to_duty(current_angle)
 
-
+    current_angle = check_angle(current_angle)
     print(f'returning current_angle: {current_angle}')
     return current_angle
 
