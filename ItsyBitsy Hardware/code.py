@@ -142,14 +142,16 @@ while True:
             current_angle = HOME_HIGH
         else:
             print('run forwards')
-            current_angle = rotate_to_angle(current_angle, HOME_HIGH)
+            current_angle, direction = rotate_to_angle(current_angle, HOME_HIGH)
+            print(f'direction = {direction}')
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
             print('run backwards')
-            current_angle = rotate_to_angle(current_angle, HOME_LOW)
+            current_angle, direction = rotate_to_angle(current_angle, HOME_LOW)
+            print(f'direction = {direction}')
 
 
     if  limit_switch.value != limit_last:
