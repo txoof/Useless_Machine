@@ -101,7 +101,7 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
-    return current_angle
+    return current_angle, direction
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
