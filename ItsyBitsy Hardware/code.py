@@ -132,6 +132,8 @@ current_angle = HOME_LOW
 
 
 
+attack_program = {50: (0.05, None), 90:(0.8, None), 100:(0.05, None), HOME_HIGH: (0.1, None)}
+
 while True:
     limit_switch.update()
     direction_switch.update()
@@ -142,7 +144,9 @@ while True:
             current_angle = HOME_HIGH
         else:
             print('run forwards')
-            current_angle = rotate_to_angle(current_angle, HOME_HIGH)
+            # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
+            for i, tup in attack_program.items():
+                current_angle = rotate_to_angle(i, tup*)
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
