@@ -101,7 +101,7 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
-    return current_angle, direction
+    return current_angle
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -142,16 +142,14 @@ while True:
             current_angle = HOME_HIGH
         else:
             print('run forwards')
-            current_angle, direction = rotate_to_angle(current_angle, HOME_HIGH)
-            print(f'direction = {direction}')
+            current_angle = rotate_to_angle(current_angle, HOME_HIGH)
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
             print('run backwards')
-            current_angle, direction = rotate_to_angle(current_angle, HOME_LOW)
-            print(f'direction = {direction}')
+            current_angle = rotate_to_angle(current_angle, HOME_LOW)
 
 
     if  limit_switch.value != limit_last:
