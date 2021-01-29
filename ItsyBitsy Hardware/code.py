@@ -155,6 +155,7 @@ while True:
         else:
             print('**********run backwards**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
+            print(retreat_program.keys())
             for j, tup in retreat_program.items():
                 current_angle = rotate_to_angle(current_angle, j, tup[0])
 
