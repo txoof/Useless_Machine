@@ -123,7 +123,7 @@ direction_last = direction_switch.update()
 servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
 time.sleep(0.5)
-rotate_to_angle(HOME_LOW + 1, HOME_LOW, .9)
+rotate_to_angle(HOME_LOW, HOME_LOW, .9)
 time.sleep(1)
 current_angle = HOME_LOW
 # go_to_angle(HOME_LOW)
