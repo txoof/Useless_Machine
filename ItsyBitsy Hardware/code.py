@@ -150,8 +150,8 @@ while True:
             print('run forwards')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             print(f'attack keys:')
-            for i, in attack_program[order]:
-                current_angle = rotate_to_angle(current_angle, i, attack_program[values][i][0])
+            for i, in attack_program['order']:
+                current_angle = rotate_to_angle(current_angle, i, attack_program['values'][i][0])
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
@@ -160,8 +160,8 @@ while True:
             print('**********run backwards**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             print(retreat_program.keys())
-            for i, in retreat_program[order]:
-                current_angle = rotate_to_angle(current_angle, i, retreat_program[values][i][0])
+            for i, in retreat_program['order']:
+                current_angle = rotate_to_angle(current_angle, i, retreat_program['values'][i][0])
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
