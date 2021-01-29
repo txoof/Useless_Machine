@@ -133,6 +133,7 @@ current_angle = HOME_LOW
 
 
 attack_program = {50: (0.05, None), 90:(0.8, None), 100:(0.05, None), HOME_HIGH: (0.1, None)}
+retreat_program = {90: (.99, None), 70: (0.5, None), HOME_LOW: {0.08}}
 
 while True:
     limit_switch.update()
