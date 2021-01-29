@@ -155,8 +155,8 @@ while True:
         else:
             print('run backwards')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
-            for i, tup in retreat_program.items():
-                current_angle = rotate_to_angle(current_angle, i, tup[0])
+            for j, tup in retreat_program.items():
+                current_angle = rotate_to_angle(current_angle, j, tup[0])
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
