@@ -132,7 +132,7 @@ current_angle = HOME_LOW
 
 
 
-attack_program = [(100, 0.99, None), (90, 0.8, None), (100, 0.5, None), (HOME_HIGH, 0.1, None)]
+attack_program = [(100, 0.99, None), (45, 0.8, None), (100, 0.5, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(90, .99, None), (70, 0.6, None), (HOME_LOW, 0.01, None)]
 
 
