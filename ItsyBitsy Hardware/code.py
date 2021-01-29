@@ -153,7 +153,7 @@ while True:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
-            print('run backwards')
+            print('**********run backwards**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for j, tup in retreat_program.items():
                 current_angle = rotate_to_angle(current_angle, j, tup[0])
