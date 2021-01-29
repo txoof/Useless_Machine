@@ -132,7 +132,7 @@ current_angle = HOME_LOW
 
 
 
-attack_program = [(50, 0.5, None), (90, 0.8, None), (100, 0.5, None), (HOME_HIGH, 01., None)]
+attack_program = [(89, 0.25, None), (90, 0.8, None), (100, 0.5, None), (HOME_HIGH, 01., None)]
 retreat_program = [(90, .99, None), (70, 0.6, None), (HOME_LOW, 0.01, None)]
 
 
@@ -147,7 +147,6 @@ while True:
         else:
             print('run forwards')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
-            print(f'attack keys:')
             for i in attack_program:
                 current_angle = rotate_to_angle(current_angle, i[0], i[1])
 
