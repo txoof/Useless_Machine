@@ -69,7 +69,7 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
 
-    print(f'ROTATE to {dest_angle}; dir: {direction} step_size: {step_size} steps: {steps}')
+    print(f'ROTATE to {dest_angle}; speed: {speed}')
 
     for i in range(0, steps+1):
         limit_switch.update()
