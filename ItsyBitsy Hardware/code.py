@@ -132,8 +132,11 @@ current_angle = HOME_LOW
 
 
 
-attack_program = {50: (0.05, None), 90:(0.8, None), 100:(0.05, None), HOME_HIGH: (0.1, None)}
-retreat_program = {78: (.99, None), 70: (0.6, None), HOME_LOW: (0.01, None)}
+attack_program = {order: [50, 90, 100, HOME_HIGH],
+                values: {50: (0.05, None), 90:(0.8, None),
+                100:(0.05, None), HOME_HIGH: (0.1, None)}}
+retreat_program = {order: [78, 70, HOME_LOW],
+                values: {78: (.99, None), 70: (0.6, None), HOME_LOW: (0.01, None)}}
 
 while True:
     limit_switch.update()
@@ -146,8 +149,9 @@ while True:
         else:
             print('run forwards')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
-            for i, tup in attack_program.items():
-                current_angle = rotate_to_angle(current_angle, i, tup[0])
+            print(f'attack keys:')
+            for i, in attack_program[order]:
+                current_angle = rotate_to_angle(current_angle, i, attack_program[values][i][0])
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
@@ -156,8 +160,8 @@ while True:
             print('**********run backwards**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             print(retreat_program.keys())
-            for j, tup in retreat_program.items():
-                current_angle = rotate_to_angle(current_angle, j, tup[0])
+            for i, in retreat_program[order]:
+                current_angle = rotate_to_angle(current_angle, i, retreat_program[values][i][0])
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
