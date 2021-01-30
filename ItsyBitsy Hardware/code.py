@@ -222,7 +222,10 @@ while True:
             print('**********attack!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
-                current_angle, break_out = rotate_to_angle(current_angle, i[0], True, i[1])
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                           dest_angle=i[0],
+                                                           attack=True,
+                                                           speed=i[1])
                 if break_out:
                     break
 
