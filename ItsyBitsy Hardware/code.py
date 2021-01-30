@@ -191,56 +191,56 @@ direction_last = direction_switch.update()
 # servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
 time.sleep(1)
-# servo.duty_cycle = angle_to_duty(HOME_LOW)
-
-
-
-
-rotate_to_angle(HOME_LOW+5, HOME_LOW, .9)
-time.sleep(1)
-current_angle = HOME_LOW
-# go_to_angle(HOME_LOW)
-
-
-
-
-
-attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
-# attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(150, .55, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
-
-
-while True:
-    limit_switch.update()
-    direction_switch.update()
-
-    if not direction_switch.value:
-        # reset current angle to max/min
-        if current_angle >= HOME_HIGH:
-            current_angle = HOME_HIGH
-        else:
-            print('**********attack!**********')
-            # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
-            for i in attack_program:
-                current_angle, break_out = rotate_to_angle(current_angle, i[0], True, i[1])
-                if break_out:
-                    break
-
-    if not limit_switch.value and direction_switch.value:
-        if current_angle <= HOME_LOW:
-            current_angle = HOME_LOW
-        else:
-            print('**********retreat!**********')
-            # current_angle = rotate_to_angle(current_angle, HOME_LOW)
-            for i in retreat_program:
-                current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
-                if break_out:
-                    break
-
-    if  limit_switch.value != limit_last:
-        limit_last = limit_switch.value
-        print(f'limit: {limit_switch.value}')
-
-    if direction_switch.value != direction_last:
-        direction_last = direction_switch.value
-        print(f'direction: {direction_switch.value}')
+servo.duty_cycle = angle_to_duty(HOME_LOW)
+#
+#
+#
+#
+# rotate_to_angle(HOME_LOW+5, HOME_LOW, .9)
+# time.sleep(1)
+# current_angle = HOME_LOW
+# # go_to_angle(HOME_LOW)
+#
+#
+#
+#
+#
+# attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
+# # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
+# retreat_program = [(150, .55, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
+#
+#
+# while True:
+#     limit_switch.update()
+#     direction_switch.update()
+#
+#     if not direction_switch.value:
+#         # reset current angle to max/min
+#         if current_angle >= HOME_HIGH:
+#             current_angle = HOME_HIGH
+#         else:
+#             print('**********attack!**********')
+#             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
+#             for i in attack_program:
+#                 current_angle, break_out = rotate_to_angle(current_angle, i[0], True, i[1])
+#                 if break_out:
+#                     break
+#
+#     if not limit_switch.value and direction_switch.value:
+#         if current_angle <= HOME_LOW:
+#             current_angle = HOME_LOW
+#         else:
+#             print('**********retreat!**********')
+#             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
+#             for i in retreat_program:
+#                 current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+#                 if break_out:
+#                     break
+#
+#     if  limit_switch.value != limit_last:
+#         limit_last = limit_switch.value
+#         print(f'limit: {limit_switch.value}')
+#
+#     if direction_switch.value != direction_last:
+#         direction_last = direction_switch.value
+#         print(f'direction: {direction_switch.value}')
