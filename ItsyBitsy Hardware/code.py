@@ -191,7 +191,7 @@ direction_last = direction_switch.update()
 # servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
 time.sleep(1)
-servo.duty_cycle = angle_to_duty(HOME_LOW)
+servo.duty_cycle = angle_to_duty(HOME_LOW+2)
 #
 #
 #
