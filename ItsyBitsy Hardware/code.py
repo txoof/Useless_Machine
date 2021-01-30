@@ -194,6 +194,9 @@ while True:
     direction_switch.update()
 
     # attack branch
+    if direction_switch.value == False and limit_switch.value == False:
+        print(f'crrent_angle: {current_angle}')
+
     if direction_switch.value == False:
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
