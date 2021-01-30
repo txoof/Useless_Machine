@@ -138,7 +138,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     for i in range(0, steps+1):
         limit_switch.update()
         direction_switch.update()
-        print(f'direction: {direction}\nattack: {attack}\ndirection_switch: {direction_switch.value}')
+        print(f'direction: {direction}\nattack: {attack}\ndirection_switch: {direction_switch.value}\n')
 
         # check for endstop collisions
         # limit switch
