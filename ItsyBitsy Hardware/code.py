@@ -163,7 +163,8 @@ peek_a_boo = [(62, .3, None), (None, None, 1.5),
               (HOME_LOW, .05, None), (None, None, 1.5),
               (62, .3, None), (None, None, 1.5),
               (HOME_LOW, .05, None), (None, None, 1.5),
-              (HOME_HIGH, .8, None)]
+              (HOME_HIGH-10, .8, None),
+              (HOME_HIGH, .1, None)]
 
 # attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
 attack_program = peek_a_boo
