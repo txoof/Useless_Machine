@@ -130,7 +130,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 
 
     breakout_msg = None
-    
+
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
 
@@ -174,7 +174,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
-    return current_angle
+    return current_angle, break_out
 
 
 # pin objects
@@ -227,7 +227,9 @@ while True:
             print('**********attack!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
-                current_angle = rotate_to_angle(current_angle, i[0], True, i[1])
+                current_angle, break_out = rotate_to_angle(current_angle, i[0], True, i[1])
+                if break_out:
+                    break
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
@@ -236,7 +238,9 @@ while True:
             print('**********retreat!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
-                current_angle = rotate_to_angle(current_angle, i[0], False, i[1])
+                current_angle break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+                if break_out:
+                    break
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
