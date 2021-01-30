@@ -128,8 +128,9 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 
     break_out = False
 
-    endstop_hit = None
 
+    breakout_msg = None
+    
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
 
@@ -151,26 +152,16 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             breakout_msg = 'top endstop hit'
 
         # direction changed by user
-        if attack and direction_switch.value == True:
+        if attack == True and direction_switch.value == True:
             breakout = True
             breakout_msg = 'direction switched while attacking'
 
-        if not attack and direction_switch.value == False:
+        if attack == False and direction_switch.value == False:
             breakout = True
             breakout_msg = 'direction switched while retreating'
 
-        # if direction == 1 and direction_switch.value:
-        #     break_out = True
-        #     endstop_hit = 'direction_switch changed while attacking'
-        #
-        #
-        #
-        # if direction == -1 and not direction_switch.value:
-        #     break_out = True
-        #     endstop_hit = 'direction_switch changed while retreating'
-        #
         if break_out:
-            print(f'{endstop_hit}')
+            print(f'{breakout_msg}')
             break
 
         else:
@@ -219,7 +210,7 @@ current_angle = HOME_LOW
 
 
 
-attack_program = [(100, 0.99, None), (125, 0.01, None), (150, 0.9, None), (HOME_HIGH, 0.1, None)]
+attack_program = [(100, 0.99, None), (125, 0.1, None), (150, 0.9, None), (HOME_HIGH, 0.1, None)]
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(150, .99, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
 
