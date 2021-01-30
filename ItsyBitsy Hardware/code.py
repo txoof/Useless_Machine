@@ -129,12 +129,12 @@ direction_last = direction_switch.update()
 go_to_angle(HOME_LOW-.5)
 # servo.duty_cycle = angle_to_duty(HOME_LOW-.5)
 
-l = [50, 65, 70, 75, 80, 90, 100]
+l = [45, 46, 47, 48, 49, 50, 65, 70, 75, 80, 90, 100]
 
 for i in l:
     print(f'angle: {i}')
     go_to_angle(i)
-    time.sleep(1.5)
+    time.sleep(3)
 
 current_angle = HOME_LOW
 
