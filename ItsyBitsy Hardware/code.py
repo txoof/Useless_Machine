@@ -233,7 +233,7 @@ while True:
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
-            print('**********run forwards**********')
+            print('**********attack!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
                 current_angle = rotate_to_angle(current_angle, i[0], True, i[1])
@@ -242,7 +242,7 @@ while True:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
-            print('**********run backwards**********')
+            print('**********retreat!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
                 current_angle = rotate_to_angle(current_angle, i[0], False, i[1])
