@@ -1,6 +1,7 @@
 # UM Development Notes
 
 ## Benchmarks
+* 21.01.30 Arm runs appropriate part of program on attack
 * 21.01.30 Arm can pause
 * 21.01.30 Arm can run forwards, backwards in same program
 * 21.01.29 Arm can run variable speed programs
