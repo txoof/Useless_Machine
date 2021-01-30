@@ -218,8 +218,10 @@ TIMEOUT = 2
 relay_pin = True
 while True:
     relay_pin = True
+    print('on')
     time.sleep(1)
-    relay_pin = not relay_pin
+    relay_pin = False
+    print('off')
     time.sleep(1)
 
 # while True:
