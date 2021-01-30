@@ -146,6 +146,12 @@ def find_index(current_angle, program, attack=True):
 
     return i
 
+def heart_beat(t=10):
+    global timer
+    if time.monotonic() - timer >= t:
+        timer = time.monotonic()
+        print(f'tick: {timer}')
+
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
 limit_switch_pin.direction = digitalio.Direction.INPUT
@@ -188,10 +194,13 @@ retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 
 
-
+timer = time.monotonic()
 while True:
+    heart_beat(3)
     limit_switch.update()
     direction_switch.update()
+
+
 
     # attack branch
     if direction_switch.value == False and limit_switch.value == False:
