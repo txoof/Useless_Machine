@@ -259,3 +259,5 @@ while True:
     if direction_switch.value != direction_last:
         direction_last = direction_switch.value
         print(f'direction: {direction_switch.value}')
+
+print('program ended')
