@@ -196,7 +196,7 @@ time.sleep(1)
 
 
 
-rotate_to_angle(HOME_LOW, HOME_LOW, .9)
+rotate_to_angle(HOME_LOW+5, HOME_LOW, .9)
 time.sleep(1)
 current_angle = HOME_LOW
 # go_to_angle(HOME_LOW)
