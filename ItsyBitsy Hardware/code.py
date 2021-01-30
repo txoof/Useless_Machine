@@ -134,7 +134,7 @@ l = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 70, 75, 80, 90, 100]
 for i in l:
     print(f'angle: {i}')
     go_to_angle(i)
-    time.sleep(3)
+    time.sleep(1.5)
 
 current_angle = HOME_LOW
 
