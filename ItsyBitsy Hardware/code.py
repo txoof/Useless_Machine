@@ -143,7 +143,7 @@ current_angle = HOME_LOW
 
 
 attack_program = [(100, 0.99, None), (125, 0.01, None), (150, 0.9, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(110, .99, None), (85, 0.3, None), (HOME_LOW, 0.5, None)]
+retreat_program = [(150, .99, None), (85, 0.05, None), (HOME_LOW, 0.5, None)]
 
 
 while True:
