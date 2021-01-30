@@ -77,15 +77,17 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
         limit_switch.update()
         direction_switch.update()
 
-        # check for limit switch collisions
+        # check for endstop collisions
+        # limit switch
         if direction == -1 and limit_switch.value:
             break_out = True
             endstop_hit = 'limit_switch'
 
+
         if direction == 1 and direction_switch.value:
             break_out = True
             endstop_hit = 'direction_switch changed while attacking'
-            direction_changed = True
+
 
 
         if direction == -1 and not direction_switch.value:
