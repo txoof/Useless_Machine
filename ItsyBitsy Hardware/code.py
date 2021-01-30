@@ -185,6 +185,7 @@ relay_pin = digitalio.DigitalInOut(RELAY_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 
 
+off_timer = time.monotonic()
 relay_pin.value = False
 
 # while True:
@@ -217,9 +218,6 @@ attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
-
-off_timer = time.monotonic()
-timer = time.monotonic()
 
 while True:
     heart_beat(3)
