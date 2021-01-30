@@ -12,17 +12,24 @@ DIRECTION_SWITCH_PHY = board.D7
 
 SERVO_PWM_PHY = board.D10
 
+# latching relay pin -- pulse 3V to switch off
 RELAY_PHY = board.D11
 
+
+# min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
+# min and max step size for rotating servo (degrees)
 RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
 RESOLUTION_MAX = 6 # largest angle steps to take when moving
+
+# unused?
 
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
+# min and max angles for arm
 HOME_LOW = 44.5
 HOME_HIGH = 168.5
 
@@ -107,6 +114,9 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     return current_angle, break_out
 
 def pause(s):
+    '''pause for s seconds using monotonic timer (non blocking)
+    change in direction_switch will break out of pause
+    '''
     t = time.monotonic()
     limit_switch.update()
     direction_switch.update()
@@ -168,6 +178,11 @@ servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
+relay_pin = digitalio.DigitalInOut(RELAY_PHY)
+relay_pin.direction = digitalio.Direction.OUTPUT
+
+
+off_timer = time.monotonic()
 
 # Startup
 go_to_angle(HOME_LOW+4)
