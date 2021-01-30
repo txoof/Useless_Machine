@@ -111,6 +111,8 @@ def pause(s):
     direction_switch.update()
 
     direction_switch_current = direction_switch.value
+    break_out = False
+    breakout_msg = None
 
     print(f'pausing for {s} seconds')
     while time.monotonic() - t < s:
@@ -118,8 +120,13 @@ def pause(s):
         direction_switch.update()
 
         if direction_switch.value != direction_switch_current:
-            print('pausing canceled - breaking out')
+            breakout_msg = 'user changed switch, pause canceled'
+
+        if break_out:
+            print('breakout_msg')
             break
+
+    return break_out
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -176,7 +183,9 @@ while True:
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
                 if i[2]:
-                    pause(i[2])
+                    break_out = pause(i[2])
+                    if break_out:
+                        break
                 else:
                     current_angle, break_out = rotate_to_angle(current_angle=current_angle,
                                                                dest_angle=i[0],
@@ -193,7 +202,9 @@ while True:
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
                 if i[2]:
-                    pause(i[2])
+                    break_out = pause(i[2])
+                    if break_out:
+                        break
                 else:
                     current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
                     if break_out:
