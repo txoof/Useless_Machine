@@ -10,11 +10,14 @@ from adafruit_debouncer import Debouncer
 LIMIT_SWITCH_PHY = board.D9
 DIRECTION_SWITCH_PHY = board.D7
 
+# Servo pin PWM
 SERVO_PWM_PHY = board.D10
 
 # latching relay pin -- pulse 3V to switch off
 RELAY_PHY = board.D11
 
+# timeout wait for switching off (seconds)
+TIMEOUT = 15
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -30,7 +33,7 @@ ANGLE_MIN = 0
 ANGLE_MAX = 180
 
 # min and max angles for arm
-HOME_LOW = 44.5
+HOME_LOW = 43
 HOME_HIGH = 168.5
 
 
@@ -219,8 +222,7 @@ while True:
 
 
     # attack branch
-    if direction_switch.value == False and limit_switch.value == False:
-        print(f'crrent_angle: {current_angle}')
+    if direction_switch == True and
 
     if direction_switch.value == False:
         # reset current angle to max/min
@@ -269,6 +271,7 @@ while True:
                 if break_out:
                     print('breaking out of retreat for loop')
                     break
+
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
