@@ -233,6 +233,7 @@ while True:
             relay_pin.value = True
     else:
         relay_pin.value = False
+        print('resetting timeout')
         off_timer = time.monotonic()
 
     if direction_switch.value == False:
