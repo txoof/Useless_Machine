@@ -232,7 +232,10 @@ while True:
                 if i[2]:
                     break_out = pause(i[2])
                 else:
-                    current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                               dest_angel=i[0],
+                                                               attack=False,
+                                                               speed=i[1])
 
             if break_out:
                 break
