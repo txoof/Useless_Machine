@@ -227,6 +227,7 @@ while True:
                                                                attack=True,
                                                                speed=i[1])
                 if break_out:
+                    print('breaking out of attack for loop')
                     break
 
     if limit_switch.value == False and direction_switch.value == True:
@@ -250,6 +251,7 @@ while True:
                                                                speed=i[1])
 
             if break_out:
+                print('breaking out of retreat for loop')
                 break
 
     if  limit_switch.value != limit_last:
