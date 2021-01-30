@@ -139,7 +139,7 @@ def find_index(current_angle, program, attack=True):
                 if val[0] >= current_angle:
                     break
             else:
-                if val[0] <= current_angle:
+                if val[0] >= current_angle:
                     break
         except TypeError:
             next
