@@ -15,6 +15,8 @@ DIRECTION_SWITCH_PHY = board.D7
 
 SERVO_PWM_PHY = board.D10
 
+RELAY_PHY = board.D11
+
 DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
@@ -262,4 +264,4 @@ while True:
         direction_last = direction_switch.value
         print(f'direction: {direction_switch.value}')
 
-print('program ended-- this should never happen')
+print('program ended -- this should never happen')
