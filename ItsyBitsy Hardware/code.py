@@ -231,10 +231,7 @@ while True:
     if direction_switch.value == True and limit_switch.value == True:
         print('looks parked')
         if time.monotonic() - off_timer >= TIMEOUT:
-            print('timeout elapsed -- shutting down battery power')
             relay_pin.value = True
-        else:
-            print(f'timeout remaining: {time.monotonic() - off_timer}')
 
     if direction_switch.value == False:
         # reset current angle to max/min
