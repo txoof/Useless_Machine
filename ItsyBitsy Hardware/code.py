@@ -260,4 +260,4 @@ while True:
         direction_last = direction_switch.value
         print(f'direction: {direction_switch.value}')
 
-print('program ended')
+print('program ended-- this should never happen')
