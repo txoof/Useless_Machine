@@ -19,7 +19,7 @@ DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
 RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
-RESOLUTION_MAX = 7 # largest angle steps to take when moving
+RESOLUTION_MAX = 3 # largest angle steps to take when moving
 
 ANGLE_MIN = 0
 ANGLE_MAX = 180
@@ -163,13 +163,13 @@ peek_a_boo = [(62, .3, None), (None, None, 1.5),
               (HOME_LOW, .05, None), (None, None, 1.5),
               (62, .3, None), (None, None, 1.5),
               (HOME_LOW, .05, None), (None, None, 1.5),
-              (HOME_HIGH-10, .8, None),
+              (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
 # attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
 attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(150, .1, None), (50, 0.8, None), (HOME_LOW, 0.01, None)]
+retreat_program = [(150, .1, None), (50, 0.7, None), (HOME_LOW, 0.01, None)]
 
 
 while True:
