@@ -1,8 +1,9 @@
+import board
 import digitalio
-from board import *
+import pulseio
 import time
 
-led = digitalio.DigitalInOut(D13)
+led = digitalio.DigitalInOut(board.D13)
 led.direction = digitalio.Direction.OUTPUT
 while True:
     led.value = True
@@ -10,10 +11,8 @@ while True:
     led.value = False
     time.sleep(0.1)
 
-# import board
-# import digitalio
-# import pulseio
-# import time
+
+
 #
 # from adafruit_debouncer import Debouncer
 #
