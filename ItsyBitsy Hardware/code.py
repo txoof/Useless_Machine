@@ -36,13 +36,13 @@ ANGLE_MAX = 180
 HOME_LOW = 43
 HOME_HIGH = 168.5
 
-led = digitalio.DigitalInOut(RELAY_PHY)
-led.direction = digitalio.Direction.OUTPUT
+relay_pin = digitalio.DigitalInOut(RELAY_PHY)
+relay_pin.direction = digitalio.Direction.OUTPUT
 while True:
-    led.value = True
+    relay_pin.value = True
     print('light goes on')
     time.sleep(0.1)
-    led.value = False
+    relay_pin.value = False
     print('light goes off')
     time.sleep(0.1)
 
