@@ -176,7 +176,7 @@ while True:
     limit_switch.update()
     direction_switch.update()
 
-    if not direction_switch.value:
+    if direction_switch.value == False:
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
