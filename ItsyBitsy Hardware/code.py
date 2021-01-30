@@ -250,9 +250,9 @@ while True:
                                                                attack=False,
                                                                speed=i[1])
 
-            if break_out:
-                print('breaking out of retreat for loop')
-                break
+                if break_out:
+                    print('breaking out of retreat for loop')
+                    break
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
