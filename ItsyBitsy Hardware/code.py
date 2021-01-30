@@ -25,7 +25,7 @@ ANGLE_MIN = 0
 ANGLE_MAX = 180
 
 HOME_LOW = 44.5
-HOME_HIGH = 168
+HOME_HIGH = 168.5
 
 
 def map_range(a, b, s):
