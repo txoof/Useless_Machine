@@ -17,7 +17,7 @@ SERVO_PWM_PHY = board.D10
 RELAY_PHY = board.D13
 
 # timeout wait for switching off (seconds)
-TIMEOUT = 15
+TIMEOUT = 5
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -186,19 +186,13 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 
 
 off_timer = time.monotonic()
-TIMEOUT = 1
+
 relay_pin.value = True
-while True:
-    if time.monotonic() - off_timer >= TIMEOUT:
-        off_timer = time.monotonic()
-        relay_pin.value = not relay_pin.value
-        print(f'light goes: {relay_pin.value}')
-
-    # time.sleep(0.1)
-    # relay_pin.value = False
-    #
-    # time.sleep(0.1)
-
+# while True:
+#     if time.monotonic() - off_timer >= TIMEOUT:
+#         off_timer = time.monotonic()
+#         relay_pin.value = not relay_pin.value
+#         print(f'light goes: {relay_pin.value}')
 
 # # Startup
 # go_to_angle(HOME_LOW+1)
