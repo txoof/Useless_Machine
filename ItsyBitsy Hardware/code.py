@@ -121,6 +121,7 @@ def pause(s):
 
         if direction_switch.value != direction_switch_current:
             breakout_msg = 'user changed switch, pause canceled'
+            break_out = True
 
         if break_out:
             print('breakout_msg')
