@@ -13,8 +13,6 @@ DIRECTION_SWITCH_PHY = board.D7
 # Servo pin PWM
 SERVO_PWM_PHY = board.D10
 
-# latching relay pin -- pulse 3V to switch off
-RELAY_PHY = board.D13
 
 # timeout wait for switching off (seconds)
 TIMEOUT = 5
@@ -185,25 +183,12 @@ relay_pin = digitalio.DigitalInOut(RELAY_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 
 
-off_timer = time.monotonic()
 timer = time.monotonic()
 relay_pin.value = False
 
-# while True:
-#     if time.monotonic() - off_timer >= TIMEOUT:
-#         off_timer = time.monotonic()
-#         relay_pin.value = not relay_pin.value
-#         print(f'light goes: {relay_pin.value}')
 
 # Startup
 go_to_angle(HOME_LOW+1)
-
-# l = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 70, 75, 80, 90, 100]
-#
-# for i in l:
-#     print(f'angle: {i}')
-#     go_to_angle(i)
-#     time.sleep(1.5)
 
 current_angle = HOME_LOW
 
@@ -219,23 +204,12 @@ attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
-TIMEOUT = 10
 while True:
     heart_beat(3)
     limit_switch.update()
     direction_switch.update()
 
-
-
     # attack branch
-    if direction_switch.value == True and limit_switch.value == True:
-        if time.monotonic() - off_timer >= TIMEOUT:
-            relay_pin.value = True
-    else:
-        relay_pin.value = False
-        print('resetting timeout')
-        off_timer = time.monotonic()
-
     if direction_switch.value == False:
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
