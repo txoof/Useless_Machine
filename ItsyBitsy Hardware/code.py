@@ -189,21 +189,10 @@ direction_last = direction_switch.update()
 
 # Startup
 # servo.duty_cycle = angle_to_duty(HOME_LOW+10)
-print('sleep 1 sec')
-# time.sleep(1)
-servo.duty_cycle = angle_to_duty(HOME_LOW-.5)
-#
-#
-#
-#
-# rotate_to_angle(HOME_LOW+5, HOME_LOW, .9)
-# time.sleep(1)
+go_to_angle(HOME_LOW-.5)
+# servo.duty_cycle = angle_to_duty(HOME_LOW-.5)
+
 current_angle = HOME_LOW
-# go_to_angle(HOME_LOW)
-
-
-
-
 
 attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
