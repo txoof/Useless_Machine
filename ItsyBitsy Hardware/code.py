@@ -238,7 +238,7 @@ while True:
             print('**********retreat!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
-                current_angle break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+                current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
                 if break_out:
                     break
 
