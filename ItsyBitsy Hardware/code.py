@@ -229,7 +229,6 @@ while True:
 
     # attack branch
     if direction_switch.value == True and limit_switch.value == True:
-        print('looks parked')
         if time.monotonic() - off_timer >= TIMEOUT:
             relay_pin.value = True
 
