@@ -151,11 +151,11 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             breakout_msg = 'top endstop hit'
 
         # direction changed by user
-        if attack and direction_switch.value:
+        if attack and direction_switch.value == True:
             breakout = True
             breakout_msg = 'direction switched while attacking'
 
-        if not attack and not direction_switch.value:
+        if not attack and direction_switch.value == False:
             breakout = True
             breakout_msg = 'direction switched while retreating'
 
