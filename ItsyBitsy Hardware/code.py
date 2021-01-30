@@ -186,6 +186,7 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 
 
 off_timer = time.monotonic()
+timer = time.monotonic()
 relay_pin.value = False
 
 # while True:
