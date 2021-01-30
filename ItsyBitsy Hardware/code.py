@@ -46,7 +46,70 @@ def go_to_angle(dest_angle):
     servo.duty_cycle = angle_to_duty(dest_angle)
 
 
-def rotate_to_angle(current_angle, dest_angle, speed=0.08):
+# def rotate_to_angle(current_angle, dest_angle, speed=0.08):
+#     '''rotate from current_angle to dest_angle at speed
+#     Args:
+#         current_angle (real): angle between SERVO_MIN and SERVO_MAX
+#         dest_angle (real): angle between SERVO_MIN and SERVO_MAX
+#         speed (real): between 0 and 1
+#     '''
+#     def check_angle(angle):
+#         if angle > HOME_HIGH:
+#             angle = HOME_HIGH
+#         if angle < HOME_LOW:
+#             angle = HOME_LOW
+#         return angle
+#
+#     direction = 1 if current_angle < dest_angle else -1
+#
+#     break_out = False
+#
+#     endstop_hit = None
+#
+#     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
+#     steps = int(abs((current_angle-dest_angle)/step_size))
+#
+#     print(f'\n\nROTATE to {dest_angle}; speed: {speed}')
+#
+#
+#     for i in range(0, steps+1):
+#         limit_switch.update()
+#         direction_switch.update()
+#
+#         # check for endstop collisions
+#         # limit switch
+#         if direction == -1 and limit_switch.value:
+#             break_out = True
+#             endstop_hit = 'limit_switch'
+#
+#
+#         if direction == 1 and direction_switch.value:
+#             break_out = True
+#             endstop_hit = 'direction_switch changed while attacking'
+#
+#
+#
+#         if direction == -1 and not direction_switch.value:
+#             break_out = True
+#             endstop_hit = 'direction_switch changed while retreating'
+#
+#         if break_out:
+#             print(f'{endstop_hit}')
+#             break
+#
+#         else:
+#             current_angle = current_angle + (step_size * direction)
+#
+#             # if over-run in positive or negative, set to max or min as appropriate
+#             current_angle = check_angle(current_angle)
+#
+#
+#             servo.duty_cycle = angle_to_duty(current_angle)
+#
+#     current_angle = check_angle(current_angle)
+#     return current_angle
+
+def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     '''rotate from current_angle to dest_angle at speed
     Args:
         current_angle (real): angle between SERVO_MIN and SERVO_MAX
@@ -60,11 +123,12 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             angle = HOME_LOW
         return angle
 
+    # set the direction multiplier
     direction = 1 if current_angle < dest_angle else -1
 
     break_out = False
 
-    endstop_hit = None
+    breakout_msg = None
 
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
@@ -74,23 +138,41 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
     for i in range(0, steps+1):
         limit_switch.update()
         direction_switch.update()
+        # print(f'direction: {direction}\nattack: {attack}\ndirection_switch: {direction_switch.value}\n')
 
-        # check for limit switch collisions
-        if direction == -1 and limit_switch.value:
+        if direction == 1 and attack == True and direction_switch.value == True:
             break_out = True
-            endstop_hit = 'limit_switch'
+            breakout_msg = 'direction switch changed to "true" '
 
-        if direction == 1 and direction_switch.value:
+        if direction == -1 and attack == False and direction_switch.value == False:
             break_out = True
-            endstop_hit = 'direction_switch'
+            breakout_msg = 'direction switch changed to "False"'
 
-        if direction == -1 and not direction_switch.value:
+        if direction == -1 and limit_switch.value == True:
             break_out = True
-            endstop_hit = 'direction_switch changed while returning'
+            breakout_msg = 'bottom limit siwtch hit'
+
+        # if direction == -1 and limit_switch.value:
+        #     break_out = True
+        #     breakout_msg = 'bottom endstop hit'
+        #
+        # if direction == 1 and direction_switch.value:
+        #     breakout = True
+        #     breakout_msg = 'top endstop hit'
+        #
+        # # direction changed by user
+        # if attack == True and direction_switch.value == True:
+        #     breakout = True
+        #     breakout_msg = 'direction switched while attacking'
+        #
+        # if attack == False and direction_switch.value == False:
+        #     breakout = True
+        #     breakout_msg = 'direction switched while retreating'
 
         if break_out:
-            print(f'hit endstop: {endstop_hit}')
+            print(f'{breakout_msg}')
             break
+
         else:
             current_angle = current_angle + (step_size * direction)
 
@@ -101,7 +183,9 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
-    return current_angle
+    print('')
+    return current_angle, break_out
+
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -120,8 +204,12 @@ direction_last = direction_switch.update()
 
 
 # Startup
-servo.duty_cycle = angle_to_duty(HOME_LOW+10)
+# servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 print('sleep 1 sec')
+servo.duty_cycle = angle_to_duty(HOME_LOW)
+
+
+
 time.sleep(0.5)
 rotate_to_angle(HOME_LOW, HOME_LOW, .9)
 time.sleep(1)
@@ -132,8 +220,9 @@ current_angle = HOME_LOW
 
 
 
-attack_program = [(100, 0.99, None), (125, 0.01, None), (150, 0.9, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(90, .99, None), (70, 0.6, None), (HOME_LOW, 0.01, None)]
+attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
+# attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
+retreat_program = [(150, .55, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
 
 
 while True:
@@ -145,19 +234,23 @@ while True:
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
-            print('run forwards')
+            print('**********attack!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
-                current_angle = rotate_to_angle(current_angle, i[0], i[1])
+                current_angle, break_out = rotate_to_angle(current_angle, i[0], True, i[1])
+                if break_out:
+                    break
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
-            print('**********run backwards**********')
+            print('**********retreat!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
-                current_angle = rotate_to_angle(current_angle, i[0], i[1])
+                current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+                if break_out:
+                    break
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
