@@ -181,7 +181,7 @@ servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
-relay_pin = digitalio.DigitalInOut(D13)
+relay_pin = digitalio.DigitalInOut(board.D13)
 relay_pin.direction = digitalio.Direction.OUTPUT
 
 
