@@ -155,7 +155,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             breakout = True
             breakout_msg = 'direction switched while attacking'
 
-        if not attack and direction_switch.value:
+        if not attack and not direction_switch.value:
             breakout = True
             breakout_msg = 'direction switched while retreating'
 
