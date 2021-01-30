@@ -232,7 +232,7 @@ while True:
         if time.monotonic() - off_timer >= TIMEOUT:
             relay_pin.value = True
     else:
-        relay_pin = False
+        relay_pin.value = False
         off_timer = time.monotonic()
 
     if direction_switch.value == False:
