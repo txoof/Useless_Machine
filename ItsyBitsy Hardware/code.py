@@ -7,8 +7,10 @@ led = digitalio.DigitalInOut(board.D13)
 led.direction = digitalio.Direction.OUTPUT
 while True:
     led.value = True
+    print('light goes on')
     time.sleep(0.1)
     led.value = False
+    print('light goes off')
     time.sleep(0.1)
 
 
