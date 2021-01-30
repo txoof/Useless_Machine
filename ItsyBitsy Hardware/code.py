@@ -71,6 +71,8 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
 
     print(f'ROTATE to {dest_angle}; speed: {speed}')
 
+    direction_changed = False
+
     for i in range(0, steps+1):
         limit_switch.update()
         direction_switch.update()
@@ -82,11 +84,14 @@ def rotate_to_angle(current_angle, dest_angle, speed=0.08):
 
         if direction == 1 and direction_switch.value:
             break_out = True
-            endstop_hit = 'direction_switch'
+            endstop_hit = 'direction_switch changed while attacking'
+            direction_changed = True
+
 
         if direction == -1 and not direction_switch.value:
             break_out = True
-            endstop_hit = 'direction_switch changed while returning'
+            endstop_hit = 'direction_switch changed while retreating'
+            direction_changed = True
 
         if break_out:
             print(f'hit endstop: {endstop_hit}')
@@ -145,7 +150,7 @@ while True:
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
-            print('run forwards')
+            print('**********run forwards**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
                 current_angle = rotate_to_angle(current_angle, i[0], i[1])
