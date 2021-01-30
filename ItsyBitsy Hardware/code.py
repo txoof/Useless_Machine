@@ -144,15 +144,21 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
         # limit switch
         if direction == -1 and limit_switch.value:
             break_out = True
-            endstop_hit = 'bottom endstop hit'
+            breakout_msg = 'bottom endstop hit'
 
         if direction == 1 and direction_switch.value:
             breakout = True
-            endstop_hit = 'top endstop hit'
+            breakout_msg = 'top endstop hit'
 
+        # direction changed by user
+        if attack and direction_switch.value:
+            breakout = True
+            breakout_msg = 'direction switched while attacking'
 
+        if not attack and direction_switch.value:
+            breakout = True
+            breakout_msg = 'direction switched while retreating'
 
-        #
         # if direction == 1 and direction_switch.value:
         #     break_out = True
         #     endstop_hit = 'direction_switch changed while attacking'
@@ -166,15 +172,15 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
         if break_out:
             print(f'{endstop_hit}')
             break
-        #
-        # else:
-        #     current_angle = current_angle + (step_size * direction)
-        #
-        #     # if over-run in positive or negative, set to max or min as appropriate
-        #     current_angle = check_angle(current_angle)
-        #
-        #
-        #     servo.duty_cycle = angle_to_duty(current_angle)
+
+        else:
+            current_angle = current_angle + (step_size * direction)
+
+            # if over-run in positive or negative, set to max or min as appropriate
+            current_angle = check_angle(current_angle)
+
+
+            servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
     return current_angle
