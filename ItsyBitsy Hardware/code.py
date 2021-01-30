@@ -6,7 +6,6 @@ import time
 from adafruit_debouncer import Debouncer
 
 ### CONSTANTS ###
-
 # physical switches
 LIMIT_SWITCH_PHY = board.D9
 DIRECTION_SWITCH_PHY = board.D7
@@ -42,6 +41,7 @@ def angle_to_duty(angle, frequency=50):
     return int(pulse_ms / (period_ms / 65535.0))
 
 def go_to_angle(dest_angle):
+    '''move servo directly to angle'''
     print(f'moving to: {dest_angle}')
     servo.duty_cycle = angle_to_duty(dest_angle)
 
@@ -51,7 +51,9 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08, pause=0):
     Args:
         current_angle (real): angle between SERVO_MIN and SERVO_MAX
         dest_angle (real): angle between SERVO_MIN and SERVO_MAX
+        attack (bool): True - arm moves out (ccw), False - arm moves in (cw)
         speed (real): between 0 and 1
+        pause (real): amount of time to pause rather than move
     '''
     def check_angle(angle):
         if angle > HOME_HIGH:
