@@ -151,7 +151,7 @@ go_to_angle(HOME_LOW-.5)
 
 current_angle = HOME_LOW
 
-peek_a_boo = [(62, .3, None), (None, None, 1.5),
+peek_a_boo = [(62, .3, None), (None, None, 8),
               (HOME_LOW, .05, None), (None, None, 1.5),
               (62, .3, None), (None, None, 1.5),
               (HOME_LOW, .05, None), (None, None, 1.5),
