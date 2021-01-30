@@ -138,7 +138,11 @@ go_to_angle(HOME_LOW-.5)
 
 current_angle = HOME_LOW
 
-attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
+peek_a_boo = [(56, .7, None), (HOME_LOW, .7, None), (56, .7, None), (HOME_LOW, .7, None),
+             (HOME_HIGH, .8, None)]
+
+# attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
+attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(150, .55, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
 
