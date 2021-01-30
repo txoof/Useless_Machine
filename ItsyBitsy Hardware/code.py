@@ -3,7 +3,40 @@ import digitalio
 import pulseio
 import time
 
-led = digitalio.DigitalInOut(board.D13)
+from adafruit_debouncer import Debouncer
+
+### CONSTANTS ###
+# physical switches
+LIMIT_SWITCH_PHY = board.D9
+DIRECTION_SWITCH_PHY = board.D7
+
+# Servo pin PWM
+SERVO_PWM_PHY = board.D10
+
+# latching relay pin -- pulse 3V to switch off
+RELAY_PHY = board.D13
+
+# timeout wait for switching off (seconds)
+TIMEOUT = 15
+
+# min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
+DUTY_MIN = 0.5 # 0 degrees
+DUTY_MAX = 2.5 # 180 degrees
+
+# min and max step size for rotating servo (degrees)
+RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
+RESOLUTION_MAX = 6 # largest angle steps to take when moving
+
+# unused?
+
+ANGLE_MIN = 0
+ANGLE_MAX = 180
+
+# min and max angles for arm
+HOME_LOW = 43
+HOME_HIGH = 168.5
+
+led = digitalio.DigitalInOut(RELAY_PHY)
 led.direction = digitalio.Direction.OUTPUT
 while True:
     led.value = True
@@ -14,40 +47,6 @@ while True:
     time.sleep(0.1)
 
 
-
-#
-# from adafruit_debouncer import Debouncer
-#
-# ### CONSTANTS ###
-# # physical switches
-# LIMIT_SWITCH_PHY = board.D9
-# DIRECTION_SWITCH_PHY = board.D7
-#
-# # Servo pin PWM
-# SERVO_PWM_PHY = board.D10
-#
-# # latching relay pin -- pulse 3V to switch off
-# RELAY_PHY = board.D11
-#
-# # timeout wait for switching off (seconds)
-# TIMEOUT = 15
-#
-# # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
-# DUTY_MIN = 0.5 # 0 degrees
-# DUTY_MAX = 2.5 # 180 degrees
-#
-# # min and max step size for rotating servo (degrees)
-# RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
-# RESOLUTION_MAX = 6 # largest angle steps to take when moving
-#
-# # unused?
-#
-# ANGLE_MIN = 0
-# ANGLE_MAX = 180
-#
-# # min and max angles for arm
-# HOME_LOW = 43
-# HOME_HIGH = 168.5
 #
 #
 # def map_range(a, b, s):
