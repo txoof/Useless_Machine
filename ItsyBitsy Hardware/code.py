@@ -187,18 +187,26 @@ attack_program = peek_a_boo
 retreat_program = [(150, .1, None), (50, 0.7, None), (HOME_LOW, 0.01, None)]
 
 
+
+
 while True:
     limit_switch.update()
     direction_switch.update()
 
+    # attack branch
     if direction_switch.value == False:
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
             print('**********attack!**********')
-            # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
-            for i in attack_program:
+
+            # for i in attack_program:
+            attack_index = find_index(current_angle=current_angle,
+                                      program=attack_program, attack=True)
+            attack_slice = attack_program[attack_index:]
+
+            for i in attack_slice:
                 if i[2]:
                     break_out = pause(i[2])
                 else:
@@ -214,8 +222,13 @@ while True:
             current_angle = HOME_LOW
         else:
             print('**********retreat!**********')
-            # current_angle = rotate_to_angle(current_angle, HOME_LOW)
-            for i in retreat_program:
+
+            retreat_index = find_index(curreent_program=current_angle,
+                                       program=retreat_program, attack=False)
+            retreat_slice = retreat_program[attack_index:]
+
+
+            for i in retreat_slice:
                 if i[2]:
                     break_out = pause(i[2])
                 else:
