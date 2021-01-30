@@ -223,7 +223,7 @@ while True:
         else:
             print('**********retreat!**********')
 
-            retreat_index = find_index(curreent_program=current_angle,
+            retreat_index = find_index(current_angle=current_angle,
                                        program=retreat_program, attack=False)
             retreat_slice = retreat_program[attack_index:]
 
