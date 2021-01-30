@@ -228,7 +228,7 @@ while True:
 
 
     # attack branch
-    if direction_switch == True and limit_switch == False:
+    if direction_switch == True and limit_switch == TRUE:
         if time.monotonic() - off_timer >= TIMEOUT:
             print('timeout elapsed -- shutting down battery power')
             relay_pin = True
