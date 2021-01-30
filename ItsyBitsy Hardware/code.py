@@ -5,9 +5,7 @@ import time
 
 from adafruit_debouncer import Debouncer
 
-class ArmRoutine():
-    def __init__(self, name):
-        pass
+### CONSTANTS ###
 
 # physical switches
 LIMIT_SWITCH_PHY = board.D9
