@@ -214,74 +214,80 @@ retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 
 timer = time.monotonic()
+TIMEOUT = 2
+relay_pin = True
 while True:
-    heart_beat(3)
-    limit_switch.update()
-    direction_switch.update()
+    if time.monotonic() - timer >= TIMEOUT:
+        relay_pin = not relay_pin
 
-
-
-    # attack branch
-    if direction_switch == True and limit_switch == False:
-        if time.monotonic() - timer >= TIMEOUT:
-            print('timeout elapsed -- shutting down battery power')
-            relay_pin = True
-
-    if direction_switch.value == False:
-        # reset current angle to max/min
-        if current_angle >= HOME_HIGH:
-            current_angle = HOME_HIGH
-        else:
-            print('**********attack!**********')
-
-            # for i in attack_program:
-            attack_index = find_index(current_angle=current_angle,
-                                      program=attack_program, attack=True)
-            attack_slice = attack_program[attack_index:]
-
-            for i in attack_slice:
-                if i[2]:
-                    break_out = pause(i[2])
-                else:
-                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                               dest_angle=i[0],
-                                                               attack=True,
-                                                               speed=i[1])
-                if break_out:
-                    print('breaking out of attack for loop')
-                    break
-
-    if limit_switch.value == False and direction_switch.value == True:
-        if current_angle <= HOME_LOW:
-            current_angle = HOME_LOW
-        else:
-            print('**********retreat!**********')
-
-            retreat_index = find_index(current_angle=current_angle,
-                                       program=retreat_program, attack=False)
-            retreat_slice = retreat_program[attack_index:]
-
-
-            for i in retreat_slice:
-                if i[2]:
-                    break_out = pause(i[2])
-                else:
-                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                               dest_angle=i[0],
-                                                               attack=False,
-                                                               speed=i[1])
-
-                if break_out:
-                    print('breaking out of retreat for loop')
-                    break
-
-
-    if  limit_switch.value != limit_last:
-        limit_last = limit_switch.value
-        print(f'limit: {limit_switch.value}')
-
-    if direction_switch.value != direction_last:
-        direction_last = direction_switch.value
-        print(f'direction: {direction_switch.value}')
-
-print('program ended -- this should never happen')
+# while True:
+#     heart_beat(3)
+#     limit_switch.update()
+#     direction_switch.update()
+#
+#
+#
+#     # attack branch
+#     if direction_switch == True and limit_switch == False:
+#         if time.monotonic() - timer >= TIMEOUT:
+#             print('timeout elapsed -- shutting down battery power')
+#             relay_pin = True
+#
+#     if direction_switch.value == False:
+#         # reset current angle to max/min
+#         if current_angle >= HOME_HIGH:
+#             current_angle = HOME_HIGH
+#         else:
+#             print('**********attack!**********')
+#
+#             # for i in attack_program:
+#             attack_index = find_index(current_angle=current_angle,
+#                                       program=attack_program, attack=True)
+#             attack_slice = attack_program[attack_index:]
+#
+#             for i in attack_slice:
+#                 if i[2]:
+#                     break_out = pause(i[2])
+#                 else:
+#                     current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+#                                                                dest_angle=i[0],
+#                                                                attack=True,
+#                                                                speed=i[1])
+#                 if break_out:
+#                     print('breaking out of attack for loop')
+#                     break
+#
+#     if limit_switch.value == False and direction_switch.value == True:
+#         if current_angle <= HOME_LOW:
+#             current_angle = HOME_LOW
+#         else:
+#             print('**********retreat!**********')
+#
+#             retreat_index = find_index(current_angle=current_angle,
+#                                        program=retreat_program, attack=False)
+#             retreat_slice = retreat_program[attack_index:]
+#
+#
+#             for i in retreat_slice:
+#                 if i[2]:
+#                     break_out = pause(i[2])
+#                 else:
+#                     current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+#                                                                dest_angle=i[0],
+#                                                                attack=False,
+#                                                                speed=i[1])
+#
+#                 if break_out:
+#                     print('breaking out of retreat for loop')
+#                     break
+#
+#
+#     if  limit_switch.value != limit_last:
+#         limit_last = limit_switch.value
+#         print(f'limit: {limit_switch.value}')
+#
+#     if direction_switch.value != direction_last:
+#         direction_last = direction_switch.value
+#         print(f'direction: {direction_switch.value}')
+#
+# print('program ended -- this should never happen')
