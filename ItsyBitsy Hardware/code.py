@@ -146,9 +146,7 @@ direction_last = direction_switch.update()
 
 
 # Startup
-# servo.duty_cycle = angle_to_duty(HOME_LOW+10)
 go_to_angle(HOME_LOW+4)
-# servo.duty_cycle = angle_to_duty(HOME_LOW-.5)
 
 # l = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 70, 75, 80, 90, 100]
 #
@@ -194,7 +192,7 @@ while True:
                 if break_out:
                     break
 
-    if not limit_switch.value and direction_switch.value:
+    if limit_switch.value == False and direction_switch.value == True:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
