@@ -124,7 +124,7 @@ def pause(s):
             break_out = True
 
         if break_out:
-            print('breakout_msg')
+            print(breakout_msg)
             break
 
     return break_out
