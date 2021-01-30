@@ -229,6 +229,7 @@ while True:
 
     # attack branch
     if direction_switch == True and limit_switch == TRUE:
+        print('looks parked')
         if time.monotonic() - off_timer >= TIMEOUT:
             print('timeout elapsed -- shutting down battery power')
             relay_pin = True
