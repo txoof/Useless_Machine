@@ -15,4 +15,4 @@
 - [ ] arm runs appropriate part of attack/retreat program when state changes
 - [ ] randomly select attack/retreat routine
 - [ ] random seed based on internal processor temp
-
+- [ ] machine switches off after set interval in HOME_LOW
