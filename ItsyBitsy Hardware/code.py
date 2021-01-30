@@ -202,12 +202,11 @@ while True:
             for i in retreat_program:
                 if i[2]:
                     break_out = pause(i[2])
-                    if break_out:
-                        break
                 else:
                     current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
-                    if break_out:
-                        break
+                    
+            if break_out:
+                break
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
