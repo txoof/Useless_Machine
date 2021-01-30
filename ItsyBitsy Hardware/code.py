@@ -169,7 +169,7 @@ peek_a_boo = [(62, .3, None), (None, None, 1.5),
 # attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
 attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(150, .1, None), (50, 0.1, None), (HOME_LOW, 0.01, None)]
+retreat_program = [(150, .1, None), (50, 0.8, None), (HOME_LOW, 0.01, None)]
 
 
 while True:
