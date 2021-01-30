@@ -190,6 +190,7 @@ TIMEOUT = 1
 relay_pin.value = True
 while True:
     if time.monotonic() - off_timer >= TIMEOUT:
+        off_timer = time.monotonic()
         relay_pin.value = not relay_pin.value
         print(f'light goes: {relay_pin.value}')
 
