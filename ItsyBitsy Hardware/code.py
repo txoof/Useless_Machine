@@ -147,7 +147,7 @@ direction_last = direction_switch.update()
 
 # Startup
 # servo.duty_cycle = angle_to_duty(HOME_LOW+10)
-go_to_angle(HOME_LOW+2)
+go_to_angle(HOME_LOW+4)
 # servo.duty_cycle = angle_to_duty(HOME_LOW-.5)
 
 # l = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 70, 75, 80, 90, 100]
