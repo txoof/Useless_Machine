@@ -149,6 +149,10 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             break_out = True
             breakout_msg = 'direction switch changed to "False"'
 
+        if limit_switch.value == True:
+            break_out = True
+            breakout_msg = 'bottom limit siwtch hit'
+
         # if direction == -1 and limit_switch.value:
         #     break_out = True
         #     breakout_msg = 'bottom endstop hit'
