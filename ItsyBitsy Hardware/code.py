@@ -217,8 +217,10 @@ timer = time.monotonic()
 TIMEOUT = 2
 relay_pin = True
 while True:
-    if time.monotonic() - timer >= TIMEOUT:
-        relay_pin = not relay_pin
+    relay_pin = True
+    time.sleep(1)
+    relay_pin = not relay_pin
+    time.sleep(1)
 
 # while True:
 #     heart_beat(3)
