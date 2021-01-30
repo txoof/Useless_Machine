@@ -185,15 +185,13 @@ while True:
             for i in attack_program:
                 if i[2]:
                     break_out = pause(i[2])
-                    if break_out:
-                        break
                 else:
                     current_angle, break_out = rotate_to_angle(current_angle=current_angle,
                                                                dest_angle=i[0],
                                                                attack=True,
                                                                speed=i[1])
-                    if break_out:
-                        break
+                if break_out:
+                    break
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
