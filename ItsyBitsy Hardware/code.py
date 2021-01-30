@@ -140,24 +140,31 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
         direction_switch.update()
         print(f'direction: {direction}\nattack: {attack}\ndirection_switch: {direction_switch.value}\n')
 
-        # check for endstop collisions
-        # limit switch
-        if direction == -1 and limit_switch.value:
+
+        if direction == 1 and attack == True and direction_switch.value == True:
             break_out = True
-            breakout_msg = 'bottom endstop hit'
+            breakout_msg = 'direction switch changed to "true" '
 
-        if direction == 1 and direction_switch.value:
-            breakout = True
-            breakout_msg = 'top endstop hit'
+        if direction == -1 and attack == False and direction_switch.value == False:
+            break_out = True
+            breakout_msg = 'direction switch changed to "False"''
 
-        # direction changed by user
-        if attack == True and direction_switch.value == True:
-            breakout = True
-            breakout_msg = 'direction switched while attacking'
-
-        if attack == False and direction_switch.value == False:
-            breakout = True
-            breakout_msg = 'direction switched while retreating'
+        # if direction == -1 and limit_switch.value:
+        #     break_out = True
+        #     breakout_msg = 'bottom endstop hit'
+        #
+        # if direction == 1 and direction_switch.value:
+        #     breakout = True
+        #     breakout_msg = 'top endstop hit'
+        #
+        # # direction changed by user
+        # if attack == True and direction_switch.value == True:
+        #     breakout = True
+        #     breakout_msg = 'direction switched while attacking'
+        #
+        # if attack == False and direction_switch.value == False:
+        #     breakout = True
+        #     breakout_msg = 'direction switched while retreating'
 
         if break_out:
             print(f'{breakout_msg}')
