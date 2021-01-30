@@ -24,7 +24,7 @@ RESOLUTION_MAX = 10 # largest angle steps to take when moving
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
-HOME_LOW = 45
+HOME_LOW = 44.5
 HOME_HIGH = 168
 
 
