@@ -134,7 +134,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     step_size = map_range((0, 1), (RESOLUTION_MIN, RESOLUTION_MAX), speed)
     steps = int(abs((current_angle-dest_angle)/step_size))
 
-    print(f'\n\nROTATE to {dest_angle}; speed: {speed}')
+    print(f'ROTATE to {dest_angle}; speed: {speed}')
 
 
     for i in range(0, steps+1):
@@ -174,6 +174,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
+    print('\n')
     return current_angle, break_out
 
 
