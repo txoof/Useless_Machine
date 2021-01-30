@@ -188,7 +188,7 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 off_timer = time.monotonic()
 
 # Startup
-go_to_angle(HOME_LOW+4)
+go_to_angle(HOME_LOW+1)
 
 # l = [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 65, 70, 75, 80, 90, 100]
 #
