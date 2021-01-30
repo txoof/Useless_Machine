@@ -183,16 +183,23 @@ direction_last = direction_switch.update()
 
 relay_pin = digitalio.DigitalInOut(RELAY_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
-while True:
-    relay_pin.value = True
-    print('light goes on')
-    time.sleep(0.1)
-    relay_pin.value = False
-    print('light goes off')
-    time.sleep(0.1)
 
 
 off_timer = time.monotonic()
+
+while True:
+    if time.monotonic() - off_timer >= TIMEOUT
+        relay_pin.value = True
+        print('light goes on')
+    else:
+        print('light goes off')
+        relay_pin.value = False
+
+    # time.sleep(0.1)
+    # relay_pin.value = False
+    #
+    # time.sleep(0.1)
+
 
 # # Startup
 # go_to_angle(HOME_LOW+1)
