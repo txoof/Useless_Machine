@@ -129,6 +129,23 @@ def pause(s):
 
     return break_out
 
+def find_index(current_angle, program, attack=True):
+    '''find the first tuple in the list closest to current_angle'''
+
+    # for attack
+    for i, val in enumerate(program):
+        try:
+            if attack:
+                if val[0] >= current_angle:
+                    break
+            else:
+                if val[0] <= current_angle:
+                    break
+        except TypeError:
+            next
+
+    return i
+
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
 limit_switch_pin.direction = digitalio.Direction.INPUT
