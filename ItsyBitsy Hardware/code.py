@@ -188,7 +188,7 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 off_timer = time.monotonic()
 
 while True:
-    if time.monotonic() - off_timer >= TIMEOUT
+    if time.monotonic() - off_timer >= TIMEOUT:
         relay_pin.value = True
         print('light goes on')
     else:
