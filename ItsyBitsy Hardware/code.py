@@ -46,7 +46,7 @@ def go_to_angle(dest_angle):
     servo.duty_cycle = angle_to_duty(dest_angle)
 
 
-def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
+def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08, pause=0):
     '''rotate from current_angle to dest_angle at speed
     Args:
         current_angle (real): angle between SERVO_MIN and SERVO_MAX
@@ -99,14 +99,27 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 
             # if over-run in positive or negative, set to max or min as appropriate
             current_angle = check_angle(current_angle)
-
-
             servo.duty_cycle = angle_to_duty(current_angle)
 
     current_angle = check_angle(current_angle)
     print('')
     return current_angle, break_out
 
+def pause(s):
+    t = time.monotonic()
+    limit_switch.update()
+    direction_switch.update()
+
+    direction_switch_current = direction_switch.value
+
+    print(f'pausing for {s} seconds')
+    while time.monotonic() - t < s:
+        limit_switch.update()
+        direction_switch.update()
+
+        if direction_switch.value != direction_switch_current:
+            print('pausing canceled - breaking out')
+            break
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -159,12 +172,15 @@ while True:
             print('**********attack!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_HIGH)
             for i in attack_program:
-                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                           dest_angle=i[0],
-                                                           attack=True,
-                                                           speed=i[1])
-                if break_out:
-                    break
+                if i[3]:
+                    pause(i[3])
+                else:
+                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                               dest_angle=i[0],
+                                                               attack=True,
+                                                               speed=i[1])
+                    if break_out:
+                        break
 
     if not limit_switch.value and direction_switch.value:
         if current_angle <= HOME_LOW:
@@ -173,9 +189,12 @@ while True:
             print('**********retreat!**********')
             # current_angle = rotate_to_angle(current_angle, HOME_LOW)
             for i in retreat_program:
-                current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
-                if break_out:
-                    break
+                if i[3]:
+                    pause(i[3])
+                else:
+                    current_angle, break_out = rotate_to_angle(current_angle, i[0], False, i[1])
+                    if break_out:
+                        break
 
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
