@@ -131,7 +131,7 @@ go_to_angle(HOME_LOW-.5)
 
 l = [50, 65, 70, 75, 80, 90, 100]
 
-for in in l:
+for i in in l:
     print(f'angle: {i}')
     go_to_angle(i)'
     time.sleep(1.5)
