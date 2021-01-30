@@ -219,7 +219,7 @@ attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
 retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
-TIMEOUT = 5
+TIMEOUT = 10
 while True:
     heart_beat(3)
     limit_switch.update()
