@@ -231,6 +231,9 @@ while True:
     if direction_switch.value == True and limit_switch.value == True:
         if time.monotonic() - off_timer >= TIMEOUT:
             relay_pin.value = True
+    else:
+        relay_pin = False
+        off_timer = time.monotonic()
 
     if direction_switch.value == False:
         # reset current angle to max/min
