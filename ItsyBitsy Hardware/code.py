@@ -152,22 +152,6 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
             break_out = True
             breakout_msg = 'bottom limit siwtch hit'
 
-        # if direction == -1 and limit_switch.value:
-        #     break_out = True
-        #     breakout_msg = 'bottom endstop hit'
-        #
-        # if direction == 1 and direction_switch.value:
-        #     breakout = True
-        #     breakout_msg = 'top endstop hit'
-        #
-        # # direction changed by user
-        # if attack == True and direction_switch.value == True:
-        #     breakout = True
-        #     breakout_msg = 'direction switched while attacking'
-        #
-        # if attack == False and direction_switch.value == False:
-        #     breakout = True
-        #     breakout_msg = 'direction switched while retreating'
 
         if break_out:
             print(f'{breakout_msg}')
