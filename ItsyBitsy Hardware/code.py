@@ -230,6 +230,7 @@ while True:
             current_angle = HOME_HIGH
         else:
             print('**********attack!**********')
+            print('set shutdown to "False"')
             shtudown = False
 
             # for i in attack_program:
