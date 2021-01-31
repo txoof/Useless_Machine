@@ -225,7 +225,7 @@ while True:
             time.sleep(1)
             relay_pin.value = False
             # print('setting shutdown: True')
-            # shutdown = True
+            shutdown = True
     # else:
     #     shutdown_timer = time.monotonic()
 
