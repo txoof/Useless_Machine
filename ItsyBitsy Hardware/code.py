@@ -212,41 +212,38 @@ shutdown = False
 
 while True:
     if heart_beat(3):
-        print(f'shutdown timer: {time.monotonic() - shutdown_timer - TIMEOUT}')
-        print(f'shtudown: {shutdown}')
+        print(f'time to shutdown: {time.monotonic() - shutdown_timer - TIMEOUT}')
         pass
 
     limit_switch.update()
     direction_switch.update()
 
+    # check if everything is parked and ready to be shutdown
     if limit_switch.value == True and direction_switch.value == True:
         if time.monotonic() - shutdown_timer >= TIMEOUT and shutdown == False:
             print('sending shutdown to relay')
+            # send 3v pulse to relay transistor
             relay_pin.value = True
             time.sleep(1)
             relay_pin.value = False
-            # print('setting shutdown: True')
+            print('setting shutdown: True')
             shutdown = True
-    # else:
-    #     shutdown_timer = time.monotonic()
 
 
     # attack branch
     if direction_switch.value == False:
-
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
             print('**********attack!**********')
-
-
-
             # for i in attack_program:
             attack_index = find_index(current_angle=current_angle,
                                       program=attack_program, attack=True)
+            # grab just the most appropriate slice of the program
             attack_slice = attack_program[attack_index:]
 
+            # run the slice of the program
             for i in attack_slice:
                 if i[2]:
                     break_out = pause(i[2])
@@ -259,6 +256,7 @@ while True:
                     print('breaking out of attack for loop')
                     break
 
+    # retreat branch
     if limit_switch.value == False and direction_switch.value == True:
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
