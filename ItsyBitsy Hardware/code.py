@@ -221,22 +221,23 @@ while True:
             time.sleep(1)
             relay_pin.value = False
             shutdown = True
-    else:
-        shutdown_timer = time.monotonic()
+    # else:
+    #     shutdown_timer = time.monotonic()
 
 
     # attack branch
     if direction_switch.value == False:
+        print('set shutdown to "False"')
+        print('resetting shutdown_timer clock')
+        shutdown_timer = time.monotonic()
+        shtudown = False
 
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
             print('**********attack!**********')
-            print('set shutdown to "False"')
-            print('resetting shutdown_timer clock')
-            shutdown_timer = time.monotonic()
-            shtudown = False
+
 
 
             # for i in attack_program:
