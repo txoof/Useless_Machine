@@ -218,8 +218,7 @@ while True:
             time.sleep(1)
             relay_pin.value = False
             shutdown = True
-        else:
-            print('skipping shutdown')
+    
 
     # attack branch
     if direction_switch.value == False:
