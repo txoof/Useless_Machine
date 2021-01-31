@@ -218,6 +218,8 @@ while True:
             time.sleep(1)
             relay_pin.value = False
             shutdown = True
+        else:
+            print('skipping shutdown')
     else:
         print('resetting timeout clock')
         timeout = time.monotonic()
