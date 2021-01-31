@@ -224,12 +224,13 @@ while True:
 
     # attack branch
     if direction_switch.value == False:
-        shtudown = False
+
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
         else:
             print('**********attack!**********')
+            shtudown = False
 
             # for i in attack_program:
             attack_index = find_index(current_angle=current_angle,
