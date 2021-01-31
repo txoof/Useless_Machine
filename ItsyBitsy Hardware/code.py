@@ -220,9 +220,6 @@ while True:
             shutdown = True
         else:
             print('skipping shutdown')
-    else:
-        print('resetting timeout clock')
-        timeout = time.monotonic()
 
     # attack branch
     if direction_switch.value == False:
@@ -233,7 +230,10 @@ while True:
         else:
             print('**********attack!**********')
             print('set shutdown to "False"')
+            print('resetting timeout clock')
+            timeout = time.monotonic()
             shtudown = False
+
 
             # for i in attack_program:
             attack_index = find_index(current_angle=current_angle,
