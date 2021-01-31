@@ -264,7 +264,7 @@ while True:
         print('resetting shutdown timer')
         shutdown_timer = time.monotonic()
         shutdown = False
-                
+
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
