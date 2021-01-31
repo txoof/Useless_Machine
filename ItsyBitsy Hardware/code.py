@@ -232,6 +232,9 @@ while True:
 
     # attack branch
     if direction_switch.value == False:
+        print('resetting shutdown timer')
+        shutdown_timer = time.monotonic()
+        shutdown = False
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
@@ -258,6 +261,10 @@ while True:
 
     # retreat branch
     if limit_switch.value == False and direction_switch.value == True:
+        print('resetting shutdown timer')
+        shutdown_timer = time.monotonic()
+        shutdown = False
+                
         if current_angle <= HOME_LOW:
             current_angle = HOME_LOW
         else:
