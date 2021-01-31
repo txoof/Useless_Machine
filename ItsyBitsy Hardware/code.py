@@ -13,9 +13,11 @@ DIRECTION_SWITCH_PHY = board.D7
 # Servo pin PWM
 SERVO_PWM_PHY = board.D10
 
+RELAY_OFF_PHY = board.D13
+
 
 # timeout wait for switching off (seconds)
-TIMEOUT = 5
+TIMEOUT = 20
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -200,11 +202,18 @@ attack_program = peek_a_boo
 retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 timer = time.monotonic()
+timeout = time.monotonic()
 
 while True:
     heart_beat(3)
     limit_switch.update()
     direction_switch.update()
+
+    if limit_switch.value == True and direction_switch.value == True:
+        print('consider shutting down')
+    else:
+        print('resetting timeout clock')
+        timeout = time.monotonic()
 
     # attack branch
     if direction_switch.value == False:
