@@ -16,7 +16,7 @@ SERVO_PWM_PHY = board.D10
 RELAY_OFF_PHY = board.D13
 
 
-# timeout wait for switching off (seconds)
+# shutdown_timer wait for switching off (seconds)
 TIMEOUT = 20
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
@@ -166,6 +166,7 @@ def heart_beat(t=10):
     if time.monotonic() - timer >= t:
         timer = time.monotonic()
         print(f'tick: {timer}')
+        print(f'shutdown timer: {time.monotonic() - shutdown_timer}')
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
@@ -204,7 +205,7 @@ attack_program = peek_a_boo
 retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 timer = time.monotonic()
-timeout = time.monotonic()
+shutdown_timer = time.monotonic()
 shutdown = False
 
 while True:
@@ -213,12 +214,14 @@ while True:
     direction_switch.update()
 
     if limit_switch.value == True and direction_switch.value == True:
-        if time.monotonic() - timeout >= TIMEOUT and shutdown == False:
+        if time.monotonic() - shutdown_timer >= TIMEOUT and shutdown == False:
             print('sending shutdown to relay')
             relay_pin.value = True
             time.sleep(1)
             relay_pin.value = False
             shutdown = True
+    else:
+        shutdown_timer = time.monotonic()
 
 
     # attack branch
@@ -230,8 +233,8 @@ while True:
         else:
             print('**********attack!**********')
             print('set shutdown to "False"')
-            print('resetting timeout clock')
-            timeout = time.monotonic()
+            print('resetting shutdown_timer clock')
+            shutdown_timer = time.monotonic()
             shtudown = False
 
 
