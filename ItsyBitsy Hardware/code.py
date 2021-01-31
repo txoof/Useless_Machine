@@ -231,6 +231,7 @@ while True:
         print('resetting shutdown_timer clock')
         shutdown_timer = time.monotonic()
         shtudown = False
+        print(f'shutdown == {shtudown}')
 
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
