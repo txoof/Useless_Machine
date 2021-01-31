@@ -203,6 +203,7 @@ retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 timer = time.monotonic()
 timeout = time.monotonic()
+shtudown = False
 
 while True:
     heart_beat(3)
@@ -210,14 +211,16 @@ while True:
     direction_switch.update()
 
     if limit_switch.value == True and direction_switch.value == True:
-        if time.monotonic() - timeout >= TIMEOUT:
-            print('shutting down')
+        if time.monotonic() - timeout >= TIMEOUT and shutdown == False:
+            print('sending shutdown to relay')
+            shutdown = True
     else:
         print('resetting timeout clock')
         timeout = time.monotonic()
 
     # attack branch
     if direction_switch.value == False:
+        shtudown = False
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
             current_angle = HOME_HIGH
