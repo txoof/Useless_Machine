@@ -288,7 +288,6 @@ while True:
                     print('breaking out of retreat for loop')
                     break
 
-
     if  limit_switch.value != limit_last:
         limit_last = limit_switch.value
         print(f'limit: {limit_switch.value}')
