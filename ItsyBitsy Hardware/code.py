@@ -203,7 +203,7 @@ retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 timer = time.monotonic()
 timeout = time.monotonic()
-shtudown = False
+shutdown = False
 
 while True:
     heart_beat(3)
