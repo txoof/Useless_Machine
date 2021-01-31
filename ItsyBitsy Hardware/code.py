@@ -214,6 +214,7 @@ while True:
     if heart_beat(3):
         print(f'shutdown timer: {time.monotonic() - shutdown_timer - TIMEOUT}')
         print(f'shtudown: {shutdown}')
+        pass
 
     limit_switch.update()
     direction_switch.update()
@@ -232,11 +233,6 @@ while True:
 
     # attack branch
     if direction_switch.value == False:
-        print('set shutdown to "False"')
-        print('resetting shutdown_timer clock')
-        shutdown_timer = time.monotonic()
-        shtudown = False
-        print(f'shutdown == {shtudown}')
 
         # reset current angle to max/min
         if current_angle >= HOME_HIGH:
