@@ -181,7 +181,8 @@ servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
-
+relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
+relay_pin.direection = digitalio.Direction.OUTPUT
 
 
 # Startup
@@ -213,6 +214,9 @@ while True:
     if limit_switch.value == True and direction_switch.value == True:
         if time.monotonic() - timeout >= TIMEOUT and shutdown == False:
             print('sending shutdown to relay')
+            relay_pin.value = True
+            time.sleep(1)
+            relay_pin.value = False
             shutdown = True
     else:
         print('resetting timeout clock')
