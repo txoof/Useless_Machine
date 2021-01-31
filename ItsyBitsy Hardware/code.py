@@ -210,6 +210,8 @@ shutdown_timer = time.monotonic()
 shutdown = False
 
 while True:
+    global shutdown
+    global shutdown_timer
     heart_beat(3)
     limit_switch.update()
     direction_switch.update()
