@@ -182,7 +182,7 @@ limit_last = limit_switch.update()
 direction_last = direction_switch.update()
 
 relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
-relay_pin.direection = digitalio.Direction.OUTPUT
+relay_pin.direction = digitalio.Direction.OUTPUT
 
 
 # Startup
