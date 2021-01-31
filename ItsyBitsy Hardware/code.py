@@ -166,7 +166,7 @@ def heart_beat(t=10):
     if time.monotonic() - timer >= t:
         time_last = timer
         timer = time.monotonic()
-        print(f'tick: {time_last  - timer}')
+        print(f'tick: {time_last - timer}')
 
 # pin objects
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
