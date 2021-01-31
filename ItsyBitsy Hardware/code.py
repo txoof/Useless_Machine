@@ -210,7 +210,8 @@ while True:
     direction_switch.update()
 
     if limit_switch.value == True and direction_switch.value == True:
-        print('consider shutting down')
+        if time.monotonic() - timeout >= TIMEOUT:
+            print('shutting down')
     else:
         print('resetting timeout clock')
         timeout = time.monotonic()
