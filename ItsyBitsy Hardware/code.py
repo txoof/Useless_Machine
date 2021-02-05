@@ -72,6 +72,7 @@ def shutdown_check(limit_switch, direction_switch):
         if limit_switch.value and direction_switch.value:
             shutdown_now = True
         else:
+            print('resetting shutdown_timer')
             shutdown_now = False
             shtudown_timer = time.monotonic()
     else:
