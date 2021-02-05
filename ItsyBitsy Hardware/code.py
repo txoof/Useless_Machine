@@ -62,11 +62,14 @@ in_shutdown = False
 
 def check_shutdown():
     global shutdown_timer
-
+    timeout = False
     if time.monotonic() - shutdown_timer >= TIMEOUT:
-        return True
-    else:
         return False
+
+    limit_switch.update()
+    direction_switch.update()
+    if limit_switch.value and direction_switch.value:
+        return True
 
 while True:
     if heart_beat(3):
@@ -76,7 +79,9 @@ while True:
     direction_switch.update()
 
     if not in_shutdown:
-        if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
+        if check_shutdown():
+            print('sending shutdown on pin 12')
+
 
 
     if limit_switch.value != limit_switch_last:
