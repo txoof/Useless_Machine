@@ -61,6 +61,9 @@ direction_switch = Debouncer(direction_switch_pin)
 # relay power-off pin
 relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
+
+# servo pwm OUTPUT
+servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 ##### /PIN OBJECTS #####
 
 def map_range(a, b, s):
