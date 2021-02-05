@@ -62,7 +62,6 @@ in_shutdown = False
 
 def check_shutdown():
     global shutdown_timer
-    timeout = False
     if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
         return False
 
