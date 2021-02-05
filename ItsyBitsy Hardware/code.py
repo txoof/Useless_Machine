@@ -97,7 +97,7 @@ while True:
         is_shutdown = False
         shutdown_timer = time.monotonic()
 
-    if not is_parked:
+    if is_parked == False:
         shtudown_timer = time.monotonic()
 
     is_parked = True if limit_switch.value and direction_switch.value else False
