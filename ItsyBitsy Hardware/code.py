@@ -57,30 +57,14 @@ timer = time.monotonic()
 
 # shutdown timer
 shutdown_timer = time.monotonic()
-in_shutdown = False
 ##### /GLOBALS #####
-
-def check_shutdown():
-    global shutdown_timer
-    if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
-        return False
-
-    limit_switch.update()
-    direction_switch.update()
-    if limit_switch.value and direction_switch.value:
-        return True
 
 while True:
     if heart_beat(3):
-        print(f'time to shutdown: {time.monotonic() - shutdown_timer -SHUTDOWN_TIMEOUT}')
+        print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
         pass
     limit_switch.update()
     direction_switch.update()
-
-    if not in_shutdown:
-        if check_shutdown():
-            print('sending shutdown on pin 12')
-            in_shutdown = True
 
 
 
