@@ -181,7 +181,9 @@ while True:
     is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
 
     if is_parked == False:
+        # reset the shutdown timer
         shutdown_timer = time.monotonic()
+        # reset the timout and shutdown bools
         is_timedout = False
         is_shutdown = False
 
@@ -191,6 +193,12 @@ while True:
         time.sleep(1)
         relay_pin.value = False
         is_shutdown = True
+
+    if direction_switch.value == False:
+        print('**********ATTACK!**********')
+
+    if direction_switch.value == True and limit_switch.value == False:
+        print('**********RETREAT!**********')
 
 
     if limit_switch.value != limit_switch_last:
