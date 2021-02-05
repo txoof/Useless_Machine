@@ -92,17 +92,13 @@ while True:
     limit_switch.update()
     direction_switch.update()
 
-
-    if direction_switch.value == False:
-        is_shutdown = False
-        shutdown_timer = time.monotonic()
+    is_parked = True if limit_switch.value and direction_switch.value else False
+    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
 
     if is_parked == False:
         shutdown_timer = time.monotonic()
         is_timedout = False
-
-    is_parked = True if limit_switch.value and direction_switch.value else False
-    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
+        is_shutdown = False
 
     if is_parked and is_timedout and not is_shutdown:
         print('sending shutdown pulse')
