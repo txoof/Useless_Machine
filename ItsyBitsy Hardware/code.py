@@ -45,7 +45,7 @@ direction_switch_pin.direction = digitalio.Direction.INPUT
 direction_switch_pin.pull = digitalio.Pull.DOWN
 direction_switch = Debouncer(direction_switch_pin)
 
-# relay power-off pin 
+# relay power-off pin
 relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 ##### /PIN OBJECTS #####
@@ -96,6 +96,10 @@ while True:
     else:
         if shutdown_check(limit_switch, direction_switch):
             print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
+            relay_pin.value = True
+            time.sleep(1)
+            relay_pin.value = False
+
             is_shutdown = True
 
 
