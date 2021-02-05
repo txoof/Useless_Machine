@@ -61,9 +61,9 @@ is_shutdown = False
 ##### /GLOBALS #####
 
 def shutdown_check(limit_switch, direction_switch):
-    global timer
+    global shutdown_timer
     shutdown_now = False
-    if time.monotonic() - timer >= SHUTDOWN_TIMEOUT:
+    if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
         # check if limit and direction switch are both in the home (true) position
         if limit_switch.value and direction_switch.value:
             shutdown_now = True
