@@ -89,7 +89,7 @@ while True:
     if is_shutdown:
         pass
     else:
-        if shutdown_check(limit_switch, direction_switch):
+        if shutdown_now(limit_switch, direction_switch):
             print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
             is_shutdown = True
 
