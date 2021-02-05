@@ -63,6 +63,12 @@ relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 ##### /PIN OBJECTS #####
 
+def map_range(a, b, s):
+    '''Map range (min a, max a) to range (min b, max b) for value s
+    '''
+    (a1, a2), (b1, b2) = a, b
+    return b1 + ((s - a1) * (b2 - b1) / (a2 - a1))
+
 def angle_to_duty(angle, frequency=50):
     '''convert angle between ANGLE_MIN-ANGLE_MAX to a position between DUTY_MIN-DUTY_MAX'''
     pulse_ms = map_range((ANGLE_MIN, ANGLE_MAX), (DUTY_MIN, DUTY_MAX), angle)
