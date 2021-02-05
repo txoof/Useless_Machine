@@ -72,7 +72,7 @@ def shutdown_check(limit_switch, direction_switch):
     else:
         shutdown_now = False
 
-    return shtudown_now
+    return shutdown_now
 
 while True:
     if heart_beat(3):
