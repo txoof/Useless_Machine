@@ -75,10 +75,12 @@ def shutdown_check(limit_switch, direction_switch):
 
 while True:
     if heart_beat(1):
-        print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+        if not is_shutdown:
+            print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
         pass
     limit_switch.update()
     direction_switch.update()
+
 
     if direction_switch.value == False:
         is_shutdown = False
