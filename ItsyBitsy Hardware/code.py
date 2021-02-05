@@ -10,7 +10,7 @@ from adafruit_debouncer import Debouncer
 # shutoff timeout (seconds)
 SHUTDOWN_TIMEOUT = 4
 
-# home positions for arm
+# endstop positions for arm
 HOME_LOW = 43
 HOME_HIGH = 168.5
 
