@@ -67,23 +67,8 @@ is_timedout = False
 ##### /GLOBALS #####
 
 
-# def shutdown_check(limit_switch, direction_switch):
-#     global shutdown_timer
-#     shutdown_now = False
-#     if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
-#         # check if limit and direction switch are both in the home (True) position
-#         if limit_switch.value and direction_switch.value:
-#             shutdown_now = True
-#         else:
-#             shutdown_now = False
-#             shtudown_timer = time.monotonic()
-#     else:
-#         shutdown_now = False
-#
-#     return shutdown_now
-
 while True:
-    if heart_beat(1):
+    if heart_beat(2.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
         print(f'parked: {is_parked}')
@@ -106,19 +91,6 @@ while True:
         time.sleep(1)
         relay_pin.value = False
         is_shutdown = True
-
-    # if is_shutdown:
-    #     pass
-    # else:
-    #     if shutdown_check(limit_switch, direction_switch):
-    #         print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
-    #         relay_pin.value = True
-    #         time.sleep(1)
-    #         relay_pin.value = False
-    #         is_shutdown = True
-    #     else:
-    #         shutdown_timer = time.monotonic()
-
 
 
     if limit_switch.value != limit_switch_last:
