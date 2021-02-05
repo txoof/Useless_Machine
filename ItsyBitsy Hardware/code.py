@@ -106,6 +106,8 @@ while True:
         time.sleep(1)
         relay_pin.value = False
         is_shutdown = True
+    else:
+        shtudown_timer = time.monotonic()
 
     # if is_shutdown:
     #     pass
