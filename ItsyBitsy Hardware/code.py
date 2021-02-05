@@ -81,6 +81,7 @@ while True:
     if not in_shutdown:
         if check_shutdown():
             print('sending shutdown on pin 12')
+            in_shutdown = True
 
 
 
