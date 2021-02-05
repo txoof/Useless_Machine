@@ -41,6 +41,6 @@ while True:
     if limit_switch.value != limit_switch_last:
         print(f'limit switch state: {limit_switch.value}')
         limit_switch_last = limit_switch.value
-    if direction_switch.value != limit_switch_last:
+    if direction_switch.value != direction_switch_last:
         print(f'direction switch state: {direction_switch.value}')
         direction_switch_last = direction_switch.value
