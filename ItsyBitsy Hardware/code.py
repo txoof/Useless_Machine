@@ -20,7 +20,7 @@ RELAY_OFF_PHY = board.D13
 ##### PIN OBJECTS  #####
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
 limit_switch_pin.direction = digitalio.Direction.INPUT
-limit_switch_pin.pull = .Pull.DOWN
+limit_switch_pin.pull = digitalio.Pull.DOWN
 limit_switch = Debouncer(limit_switch_pin)
 
 direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
