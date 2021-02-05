@@ -26,7 +26,7 @@ limit_switch = Debouncer(limit_switch_pin)
 direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
 direction_switch_pin.direction = digitalio.Direction.INPUT
 direction_switch_pin.pull = digitalio.Pull.DOWN
-direction_switch = Debounder(direction_switch_pin)
+direction_switch = Debouncer(direction_switch_pin)
 ##### /PIN OBJECTS #####
 
 ##### GLOBALS  #####
