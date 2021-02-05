@@ -91,9 +91,9 @@ while True:
     direction_switch.update()
 
 
-    # if direction_switch.value == False:
-    #     is_shutdown = False
-    #     shutdown_timer = time.monotonic()
+    if direction_switch.value == False:
+        is_shutdown = False
+        shutdown_timer = time.monotonic()
 
     is_parked = True if limit_switch.value and direction_switch.value else False
     is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
