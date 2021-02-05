@@ -1,5 +1,5 @@
 import board
-import digialio
+import digitalio
 
 from adafruit_debouncer import Debouncer
 
