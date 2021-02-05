@@ -8,7 +8,7 @@ from adafruit_debouncer import Debouncer
 
 ##### CONSTANTS  #####
 # shutoff timeout (seconds)
-SHUTDOWN_TIMEOUT
+SHUTDOWN_TIMEOUT = 4
 
 # bottom limit switch
 LIMIT_SWITCH_PHY = board.D9
@@ -57,13 +57,27 @@ timer = time.monotonic()
 
 # shutdown timer
 shutdown_timer = time.monotonic()
+in_shutdown = False
 ##### /GLOBALS #####
+
+def check_shutdown():
+    global shutdown_timer
+
+    if time.monotonic() - shutdown_timer >= TIMEOUT:
+        return True
+    else:
+        return False
 
 while True:
     if heart_beat(3):
+        print(f'time to shutdown: {time.monotonic() - shutdown_timer -SHUTDOWN_TIMEOUT}')
         pass
     limit_switch.update()
     direction_switch.update()
+
+    if not in_shutdown:
+        if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
+
 
     if limit_switch.value != limit_switch_last:
         print(f'limit switch state: {limit_switch.value}')
