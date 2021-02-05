@@ -57,7 +57,22 @@ timer = time.monotonic()
 
 # shutdown timer
 shutdown_timer = time.monotonic()
+is_shutdown = False
 ##### /GLOBALS #####
+
+def shutdown_check(limit_switch, direction_switch):
+    global timer
+    shutdown_now = False
+    if time.monotonic() - timer >= SHUTDOWN_TIMEOUT:
+        # check if limit and direction switch are both in the home (true) position
+        if limit_switch.value and direction_switch.value:
+            shutdown_now = True
+        else:
+            shutdown_now = False
+    else:
+        shutdown_now = False
+
+    return shtudown_now
 
 while True:
     if heart_beat(3):
@@ -65,6 +80,18 @@ while True:
         pass
     limit_switch.update()
     direction_switch.update()
+
+    if direction_switch.value == True:
+        is_shutdown = False
+        timer = time.monotonic()
+
+
+    if is_shutdown:
+        pass
+    else:
+        if shutdown_check(limit_switch, direction_switch):
+            print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
+            is_shutdown = True
 
 
 
