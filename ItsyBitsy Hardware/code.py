@@ -14,7 +14,7 @@ DIRECTION_SWITCH_PHY = board.D7
 SERVO_PWM_PHY = board.D10
 
 # send +3v pulse to switch off relay
-RELAY_OFF_PHY = board.D13
+RELAY_OFF_PHY = board.D12
 ##### /CONSTANTS #####
 
 ##### PIN OBJECTS  #####
