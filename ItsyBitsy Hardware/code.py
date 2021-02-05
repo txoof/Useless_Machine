@@ -1,5 +1,7 @@
 import board
 import digitalio
+import time
+
 
 from adafruit_debouncer import Debouncer
 
@@ -30,8 +32,13 @@ direction_switch = Debouncer(direction_switch_pin)
 ##### /PIN OBJECTS #####
 
 ##### GLOBALS  #####
+# last state of limit switch
 limit_switch_last = None
+# last state of direction switch
 direction_switch_last = None
+
+# global timer
+timer = time.monotonic()
 ##### /GLOBALS #####
 
 while True:
