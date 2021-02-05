@@ -105,7 +105,7 @@ is_parked = True
 is_timedout = False
 ##### /GLOBALS #####
 
-go_to_angle(90)
+go_to_angle(130)
 
 
 while True:
