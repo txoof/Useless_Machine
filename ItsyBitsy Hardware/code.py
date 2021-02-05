@@ -95,6 +95,8 @@ is_parked = True
 is_timedout = False
 ##### /GLOBALS #####
 
+go_to_angle(45)
+
 
 while True:
     if heart_beat(2.5):
