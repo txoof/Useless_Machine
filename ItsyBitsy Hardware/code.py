@@ -7,6 +7,9 @@ from adafruit_debouncer import Debouncer
 
 
 ##### CONSTANTS  #####
+# shutoff timeout (seconds)
+SHUTDOWN_TIMEOUT
+
 # bottom limit switch
 LIMIT_SWITCH_PHY = board.D9
 # top direction switch
@@ -51,6 +54,9 @@ direction_switch_last = None
 
 # global timer
 timer = time.monotonic()
+
+# shutdown timer
+shutdown_timer = time.monotonic()
 ##### /GLOBALS #####
 
 while True:
