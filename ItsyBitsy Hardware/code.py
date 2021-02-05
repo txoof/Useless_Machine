@@ -99,6 +99,7 @@ while True:
 
     if is_parked == False:
         shtudown_timer = time.monotonic()
+        print(time.monotonic()-shutdown_timer)
         is_timedout = False
 
     is_parked = True if limit_switch.value and direction_switch.value else False
