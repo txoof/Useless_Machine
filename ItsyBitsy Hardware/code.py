@@ -81,9 +81,9 @@ while True:
     limit_switch.update()
     direction_switch.update()
 
-    if direction_switch.value == True:
+    if direction_switch.value == False:
         is_shutdown = False
-        timer = time.monotonic()
+        shutdown_timer = time.monotonic()
 
 
     if is_shutdown:
