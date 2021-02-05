@@ -98,7 +98,7 @@ while True:
         shutdown_timer = time.monotonic()
 
     if is_parked == False:
-        shtudown_timer = time.monotonic()
+        shutdown_timer = time.monotonic()
         print(time.monotonic()-shutdown_timer)
         is_timedout = False
 
