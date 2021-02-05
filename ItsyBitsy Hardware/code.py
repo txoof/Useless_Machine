@@ -19,6 +19,18 @@ SERVO_PWM_PHY = board.D10
 RELAY_OFF_PHY = board.D12
 ##### /CONSTANTS #####
 
+def heart_beat(t=10):
+    global timer
+
+    if time.monotonic() - timer >= t:
+        timer = time.monotonic()
+        print(f'tick: {timer}')
+        return True
+    else:
+        return False
+
+
+
 ##### PIN OBJECTS  #####
 limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
 limit_switch_pin.direction = digitalio.Direction.INPUT
@@ -42,6 +54,8 @@ timer = time.monotonic()
 ##### /GLOBALS #####
 
 while True:
+    if heart_beat(3):
+        pass
     limit_switch.update()
     direction_switch.update()
 
