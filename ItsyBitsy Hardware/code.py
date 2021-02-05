@@ -10,6 +10,10 @@ from adafruit_debouncer import Debouncer
 # shutoff timeout (seconds)
 SHUTDOWN_TIMEOUT = 4
 
+# home positions for arm
+HOME_LOW = 43
+HOME_HIGH = 168.5
+
 # bottom limit switch
 LIMIT_SWITCH_PHY = board.D9
 # top direction switch
