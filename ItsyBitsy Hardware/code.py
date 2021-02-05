@@ -204,7 +204,7 @@ peek_a_boo = [(62, .3, None), (None, None, 1),
 # attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
 attack_program = peek_a_boo
 # attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
+retreat_program = [(150, .2, None), (100, 0.7, 0), (55, 0.7, None), (HOME_LOW, 0.01, None)]
 
 timer = time.monotonic()
 shutdown_timer = time.monotonic()
