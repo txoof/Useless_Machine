@@ -62,23 +62,16 @@ timer = time.monotonic()
 # shutdown timer
 shutdown_timer = time.monotonic()
 is_shutdown = False
+is_parked = True
+is_timedout = False
 ##### /GLOBALS #####
 
-def shutdown_check(limit_switch, direction_switch):
-    shutdown_now = True
-
-    if not limit_switch.value or not direction_switch.value:
-        shutdown_now = False
-    elif time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
-        shutdown_now = true
-
-    return shutdown_now
 
 # def shutdown_check(limit_switch, direction_switch):
 #     global shutdown_timer
 #     shutdown_now = False
 #     if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
-#         # check if limit and direction switch are both in the home (true) position
+#         # check if limit and direction switch are both in the home (True) position
 #         if limit_switch.value and direction_switch.value:
 #             shutdown_now = True
 #         else:
@@ -98,22 +91,31 @@ while True:
     direction_switch.update()
 
 
-    if direction_switch.value == False:
-        is_shutdown = False
-        shutdown_timer = time.monotonic()
+    # if direction_switch.value == False:
+    #     is_shutdown = False
+    #     shutdown_timer = time.monotonic()
 
+    is_parked = True if limit_switch.value and direction_switch.value else False
+    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
 
-    if is_shutdown:
-        pass
-    else:
-        if shutdown_check(limit_switch, direction_switch):
-            print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
-            relay_pin.value = True
-            time.sleep(1)
-            relay_pin.value = False
-            is_shutdown = True
-        else:
-            shutdown_timer = time.monotonic()
+    if is_parked and is_timedout and not is_shutdown:
+        print('sending shutdown pulse')
+        relay_pin.value = True
+        time.sleep(1)
+        relay_pin.value = False
+        is_shutdown = True
+
+    # if is_shutdown:
+    #     pass
+    # else:
+    #     if shutdown_check(limit_switch, direction_switch):
+    #         print(f'sending shutdown pulse on pin {RELAY_OFF_PHY}')
+    #         relay_pin.value = True
+    #         time.sleep(1)
+    #         relay_pin.value = False
+    #         is_shutdown = True
+    #     else:
+    #         shutdown_timer = time.monotonic()
 
 
 
