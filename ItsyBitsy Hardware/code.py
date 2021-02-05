@@ -71,8 +71,6 @@ while True:
     if heart_beat(2.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
-        print(f'parked: {is_parked}')
-        print(f'timed out: {is_timedout}')
         pass
     limit_switch.update()
     direction_switch.update()
