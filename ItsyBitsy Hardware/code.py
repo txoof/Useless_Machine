@@ -1,6 +1,7 @@
 import board
 import digitalio
 import time
+import pulseio
 
 
 from adafruit_debouncer import Debouncer
