@@ -72,7 +72,7 @@ def shutdown_check(limit_switch, direction_switch):
     elif time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT:
         shutdown_now = true
 
-    return shtudown_now
+    return shutdown_now
 
 # def shutdown_check(limit_switch, direction_switch):
 #     global shutdown_timer
