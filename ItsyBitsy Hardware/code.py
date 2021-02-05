@@ -20,6 +20,15 @@ SERVO_PWM_PHY = board.D10
 
 # send +3v pulse to switch off relay
 RELAY_OFF_PHY = board.D12
+
+# min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
+DUTY_MIN = 0.5 # 0 degrees
+DUTY_MAX = 2.5 # 180 degrees
+
+# max, min angle
+ANGLE_MIN = 0
+ANGLE_MAX = 180
+
 ##### /CONSTANTS #####
 
 def heart_beat(t=10):
@@ -50,6 +59,19 @@ relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 ##### /PIN OBJECTS #####
 
+def angle_to_duty(angle, frequency=50):
+    '''convert angle between ANGLE_MIN-ANGLE_MAX to a position between DUTY_MIN-DUTY_MAX'''
+    pulse_ms = map_range((ANGLE_MIN, ANGLE_MAX), (DUTY_MIN, DUTY_MAX), angle)
+
+    period_ms = 1.0 / frequency * 1000.0
+    return int(pulse_ms / (period_ms / 65535.0))
+
+def go_to_angle(dest_angle):
+    '''move servo directly to angle'''
+    print(f'moving to: {dest_angle}')
+    servo.duty_cycle = angle_to_duty(dest_angle)
+
+
 ##### GLOBALS  #####
 # last state of limit switch
 limit_switch_last = None
@@ -61,8 +83,11 @@ timer = time.monotonic()
 
 # shutdown timer
 shutdown_timer = time.monotonic()
+# shutdown state
 is_shutdown = False
+# arm is parked, switches shutoff
 is_parked = True
+# timeout time expired
 is_timedout = False
 ##### /GLOBALS #####
 
