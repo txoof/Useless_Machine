@@ -66,7 +66,7 @@ while True:
     # color_chase(BLUE, 0.1)
     # color_chase(PURPLE, 0.1)
 
-    rainbow_cycle(.01)  # Increase the number to slow down the rainbow
+    rainbow_cycle(.03)  # Increase the number to slow down the rainbow
 # import board
 # import digitalio
 # import time
