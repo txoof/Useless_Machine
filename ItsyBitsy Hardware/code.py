@@ -223,7 +223,7 @@ peek_a_boo = [(62, .3, None), (None, None, 1),
 
 attack_standard = [(90, .8, None),
                    (110, .7, None),
-                   (150, .3, None),
+                   (150, .7, None),
                    (HOME_HIGH, .05, None)]
 
 retreat_standard = [(150, .9, None),
