@@ -325,6 +325,8 @@ while True:
         print('**********RETREAT!**********')
         pixels.fill(BLUE)
         pixels.show()
+        attack_index = find_index(current_angle=current_angle,
+                                  program=attack_program, attack=True)
 
         retreat_index = find_index(current_angle=current_angle,
                                    program=retreat_program, attack=False)
