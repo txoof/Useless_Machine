@@ -215,9 +215,9 @@ is_timedout = False
 
 # Attack routines
 peek_a_boo = [(62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (HOME_LOW+2, .7, None), (None, None, .5),
               (62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (HOME_LOW+2, .7, None), (None, None, .5),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
