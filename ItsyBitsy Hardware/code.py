@@ -80,7 +80,8 @@ servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
 
 # NeoPixel pwm OUTPUT
-pixels = neopixel.NeoPixel(PIXEL_PWM_PHY, NUM_PIX, )
+pixels = neopixel.NeoPixel(PIXEL_PWM_PHY, NUM_PIX, brightness=PIX_BRIGHT_MAX,
+                           auto_write=False)
 ##### /PIN OBJECTS #####
 
 def map_range(a, b, s):
