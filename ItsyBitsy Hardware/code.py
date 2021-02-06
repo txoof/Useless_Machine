@@ -237,7 +237,8 @@ ret_standard = [(150, .6, None),
 ret_aggressive = [(150, .9, None),
                (70, .9, None),
                (50, .6, None),
-               (HOME_LOW, 0.5, None)]
+               (HOME_LOW, 0.5, None),
+               (None, None, 0.5)]
 
 
 
