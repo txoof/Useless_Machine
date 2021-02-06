@@ -33,6 +33,13 @@ PIXEL_PWM_PHY = board.A1
 NUM_PIX = 7
 PIX_BRIGHT_MAX = 1
 PIX_BRIGHT_MIN = 0.01
+RED = (255, 0, 0)
+YELLOW = (255, 150, 0)
+GREEN = (0, 255, 0)
+CYAN = (0, 255, 255)
+BLUE = (0, 0, 255)
+PURPLE = (180, 0, 255)
+ 
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
