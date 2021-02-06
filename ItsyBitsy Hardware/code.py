@@ -291,6 +291,9 @@ while True:
         # reset the timout and shutdown bools
         is_timedout = False
         is_shutdown = False
+    else:
+        pixels.fill(BLACK)
+        pixels.show()
 
     if is_parked and is_timedout and not is_shutdown:
         print('sending shutdown pulse')
