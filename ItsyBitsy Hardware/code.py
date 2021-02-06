@@ -232,7 +232,7 @@ retreat_standard = [(150, .9, None),
                     (50, .2, None),
                     (HOME_LOW, .05, None)]
 
-attack_program = attack_standard
+attack_program = peek_a_boo
 retreat_program = retreat_standard
 
 current_angle = HOME_LOW + 1
