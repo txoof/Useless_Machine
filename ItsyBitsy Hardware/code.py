@@ -145,6 +145,50 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     print('')
     return current_angle, break_out
 
+def pause(s):
+    '''pause for s seconds using monotonic timer (non blocking)
+    change in direction_switch will break out of pause
+    '''
+    t = time.monotonic()
+    limit_switch.update()
+    direction_switch.update()
+
+    direction_switch_current = direction_switch.value
+    break_out = False
+    breakout_msg = None
+
+    print(f'pausing for {s} seconds')
+    while time.monotonic() - t < s:
+        limit_switch.update()
+        direction_switch.update()
+
+        if direction_switch.value != direction_switch_current:
+            breakout_msg = 'user changed switch, pause canceled'
+            break_out = True
+
+        if break_out:
+            print(breakout_msg)
+            break
+
+    return break_out
+
+def find_index(current_angle, program, attack=True):
+    '''find the first tuple in the list closest to current_angle'''
+
+    # for attack
+    for i, val in enumerate(program):
+        try:
+            if attack:
+                if val[0] >= current_angle:
+                    break
+            else:
+                if val[0] <= current_angle:
+                    break
+        except TypeError:
+            next
+
+    return i
+
 
 
 ##### GLOBALS  #####
@@ -164,6 +208,28 @@ is_shutdown = False
 is_parked = True
 # timeout time expired
 is_timedout = False
+
+# Attack routines
+peek_a_boo = [(62, .3, None), (None, None, 1),
+              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (62, .3, None), (None, None, 1),
+              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (HOME_HIGH-10, .6, None),
+              (HOME_HIGH, .1, None)]
+
+attack_standard = [(90, .8, None),
+                   (110, .7, None),
+                   (150, .3, None),
+                   (HOME_HIGH, .05, None)]
+
+retreat_standard = [(150, .9, None),
+                    (70, .7, None),
+                    (60, .4, None)
+                    (50, .2, None)
+                    (HOME_LOW, .05, None)]
+
+attack_program = attack_standard
+retreat_program = retreat_standard
 
 current_angle = HOME_LOW + 1
 ##### /GLOBALS #####
@@ -200,8 +266,45 @@ while True:
     if direction_switch.value == False:
         print('**********ATTACK!**********')
 
+        attack_index = find_index(current_angle=current_angle,
+                                  program=attack_program, attack=True)
+        # grab just the most appropriate slice of the program
+        attack_slice = attack_program[attack_index:]
+
+        # run the slice of the program
+        for i in attack_slice:
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                           dest_angle=i[0],
+                                                           attack=True,
+                                                           speed=i[1])
+            if break_out:
+                print('breaking out of attack for loop')
+                break
+
+
     if direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
+
+        retreat_index = find_index(current_angle=current_angle,
+                                   program=retreat_program, attack=False)
+        retreat_slice = retreat_program[attack_index:]
+
+
+        for i in retreat_slice:
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                           dest_angle=i[0],
+                                                           attack=False,
+                                                           speed=i[1])
+
+            if break_out:
+                print('breaking out of retreat for loop')
+                break
 
 
     if limit_switch.value != limit_switch_last:
