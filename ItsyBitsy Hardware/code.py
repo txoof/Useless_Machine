@@ -243,7 +243,7 @@ ret_aggressive = [(150, .9, None),
 
 
 
-attack_program = att_peek_a_boo
+attack_program = att_standard
 retreat_program = ret_aggressive
 
 current_angle = HOME_LOW + 1
