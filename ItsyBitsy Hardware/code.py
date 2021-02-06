@@ -234,7 +234,7 @@ ret_standard = [(150, .6, None),
                 (50, .2, None),
                 (HOME_LOW, .05, None)]
 
-ret_agressive [(150, .9, None),
+ret_aggressive = [(150, .9, None),
                (70, .9, None),
                (50, .8, None),
                (HOME_LOW, 0.5)]
@@ -242,7 +242,7 @@ ret_agressive [(150, .9, None),
 
 
 attack_program = att_peek_a_boo
-retreat_program = ret_agressive
+retreat_program = ret_aggressive
 
 current_angle = HOME_LOW + 1
 ##### /GLOBALS #####
