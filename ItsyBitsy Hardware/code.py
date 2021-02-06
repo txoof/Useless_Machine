@@ -232,13 +232,14 @@ ret_standard = [(150, .6, None),
                 (70, .6, None),
                 (60, .4, None),
                 (50, .2, None),
-                (HOME_LOW, .05, None)]
+                (HOME_LOW, .05, None),
+                (None, None, 0.25)]
 
 ret_aggressive = [(150, .9, None),
                (70, .9, None),
                (50, .6, None),
                (HOME_LOW, 0.5, None),
-               (None, None, 0.5)] # all retreat programs need this at the end to ensure it stops
+               (None, None, 0.1)] # all retreat programs need this at the end to ensure it stops
 
 
 
