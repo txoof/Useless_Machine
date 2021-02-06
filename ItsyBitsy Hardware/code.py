@@ -214,26 +214,35 @@ is_parked = True
 is_timedout = False
 
 # Attack routines
-peek_a_boo = [(62, .3, None), (None, None, 1),
+## TODO:  move to external file
+att_peek_a_boo = [(62, .3, None), (None, None, 1),
               (HOME_LOW+2, .7, None), (None, None, .5),
               (62, .3, None), (None, None, 1),
               (HOME_LOW+2, .7, None), (None, None, .5),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
-attack_standard = [(90, .8, None),
+att_standard = [(90, .8, None),
                    (110, .7, None),
                    (150, .7, None),
                    (HOME_HIGH, .05, None)]
+att_array = [att_peek_a_boo, att_standard]
 
-retreat_standard = [(150, .9, None),
-                    (70, .7, None),
-                    (60, .4, None),
-                    (50, .2, None),
-                    (HOME_LOW, .05, None)]
+ret_standard = [(150, .6, None),
+                (70, .6, None),
+                (60, .4, None),
+                (50, .2, None),
+                (HOME_LOW, .05, None)]
 
-attack_program = peek_a_boo
-retreat_program = retreat_standard
+ret_agressive [(150, .9, None),
+               (70, .9, None),
+               (50, .8, None),
+               (HOME_LOW, 0.5)]
+
+
+
+attack_program = att_peek_a_boo
+retreat_program = ret_agressive
 
 current_angle = HOME_LOW + 1
 ##### /GLOBALS #####
