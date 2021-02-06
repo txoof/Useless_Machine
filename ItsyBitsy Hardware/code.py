@@ -164,10 +164,12 @@ is_shutdown = False
 is_parked = True
 # timeout time expired
 is_timedout = False
+
+current_angle = HOME_LOW + 1
 ##### /GLOBALS #####
 
-go_to_angle(HOME_LOW+1)
-
+# make sure the arm is parked to start
+go_to_angle(current_angle)
 
 while True:
     if heart_beat(2.5):
