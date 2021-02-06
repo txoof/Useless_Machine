@@ -323,7 +323,7 @@ while True:
 
     if direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
-        pixels.fill(blue)
+        pixels.fill(BLUE)
         pixels.show()
 
         retreat_index = find_index(current_angle=current_angle,
