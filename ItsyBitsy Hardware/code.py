@@ -39,7 +39,7 @@ GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 PURPLE = (180, 0, 255)
- 
+
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -300,7 +300,8 @@ while True:
 
     if direction_switch.value == False:
         print('**********ATTACK!**********')
-
+        pixels.fill(RED)
+        pixels.show()
         attack_index = find_index(current_angle=current_angle,
                                   program=attack_program, attack=True)
         # grab just the most appropriate slice of the program
@@ -322,6 +323,8 @@ while True:
 
     if direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
+        pixels.fill(blue)
+        pixels.show()
 
         retreat_index = find_index(current_angle=current_angle,
                                    program=retreat_program, attack=False)
