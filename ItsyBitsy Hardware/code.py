@@ -39,6 +39,7 @@ GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 PURPLE = (180, 0, 255)
+BLACK = (0, 0, 0)
 
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
