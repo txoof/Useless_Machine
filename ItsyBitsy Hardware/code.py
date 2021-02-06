@@ -6,7 +6,7 @@ import neopixel
 pixel_pin = board.A1
 num_pixels = 7
 
-pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=0.3, auto_write=False)
+pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=1, auto_write=False)
 
 
 def wheel(pos):
