@@ -30,6 +30,10 @@ RELAY_OFF_PHY = board.D12
 DUTY_MIN = 0.5 # 0 degrees
 DUTY_MAX = 2.5 # 180 degrees
 
+# min and max step size for rotating servo (degrees)
+RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
+RESOLUTION_MAX = 6 # largest angle steps to take when moving
+
 # max, min angle
 ANGLE_MIN = 0
 ANGLE_MAX = 180
