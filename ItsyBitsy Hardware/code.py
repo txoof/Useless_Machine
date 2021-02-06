@@ -224,7 +224,7 @@ att_peek_a_boo = [(62, .3, None), (None, None, 1),
 
 att_standard = [(90, .8, None),
                    (110, .7, None),
-                   (HOME_HIGH - 10, .7, None),
+                   (HOME_HIGH - 12, .7, None),
                    (HOME_HIGH, .05, None)]
 att_array = [att_peek_a_boo, att_standard]
 
