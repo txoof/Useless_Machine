@@ -224,8 +224,8 @@ attack_standard = [(90, .8, None),
 
 retreat_standard = [(150, .9, None),
                     (70, .7, None),
-                    (60, .4, None)
-                    (50, .2, None)
+                    (60, .4, None),
+                    (50, .2, None),
                     (HOME_LOW, .05, None)]
 
 attack_program = attack_standard
