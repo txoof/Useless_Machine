@@ -1,23 +1,30 @@
 import board
 import digitalio
-import pulseio
 import time
+import pulseio
+
 
 from adafruit_debouncer import Debouncer
 
-### CONSTANTS ###
-# physical switches
+
+##### CONSTANTS  #####
+# shutoff timeout (seconds)
+SHUTDOWN_TIMEOUT = 10
+
+# endstop positions for arm
+HOME_LOW = 43
+HOME_HIGH = 168.5
+
+# bottom limit switch
 LIMIT_SWITCH_PHY = board.D9
+# top direction switch
 DIRECTION_SWITCH_PHY = board.D7
 
-# Servo pin PWM
+# servo PWM
 SERVO_PWM_PHY = board.D10
 
-RELAY_OFF_PHY = board.D13
-
-
-# shutdown_timer wait for switching off (seconds)
-TIMEOUT = 20
+# send +3v pulse to switch off relay
+RELAY_OFF_PHY = board.D12
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -27,15 +34,42 @@ DUTY_MAX = 2.5 # 180 degrees
 RESOLUTION_MIN = 0.04 # smallest angle steps to take when moving
 RESOLUTION_MAX = 6 # largest angle steps to take when moving
 
-# unused?
-
+# max, min angle
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
-# min and max angles for arm
-HOME_LOW = 43
-HOME_HIGH = 168.5
+##### /CONSTANTS #####
 
+def heart_beat(t=10):
+    global timer
+
+    if time.monotonic() - timer >= t:
+        timer = time.monotonic()
+        print(f'tick: {timer}')
+        return True
+    else:
+        return False
+
+
+
+##### PIN OBJECTS  #####
+limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
+limit_switch_pin.direction = digitalio.Direction.INPUT
+limit_switch_pin.pull = digitalio.Pull.DOWN
+limit_switch = Debouncer(limit_switch_pin)
+
+direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
+direction_switch_pin.direction = digitalio.Direction.INPUT
+direction_switch_pin.pull = digitalio.Pull.DOWN
+direction_switch = Debouncer(direction_switch_pin)
+
+# relay power-off pin
+relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
+relay_pin.direction = digitalio.Direction.OUTPUT
+
+# servo pwm OUTPUT
+servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
+##### /PIN OBJECTS #####
 
 def map_range(a, b, s):
     '''Map range (min a, max a) to range (min b, max b) for value s
@@ -54,7 +88,6 @@ def go_to_angle(dest_angle):
     '''move servo directly to angle'''
     print(f'moving to: {dest_angle}')
     servo.duty_cycle = angle_to_duty(dest_angle)
-
 
 def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
     '''rotate from current_angle to dest_angle at speed
@@ -90,7 +123,7 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 
         if direction == 1 and attack == True and direction_switch.value == True:
             break_out = True
-            breakout_msg = 'direction switch changed to "true" '
+            breakout_msg = 'direction switch changed to "True" '
 
         if direction == -1 and attack == False and direction_switch.value == False:
             break_out = True
@@ -160,140 +193,127 @@ def find_index(current_angle, program, attack=True):
 
     return i
 
-def heart_beat(t=10):
-    global timer
-
-    if time.monotonic() - timer >= t:
-        timer = time.monotonic()
-        print(f'tick: {timer}')
-        return True
-    else:
-        return False
-
-# pin objects
-limit_switch_pin = digitalio.DigitalInOut(LIMIT_SWITCH_PHY)
-limit_switch_pin.direction = digitalio.Direction.INPUT
-limit_switch_pin.pull = digitalio.Pull.DOWN
-limit_switch = Debouncer(limit_switch_pin)
-
-direction_switch_pin = digitalio.DigitalInOut(DIRECTION_SWITCH_PHY)
-direction_switch_pin.direction = digitalio.Direction.INPUT
-direction_switch_pin.pull = digitalio.Pull.DOWN
-direction_switch = Debouncer(direction_switch_pin)
-
-servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
-limit_last = limit_switch.update()
-direction_last = direction_switch.update()
-
-relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
-relay_pin.direction = digitalio.Direction.OUTPUT
 
 
-# Startup
-go_to_angle(HOME_LOW+1)
+##### GLOBALS  #####
+# last state of limit switch
+limit_switch_last = None
+# last state of direction switch
+direction_switch_last = None
 
-current_angle = HOME_LOW
+# global timer
+timer = time.monotonic()
 
+# shutdown timer
+shutdown_timer = time.monotonic()
+# shutdown state
+is_shutdown = False
+# arm is parked, switches shutoff
+is_parked = True
+# timeout time expired
+is_timedout = False
+
+# Attack routines
 peek_a_boo = [(62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (HOME_LOW+2, .7, None), (None, None, .5),
               (62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, 1.5),
+              (HOME_LOW+2, .7, None), (None, None, .5),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
-# attack_program = [(100, 0.55, None), (125, 0.1, None), (150, 0.59, None), (HOME_HIGH, 0.1, None)]
-attack_program = peek_a_boo
-# attack_program = [(90, 0.99, None), (145, 0.1, None), (90, 0.3, None), (HOME_HIGH, 0.1, None)]
-retreat_program = [(130, .2, None), (55, 0.7, None), (HOME_LOW, 0.01, None)]
+attack_standard = [(90, .8, None),
+                   (110, .7, None),
+                   (150, .7, None),
+                   (HOME_HIGH, .05, None)]
 
-timer = time.monotonic()
-shutdown_timer = time.monotonic()
-shutdown = False
+retreat_standard = [(150, .9, None),
+                    (70, .7, None),
+                    (60, .4, None),
+                    (50, .2, None),
+                    (HOME_LOW, .05, None)]
+
+attack_program = peek_a_boo
+retreat_program = retreat_standard
+
+current_angle = HOME_LOW + 1
+##### /GLOBALS #####
+
+# make sure the arm is parked to start
+go_to_angle(current_angle)
+time.sleep(.1)
 
 while True:
-    if heart_beat(3):
-        print(f'time to shutdown: {time.monotonic() - shutdown_timer - TIMEOUT}')
+    if heart_beat(2.5):
+        if not is_shutdown:
+            print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
         pass
-
     limit_switch.update()
     direction_switch.update()
 
-    # check if everything is parked and ready to be shutdown
-    if limit_switch.value == True and direction_switch.value == True:
-        if time.monotonic() - shutdown_timer >= TIMEOUT and shutdown == False:
-            print('sending shutdown to relay')
-            # send 3v pulse to relay transistor
-            relay_pin.value = True
-            time.sleep(1)
-            relay_pin.value = False
-            print('setting shutdown: True')
-            shutdown = True
+    is_parked = True if limit_switch.value and direction_switch.value else False
+    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
 
+    if is_parked == False:
+        # reset the shutdown timer
+        shutdown_timer = time.monotonic()
+        # reset the timout and shutdown bools
+        is_timedout = False
+        is_shutdown = False
 
-    # attack branch
+    if is_parked and is_timedout and not is_shutdown:
+        print('sending shutdown pulse')
+        relay_pin.value = True
+        time.sleep(1)
+        relay_pin.value = False
+        is_shutdown = True
+
     if direction_switch.value == False:
-        print('resetting shutdown timer')
-        shutdown_timer = time.monotonic()
-        shutdown = False
-        # reset current angle to max/min
-        if current_angle >= HOME_HIGH:
-            current_angle = HOME_HIGH
-        else:
-            print('**********attack!**********')
-            # for i in attack_program:
-            attack_index = find_index(current_angle=current_angle,
-                                      program=attack_program, attack=True)
-            # grab just the most appropriate slice of the program
-            attack_slice = attack_program[attack_index:]
+        print('**********ATTACK!**********')
 
-            # run the slice of the program
-            for i in attack_slice:
-                if i[2]:
-                    break_out = pause(i[2])
-                else:
-                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                               dest_angle=i[0],
-                                                               attack=True,
-                                                               speed=i[1])
-                if break_out:
-                    print('breaking out of attack for loop')
-                    break
+        attack_index = find_index(current_angle=current_angle,
+                                  program=attack_program, attack=True)
+        # grab just the most appropriate slice of the program
+        attack_slice = attack_program[attack_index:]
 
-    # retreat branch
-    if limit_switch.value == False and direction_switch.value == True:
-        print('resetting shutdown timer')
-        shutdown_timer = time.monotonic()
-        shutdown = False
-
-        if current_angle <= HOME_LOW:
-            current_angle = HOME_LOW
-        else:
-            print('**********retreat!**********')
-
-            retreat_index = find_index(current_angle=current_angle,
-                                       program=retreat_program, attack=False)
-            retreat_slice = retreat_program[attack_index:]
+        # run the slice of the program
+        for i in attack_slice:
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                           dest_angle=i[0],
+                                                           attack=True,
+                                                           speed=i[1])
+            if break_out:
+                print('breaking out of attack for loop')
+                break
 
 
-            for i in retreat_slice:
-                if i[2]:
-                    break_out = pause(i[2])
-                else:
-                    current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                               dest_angle=i[0],
-                                                               attack=False,
-                                                               speed=i[1])
+    if direction_switch.value == True and limit_switch.value == False:
+        print('**********RETREAT!**********')
 
-                if break_out:
-                    print('breaking out of retreat for loop')
-                    break
+        retreat_index = find_index(current_angle=current_angle,
+                                   program=retreat_program, attack=False)
+        retreat_slice = retreat_program[attack_index:]
 
-    if  limit_switch.value != limit_last:
-        limit_last = limit_switch.value
-        print(f'limit: {limit_switch.value}')
 
-    if direction_switch.value != direction_last:
-        direction_last = direction_switch.value
-        print(f'direction: {direction_switch.value}')
+        for i in retreat_slice:
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                                           dest_angle=i[0],
+                                                           attack=False,
+                                                           speed=i[1])
 
-print('program ended -- this should never happen')
+            if break_out:
+                print('breaking out of retreat for loop')
+                break
+
+
+    if limit_switch.value != limit_switch_last:
+        print(f'limit switch state: {limit_switch.value}')
+        limit_switch_last = limit_switch.value
+    if direction_switch.value != direction_switch_last:
+        print(f'direction switch state: {direction_switch.value}')
+        direction_switch_last = direction_switch.value
