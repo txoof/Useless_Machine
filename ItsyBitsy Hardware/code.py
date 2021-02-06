@@ -59,12 +59,12 @@ while True:
     # pixels.show()
     # time.sleep(1)
     #
-    color_chase(RED, 0.1)  # Increase the number to slow down the color chase
-    color_chase(YELLOW, 0.1)
-    color_chase(GREEN, 0.1)
-    color_chase(CYAN, 0.1)
-    color_chase(BLUE, 0.1)
-    color_chase(PURPLE, 0.1)
+    color_chase(RED, 0)  # Increase the number to slow down the color chase
+    color_chase(YELLOW, 0)
+    color_chase(GREEN, 0)
+    color_chase(CYAN, 0)
+    color_chase(BLUE, 0)
+    color_chase(PURPLE, 0)
 
     # rainbow_cycle(.03)  # Increase the number to slow down the rainbow
 # import board
