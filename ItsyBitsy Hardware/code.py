@@ -170,6 +170,7 @@ current_angle = HOME_LOW + 1
 
 # make sure the arm is parked to start
 go_to_angle(100)
+time.sleep(2)
 # while True:
 #     servo.duty_cycle = angle_to_duty(100)
 #     time.sleep(2)
