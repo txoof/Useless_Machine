@@ -172,6 +172,9 @@ current_angle = HOME_LOW + 1
 # go_to_angle(100)
 while True
     servo.duty_cycle = angle_to_duty(100)
+    time.sleep(2)
+    servo.duty_cycle = angle_to_duty(150)
+    time.sleep(2)
 
 
 # while True:
