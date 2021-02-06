@@ -170,43 +170,42 @@ current_angle = HOME_LOW + 1
 
 # make sure the arm is parked to start
 go_to_angle(current_angle)
-time.sleep(5)
 
-while True:
-    if heart_beat(2.5):
-        if not is_shutdown:
-            print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
-        pass
-    limit_switch.update()
-    direction_switch.update()
-
-    is_parked = True if limit_switch.value and direction_switch.value else False
-    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
-
-    if is_parked == False:
-        # reset the shutdown timer
-        shutdown_timer = time.monotonic()
-        # reset the timout and shutdown bools
-        is_timedout = False
-        is_shutdown = False
-
-    if is_parked and is_timedout and not is_shutdown:
-        print('sending shutdown pulse')
-        relay_pin.value = True
-        time.sleep(1)
-        relay_pin.value = False
-        is_shutdown = True
-
-    if direction_switch.value == False:
-        print('**********ATTACK!**********')
-
-    if direction_switch.value == True and limit_switch.value == False:
-        print('**********RETREAT!**********')
-
-
-    if limit_switch.value != limit_switch_last:
-        print(f'limit switch state: {limit_switch.value}')
-        limit_switch_last = limit_switch.value
-    if direction_switch.value != direction_switch_last:
-        print(f'direction switch state: {direction_switch.value}')
-        direction_switch_last = direction_switch.value
+# while True:
+#     if heart_beat(2.5):
+#         if not is_shutdown:
+#             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+#         pass
+#     limit_switch.update()
+#     direction_switch.update()
+#
+#     is_parked = True if limit_switch.value and direction_switch.value else False
+#     is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
+#
+#     if is_parked == False:
+#         # reset the shutdown timer
+#         shutdown_timer = time.monotonic()
+#         # reset the timout and shutdown bools
+#         is_timedout = False
+#         is_shutdown = False
+#
+#     if is_parked and is_timedout and not is_shutdown:
+#         print('sending shutdown pulse')
+#         relay_pin.value = True
+#         time.sleep(1)
+#         relay_pin.value = False
+#         is_shutdown = True
+#
+#     if direction_switch.value == False:
+#         print('**********ATTACK!**********')
+#
+#     if direction_switch.value == True and limit_switch.value == False:
+#         print('**********RETREAT!**********')
+#
+#
+#     if limit_switch.value != limit_switch_last:
+#         print(f'limit switch state: {limit_switch.value}')
+#         limit_switch_last = limit_switch.value
+#     if direction_switch.value != direction_switch_last:
+#         print(f'direction switch state: {direction_switch.value}')
+#         direction_switch_last = direction_switch.value
