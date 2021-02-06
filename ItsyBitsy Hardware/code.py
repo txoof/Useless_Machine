@@ -2,6 +2,8 @@ import board
 import digitalio
 import time
 import pulseio
+import neopixel
+
 
 
 from adafruit_debouncer import Debouncer
@@ -25,6 +27,12 @@ SERVO_PWM_PHY = board.D10
 
 # send +3v pulse to switch off relay
 RELAY_OFF_PHY = board.D12
+
+# NeoPixel driver PIN
+PIXEL_PWM_PHY = board.A1
+NUM_PIX = 7
+PIX_BRIGHT_MAX = 1
+PIX_BRIGHT_MIN = 0.01
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -69,6 +77,10 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 
 # servo pwm OUTPUT
 servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
+
+
+# NeoPixel pwm OUTPUT
+pixels = neopixel.NeoPixel(PIXEL_PWM_PHY, NUM_PIX, )
 ##### /PIN OBJECTS #####
 
 def map_range(a, b, s):
