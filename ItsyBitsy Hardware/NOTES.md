@@ -16,7 +16,8 @@
 - [ ] write calibration routine for getting HOME_LOW and HOME_HIGH
 - [ ] write variety of attack/retreat routines
 - [x] arm can pause during program
-- [ ] arm runs appropriate part of attack/retreat program when state changes
+- [x] arm runs appropriate part of attack/retreat program when state changes
 - [ ] randomly select attack/retreat routine
 - [ ] random seed based on internal processor temp
-- [ ] machine switches off after set interval in HOME_LOW
+- [x] machine switches off after set interval in HOME_LOW
+- [ ] mood lighting
