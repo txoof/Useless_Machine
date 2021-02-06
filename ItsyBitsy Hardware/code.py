@@ -170,7 +170,7 @@ current_angle = HOME_LOW + 1
 
 # make sure the arm is parked to start
 go_to_angle(current_angle)
-sleep(5)
+time.sleep(5)
 
 while True:
     if heart_beat(2.5):
