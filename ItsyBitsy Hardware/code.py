@@ -315,7 +315,7 @@ ret_just_checking = [(150, .5, None, BLUE),
                      (50, .1, None, BLUE),
                      (None, None, .5, NAVY),
                      (62, .3, None, RED),
-                     (None, None, .5),
+                     (None, None, .5, NAVY),
                      (50, .1, None, BLUE),
                      (HOME_LOW, 0.05, None, BLUE)]
 
