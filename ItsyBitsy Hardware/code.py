@@ -273,11 +273,11 @@ att_standard = [(90, .8, None, RED),
 att_array = [att_peek_a_boo, att_standard]
 
 
-ret_standard = [(150, .6, None),
-                (70, .6, None),
-                (60, .4, None),
-                (50, .2, None),
-                (HOME_LOW, .05, None),
+ret_standard = [(150, .6, None, BLUE),
+                (70, .6, None, BLUE),
+                (60, .4, None, BLUE),
+                (50, .2, None, BLUE),
+                (HOME_LOW, .05, None, BLUE),
                 (None, None, 0.25)]
 
 ret_aggressive = [(150, .9, None),
