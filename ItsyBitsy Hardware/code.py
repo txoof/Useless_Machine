@@ -39,6 +39,7 @@ GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 PURPLE = (180, 0, 255)
+ORANGE = (255, 128, 0)
 BLACK = (0, 0, 0)
 
 
@@ -248,6 +249,11 @@ att_standard = [(90, .8, None),
                    (HOME_HIGH - 15, .7, None),
                    (HOME_HIGH, .1, None)]
 att_array = [att_peek_a_boo, att_standard]
+
+att_color = [(90, .8, None, ORANGE),
+                   (110, .7, None, ORANGE),
+                   (HOME_HIGH - 15, .7, None, RED),
+                   (HOME_HIGH, .1, None, RED)]
 
 ret_standard = [(150, .6, None),
                 (70, .6, None),
