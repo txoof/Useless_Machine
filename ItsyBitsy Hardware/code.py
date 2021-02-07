@@ -325,32 +325,17 @@ while True:
 
     if direction_switch.value == False:
         print('**********ATTACK!**********')
-        attack_index = find_index(current_angle=current_angle,
-                                  program=attack_program, attack=True)
-        # grab just the most appropriate slice of the program
-        attack_slice = attack_program[attack_index:]
-
-        # run the slice of the program
-        for i in attack_slice:
-            if i[2]:
-                break_out = pause(i[2])
-            else:
-                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                           dest_angle=i[0],
-                                                           attack=True,
-                                                           speed=i[1])
-            if break_out:
-                print('breaking out of attack for loop')
-                break
-
-
-    if direction_switch.value == True and limit_switch.value == False:
+        attack = True
+    elif direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
         # OOPS! This should likely be attack =- TRUE for find index
-        attack_index = find_index(current_angle=current_angle,
-                                  program=attack_program, attack=True)
+        # attack_index = find_index(current_angle=current_angle,
+        #                           program=attack_program, attack=True)
+        attack = False
+    else:
+        attack = None
 
-        # WTF is this in here twice?
+    if attack is not None:
         retreat_index = find_index(current_angle=current_angle,
                                    program=retreat_program, attack=False)
         retreat_slice = retreat_program[attack_index:]
@@ -364,7 +349,6 @@ while True:
                                                            dest_angle=i[0],
                                                            attack=False,
                                                            speed=i[1])
-
             if break_out:
                 print('breaking out of retreat for loop')
                 break
