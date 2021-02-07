@@ -323,37 +323,37 @@ while True:
         relay_pin.value = False
         is_shutdown = True
 
-    if direction_switch.value == False:
-        print('**********ATTACK!**********')
-        attack = True
-        program = attack_program
-    elif direction_switch.value == True and limit_switch.value == False:
-        print('**********RETREAT!**********')
-        # OOPS! This should likely be attack =- TRUE for find index
-        # attack_index = find_index(current_angle=current_angle,
-        #                           program=attack_program, attack=True)
-        attack = False
-        program = retreat_program
-    else:
-        attack = None
-
-    if attack is not None:
-        program_index = find_index(current_angle=current_angle,
-                                   program=program, attack=True)
-        program_slice = retreat_program[program_index:]
-
-
-        for i in program_slice:
-            if i[2]:
-                break_out = pause(i[2])
-            else:
-                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                           dest_angle=i[0],
-                                                           attack=False,
-                                                           speed=i[1])
-            if break_out:
-                print('breaking out of program "for" loop')
-                break
+    # if direction_switch.value == False:
+    #     print('**********ATTACK!**********')
+    #     attack = True
+    #     program = attack_program
+    # elif direction_switch.value == True and limit_switch.value == False:
+    #     print('**********RETREAT!**********')
+    #     # OOPS! This should likely be attack =- TRUE for find index
+    #     # attack_index = find_index(current_angle=current_angle,
+    #     #                           program=attack_program, attack=True)
+    #     attack = False
+    #     program = retreat_program
+    # else:
+    #     attack = None
+    #
+    # if attack is not None:
+    #     program_index = find_index(current_angle=current_angle,
+    #                                program=program, attack=True)
+    #     program_slice = retreat_program[program_index:]
+    #
+    #
+    #     for i in program_slice:
+    #         if i[2]:
+    #             break_out = pause(i[2])
+    #         else:
+    #             current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+    #                                                        dest_angle=i[0],
+    #                                                        attack=False,
+    #                                                        speed=i[1])
+    #         if break_out:
+    #             print('breaking out of program "for" loop')
+    #             break
 
 
     if limit_switch.value != limit_switch_last:
