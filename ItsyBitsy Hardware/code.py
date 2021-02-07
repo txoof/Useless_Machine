@@ -249,7 +249,11 @@ is_parked = True
 is_timedout = False
 
 # Attack/Retreat routines
-
+# Format: [(angle, speed, pause, color), ()]
+# angle(real: 0-180),
+# speed(real: 0.01-1),
+# sec. pause(real)
+# color(3-tuple of int)
 ## TODO:  move to external file
 
 
