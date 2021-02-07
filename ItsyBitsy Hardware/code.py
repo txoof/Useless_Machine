@@ -338,6 +338,7 @@ ret_test = None
 
 attack = None
 
+# set initial angle
 current_angle = HOME_LOW + 1
 
 color = BLACK
