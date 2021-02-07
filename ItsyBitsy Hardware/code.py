@@ -317,6 +317,7 @@ ret_just_checking = [(150, .5, None, BLUE),
                      (62, .3, None, RED),
                      (None, None, 1.25, NAVY),
                      (50, .1, None, BLUE),
+                     (100, .6, None, PINK)
                      (HOME_LOW, 0.05, None, BLUE)]
 
 ret_aggressive = [(150, .9, None, NAVY),
