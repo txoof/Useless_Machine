@@ -338,6 +338,13 @@ while True:
 
     if attack is not None:
         print(msg)
+        try:
+            color = i[3]
+        except IndexError:
+            color = BLACK
+        pixels.fill(color)
+        pixels.write()
+        
         program_index = find_index(current_angle=current_angle,
                         program=program, attack=attack)
         program_slice = program[program_index:]
