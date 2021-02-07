@@ -1,6 +1,7 @@
 # UM Development Notes
 
 ## Benchmarks
+* 21.02.07 Tie colors to steps
 * 21.02.07 Add colors
 * 21.01.31 shutdown if arm is parked
 * 21.01.30 Arm runs appropriate part of program on attack
@@ -15,10 +16,12 @@
 
 ## Goals
 - [ ] write calibration routine for getting HOME_LOW and HOME_HIGH
-- [ ] write variety of attack/retreat routines
+- [x] write variety of attack/retreat routines
 - [x] arm can pause during program
 - [x] arm runs appropriate part of attack/retreat program when state changes
-- [ ] randomly select attack/retreat routine
-- [ ] random seed based on internal processor temp
+- [x] randomly select attack/retreat routine
+- [x] random seed based on os.urandom()
 - [x] machine switches off after set interval in HOME_LOW
-- [ ] mood lighting
+- [x] mood lighting
+- [ ] more subtle mood lighting
+- [ ] set timeout for program to complete -- if arm is stranded, try to park
