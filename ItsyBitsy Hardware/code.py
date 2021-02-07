@@ -34,6 +34,7 @@ NUM_PIX = 7
 PIX_BRIGHT_MAX = 1
 PIX_BRIGHT_MIN = 0.01
 RED = (255, 0, 0)
+PINK = (255, 20, 147)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
@@ -257,12 +258,12 @@ is_timedout = False
 ## TODO:  move to external file
 
 
-att_peek_a_boo = [(62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, .5),
-              (62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, .5),
-              (HOME_HIGH-10, .6, None),
-              (HOME_HIGH, .1, None)]
+att_peek_a_boo = [(62, .3, None, PINK), (None, None, 1, PINK),
+              (HOME_LOW+2, .7, None, CYAN), (None, None, .5, BLACK),
+              (62, .3, None, PINK), (None, None, 1, PINK),
+              (HOME_LOW+2, .7, None, CYAN), (None, None, .5, BLACK),
+              (HOME_HIGH-10, .6, None, ORANGE),
+              (HOME_HIGH, .1, None, ORANGE)]
 
 att_standard = [(90, .8, None, RED),
                    (110, .7, None, RED),
@@ -368,39 +369,6 @@ while True:
             if break_out:
                 print('breaking out of program loop')
                 break
-
-    # if direction_switch.value == False:
-    #     print('**********ATTACK!**********')
-    #     attack = True
-    #     program = attack_program
-    # elif direction_switch.value == True and limit_switch.value == False:
-    #     print('**********RETREAT!**********')
-    #     # OOPS! This should likely be attack =- TRUE for find index
-    #     # attack_index = find_index(current_angle=current_angle,
-    #     #                           program=attack_program, attack=True)
-    #     attack = False
-    #     program = retreat_program
-    # else:
-    #     attack = None
-    #
-    # if attack is not None:
-    #     program_index = find_index(current_angle=current_angle,
-    #                                program=program, attack=True)
-    #     program_slice = retreat_program[program_index:]
-    #
-    #
-    #     for i in program_slice:
-    #         if i[2]:
-    #             break_out = pause(i[2])
-    #         else:
-    #             current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-    #                                                        dest_angle=i[0],
-    #                                                        attack=False,
-    #                                                        speed=i[1])
-    #         if break_out:
-    #             print('breaking out of program "for" loop')
-    #             break
-
 
     if limit_switch.value != limit_switch_last:
         print(f'limit switch state: {limit_switch.value}')
