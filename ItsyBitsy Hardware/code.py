@@ -5,6 +5,7 @@ import pulseio
 import neopixel
 from microcontroller import cpu
 from os import urandom
+import random
 
 
 
