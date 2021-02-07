@@ -339,7 +339,7 @@ while True:
 
     if attack is not None:
         program_index = find_index(current_angle=current_angle,
-                                   program=program, attack=attack)
+                                   program=program, attack=True)
         program_slice = retreat_program[program_index:]
 
 
