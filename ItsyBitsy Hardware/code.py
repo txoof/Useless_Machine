@@ -330,7 +330,7 @@ ret_aggressive = [(150, .9, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
 
-ret_array = [ret_standard, ret_aggressive]
+ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
 
 # attack_program = att_standard
