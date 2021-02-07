@@ -330,7 +330,7 @@ ret_array = [ret_standard, ret_aggressive]
 # attack_program = att_standard
 # retreat_program = ret_aggressive
 
-att_test = None
+att_test = att_standard
 ret_test = ret_just_checking
 
 attack = None
