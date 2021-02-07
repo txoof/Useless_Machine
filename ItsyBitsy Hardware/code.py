@@ -281,10 +281,10 @@ ret_standard = [(150, .6, None, BLUE),
                 (HOME_LOW, .05, None, BLUE),
                 (None, None, 0.25)]
 
-ret_aggressive = [(150, .9, None, ),
-               (70, .9, None),
-               (50, .6, None),
-               (HOME_LOW, 0.5, None),
+ret_aggressive = [(150, .9, None, NAVY),
+               (70, .9, None, NAVY),
+               (50, .6, None, NAVY),
+               (HOME_LOW, 0.5, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
 ret_array = []
