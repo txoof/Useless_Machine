@@ -3,6 +3,9 @@ import digitalio
 import time
 import pulseio
 import neopixel
+from os import urandom
+import random
+
 
 
 
@@ -34,12 +37,17 @@ NUM_PIX = 7
 PIX_BRIGHT_MAX = 1
 PIX_BRIGHT_MIN = 0.01
 RED = (255, 0, 0)
+RED_LT = (240,128,128)
+ORANGE = (255, 128, 0)
+ORANGE_LT = (255,69,0)
+PINK = (255, 20, 147)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
+NAVY = (0, 0, 128)
 PURPLE = (180, 0, 255)
-ORANGE = (255, 128, 0)
+
 BLACK = (0, 0, 0)
 
 
@@ -249,59 +257,82 @@ is_parked = True
 is_timedout = False
 
 # Attack/Retreat routines
-
+# Format: [(angle, speed, pause, color), ()]
+# angle(real: 0-180),
+# speed(real: 0.01-1),
+# sec. pause(real)
+# color(3-tuple of int)
 ## TODO:  move to external file
 
 
-att_peek_a_boo = [(62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, .5),
-              (62, .3, None), (None, None, 1),
-              (HOME_LOW+2, .7, None), (None, None, .5),
-              (HOME_HIGH-10, .6, None),
-              (HOME_HIGH, .1, None)]
+att_peek_a_boo = [(62, .3, None, PINK), (None, None, 1, PINK),
+              (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
+              (62, .3, None, PINK), (None, None, 1, PINK),
+              (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
+              (HOME_HIGH-10, .6, None, ORANGE),
+              (HOME_HIGH, .1, None, ORANGE)]
 
 att_standard = [(90, .8, None, RED),
                    (110, .7, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
 
-att_array = [att_peek_a_boo, att_standard]
+att_hurry_wait = [(90, .9, None, GREEN),
+                  (130, .9, None, GREEN),
+                  (150, .9, None, GREEN),
+                  (None, None, 4, BLACK),
+                  (HOME_HIGH, .1, None, GREEN)]
+
+att_ever_slower = [(90, .3, None, RED),
+                   (110, .2, None, RED_LT),
+                   (130, .1, None, ORANGE_LT),
+                   (145, .05, None, ORANGE),
+                   (150, .02, None, PINK),
+                   (HOME_HIGH, .01, None, PINK)]
+
+att_array = [att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
 
 
-ret_standard = [(150, .6, None),
-                (70, .6, None),
-                (60, .4, None),
-                (50, .2, None),
-                (HOME_LOW, .05, None),
+ret_standard = [(150, .6, None, BLUE),
+                (70, .6, None, BLUE),
+                (60, .4, None, BLUE),
+                (50, .2, None, BLUE),
+                (HOME_LOW, .05, None, BLUE),
                 (None, None, 0.25)]
 
-ret_aggressive = [(150, .9, None),
-               (70, .9, None),
-               (50, .6, None),
-               (HOME_LOW, 0.5, None),
+ret_aggressive = [(150, .9, None, NAVY),
+               (70, .9, None, NAVY),
+               (50, .6, None, NAVY),
+               (HOME_LOW, 0.5, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
-ret_array = []
+
+ret_array = [ret_standard, ret_aggressive]
 
 
 attack_program = att_standard
 retreat_program = ret_aggressive
+
+att_test = att_ever_slower
+ret_test = ret_standard
+
 attack = None
 
 current_angle = HOME_LOW + 1
 
 color = BLACK
+seed = int.from_bytes(urandom(4), 'big')
 ##### /GLOBALS #####
 
 # make sure the arm is parked to start
 go_to_angle(current_angle)
 time.sleep(.1)
+seed = int.from_bytes(urandom(4), 'big')
 
 while True:
-    if heart_beat(2.5):
+    if heart_beat(1.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
-        pass
     limit_switch.update()
     direction_switch.update()
 
@@ -326,13 +357,19 @@ while True:
         is_shutdown = True
 
     if direction_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
         msg = '**********ATTACK!**********'
         attack = True
-        program = attack_program
+        program = random.choice(att_array)
+        if att_test:
+            program = att_test
     elif direction_switch.value == True and limit_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
         msg = '**********RETREAT!**********'
         attack = False
-        program = retreat_program
+        program = random.choice(ret_array)
+        if ret_test:
+            program = ret_test
     else:
         msg = 'none'
         attack = None
@@ -364,39 +401,6 @@ while True:
             if break_out:
                 print('breaking out of program loop')
                 break
-
-    # if direction_switch.value == False:
-    #     print('**********ATTACK!**********')
-    #     attack = True
-    #     program = attack_program
-    # elif direction_switch.value == True and limit_switch.value == False:
-    #     print('**********RETREAT!**********')
-    #     # OOPS! This should likely be attack =- TRUE for find index
-    #     # attack_index = find_index(current_angle=current_angle,
-    #     #                           program=attack_program, attack=True)
-    #     attack = False
-    #     program = retreat_program
-    # else:
-    #     attack = None
-    #
-    # if attack is not None:
-    #     program_index = find_index(current_angle=current_angle,
-    #                                program=program, attack=True)
-    #     program_slice = retreat_program[program_index:]
-    #
-    #
-    #     for i in program_slice:
-    #         if i[2]:
-    #             break_out = pause(i[2])
-    #         else:
-    #             current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-    #                                                        dest_angle=i[0],
-    #                                                        attack=False,
-    #                                                        speed=i[1])
-    #         if break_out:
-    #             print('breaking out of program "for" loop')
-    #             break
-
 
     if limit_switch.value != limit_switch_last:
         print(f'limit switch state: {limit_switch.value}')
