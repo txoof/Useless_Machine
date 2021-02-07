@@ -39,6 +39,7 @@ YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
+NAVY = (0, 0, 128)
 PURPLE = (180, 0, 255)
 ORANGE = (255, 128, 0)
 BLACK = (0, 0, 0)
@@ -280,7 +281,7 @@ ret_standard = [(150, .6, None, BLUE),
                 (HOME_LOW, .05, None, BLUE),
                 (None, None, 0.25)]
 
-ret_aggressive = [(150, .9, None),
+ret_aggressive = [(150, .9, None, ),
                (70, .9, None),
                (50, .6, None),
                (HOME_LOW, 0.5, None),
