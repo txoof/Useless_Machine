@@ -337,8 +337,7 @@ while True:
         attack = None
 
     if attack is not None:
-        if heart_beat(1):
-            print(msg)
+        print(msg)
         program_index = find_index(current_angle=current_angle,
                         program=program, attack=attack)
         program_slice = program[program_index:]
