@@ -281,7 +281,7 @@ ret_aggressive = [(150, .9, None),
 ret_array = []
 
 
-attack_program = att_color
+attack_program = att_standard
 retreat_program = ret_aggressive
 attack = None
 
