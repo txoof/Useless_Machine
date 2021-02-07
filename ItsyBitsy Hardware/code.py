@@ -306,9 +306,10 @@ go_to_angle(current_angle)
 time.sleep(.1)
 
 while True:
-    if heart_beat(2.5):
+    if heart_beat(1.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+            print(f'CPU Temperature: {cpu.temperature}')
         pass
     limit_switch.update()
     direction_switch.update()
