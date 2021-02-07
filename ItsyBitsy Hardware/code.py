@@ -353,6 +353,8 @@ while True:
     if heart_beat(1.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+        if is_shutdown:
+            print('idle: relay off')
     limit_switch.update()
     direction_switch.update()
 
