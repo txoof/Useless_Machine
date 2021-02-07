@@ -289,7 +289,7 @@ ret_aggressive = [(150, .9, None),
 ret_array = []
 
 
-attack_program = att_standard
+attack_program = att_peek_a_boo
 retreat_program = ret_aggressive
 attack = None
 
