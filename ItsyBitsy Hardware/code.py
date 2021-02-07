@@ -305,6 +305,7 @@ color = BLACK
 # make sure the arm is parked to start
 go_to_angle(current_angle)
 time.sleep(.1)
+random.seed(urandom(3))
 
 while True:
     if heart_beat(1.5):
