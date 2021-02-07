@@ -283,7 +283,7 @@ ret_aggressive = [(150, .9, None),
 
 
 
-attack_program = att_standard
+attack_program = att_color
 retreat_program = ret_aggressive
 attack = None
 
@@ -348,7 +348,7 @@ while True:
                 color = i[3]
             except IndexError:
                 color = BLACK
-                print(f'color: {color}')
+            print(f'color: {color}')
             pixels.fill(color)
             pixels.write()
             # check if this program step is a pause step
