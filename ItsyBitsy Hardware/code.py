@@ -241,23 +241,6 @@ def find_index(current_angle, program, attack=True):
 
 
 ##### GLOBALS  #####
-# last state of limit switch
-limit_switch_last = None
-# last state of direction switch
-direction_switch_last = None
-
-# global timer
-timer = time.monotonic()
-
-# shutdown timer
-shutdown_timer = time.monotonic()
-# shutdown state
-is_shutdown = False
-# arm is parked, switches shutoff
-is_parked = True
-# timeout time expired
-is_timedout = False
-
 # Attack/Retreat routines
 # Format: [(angle, speed, pause, color), ()]
 # angle(real: 0-180),
@@ -332,15 +315,30 @@ ret_aggressive = [(150, .9, None, NAVY),
 
 ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
-
-# attack_program = att_standard
-# retreat_program = ret_aggressive
-
+# set these equal to a particular program to override random choice
 att_test = None
 ret_test = None
 
+# last state of limit switch
+limit_switch_last = None
+# last state of direction switch
+direction_switch_last = None
+
+# global timer
+timer = time.monotonic()
+
+# shutdown timer
+shutdown_timer = time.monotonic()
+# shutdown state
+is_shutdown = False
+# arm is parked
+is_parked = True
+# timeout time expired
+is_timedout = False
+
 attack = None
 
+# set initial angle
 current_angle = HOME_LOW + 1
 
 color = BLACK
@@ -350,7 +348,6 @@ seed = int.from_bytes(urandom(4), 'big')
 # make sure the arm is parked to start
 go_to_angle(current_angle)
 time.sleep(.1)
-seed = int.from_bytes(urandom(4), 'big')
 
 while True:
     if heart_beat(1.5):
@@ -364,7 +361,7 @@ while True:
 
     if is_parked == False:
         # reset the shutdown timer
-        shutdown_timer = time.monotonic()
+        # shutdown_timer = time.monotonic()
         # reset the timout and shutdown bools
         is_timedout = False
         is_shutdown = False
@@ -407,6 +404,9 @@ while True:
         program_slice = program[program_index:]
 
         for i in program_slice:
+            # reset shutdown_timer while loop is running
+            shutdown_timer = time.monotonic()
+
             try:
                 color = i[3]
             except IndexError:
