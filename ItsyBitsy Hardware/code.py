@@ -3,7 +3,6 @@ import digitalio
 import time
 import pulseio
 import neopixel
-from microcontroller import cpu
 from os import urandom
 import random
 
@@ -313,7 +312,6 @@ while True:
     if heart_beat(1.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
-        print(f'CPU Temperature: {cpu.temperature}')
     limit_switch.update()
     direction_switch.update()
 
