@@ -37,6 +37,9 @@ NUM_PIX = 7
 PIX_BRIGHT_MAX = 1
 PIX_BRIGHT_MIN = 0.01
 RED = (255, 0, 0)
+RED_LT = (240,128,128)
+ORANGE = (255, 128, 0)
+ORANGE_LT = (255,69,0)
 PINK = (255, 20, 147)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
@@ -44,7 +47,7 @@ CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 NAVY = (0, 0, 128)
 PURPLE = (180, 0, 255)
-ORANGE = (255, 128, 0)
+
 BLACK = (0, 0, 0)
 
 
@@ -280,7 +283,14 @@ att_hurry_wait = [(90, .9, None, GREEN),
                   (None, None, 4, BLACK),
                   (HOME_HIGH, .1, None, GREEN)]
 
-att_array = [att_peek_a_boo, att_standard]
+att_ever_slower = [(90, .6, None, RED),
+                   (110, .5, None, RED_LT),
+                   (130, .4, None, ORANGE_LT),
+                   (145, .3, None, ORANGE),
+                   (150, .1, None, PINK),
+                   (HOME_HIGH, .1, None, PINK)]
+
+att_array = [att_peek_a_boo, att_standard, att_hurry_wait]
 
 
 ret_standard = [(150, .6, None, BLUE),
