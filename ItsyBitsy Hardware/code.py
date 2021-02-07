@@ -174,6 +174,12 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 def pause(s):
     '''pause for s seconds using monotonic timer (non blocking)
     change in direction_switch will break out of pause
+
+    Args:
+        s(real): seconds to pause
+
+    Returns:
+        bool: true if pause was interrupted by a switch state change
     '''
     t = time.monotonic()
     limit_switch.update()
@@ -281,6 +287,8 @@ attack_program = att_standard
 retreat_program = ret_aggressive
 
 current_angle = HOME_LOW + 1
+
+color = BLACK
 ##### /GLOBALS #####
 
 # make sure the arm is parked to start
@@ -338,9 +346,11 @@ while True:
 
     if direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
+        # OOPS! This should likely be attack =- TRUE for find index
         attack_index = find_index(current_angle=current_angle,
                                   program=attack_program, attack=True)
 
+        # WTF is this in here twice?
         retreat_index = find_index(current_angle=current_angle,
                                    program=retreat_program, attack=False)
         retreat_slice = retreat_program[attack_index:]
