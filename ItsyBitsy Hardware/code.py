@@ -2,6 +2,8 @@ import board
 import digitalio
 import time
 import pulseio
+import neopixel
+
 
 
 from adafruit_debouncer import Debouncer
@@ -25,6 +27,21 @@ SERVO_PWM_PHY = board.D10
 
 # send +3v pulse to switch off relay
 RELAY_OFF_PHY = board.D12
+
+# NeoPixel driver PIN
+PIXEL_PWM_PHY = board.A1
+NUM_PIX = 7
+PIX_BRIGHT_MAX = 1
+PIX_BRIGHT_MIN = 0.01
+RED = (255, 0, 0)
+YELLOW = (255, 150, 0)
+GREEN = (0, 255, 0)
+CYAN = (0, 255, 255)
+BLUE = (0, 0, 255)
+PURPLE = (180, 0, 255)
+ORANGE = (255, 128, 0)
+BLACK = (0, 0, 0)
+
 
 # min and max duty cycle for PWM servo 0.5==0 degrees; 2.5==180 degrees
 DUTY_MIN = 0.5 # 0 degrees
@@ -69,6 +86,11 @@ relay_pin.direction = digitalio.Direction.OUTPUT
 
 # servo pwm OUTPUT
 servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
+
+
+# NeoPixel pwm OUTPUT
+pixels = neopixel.NeoPixel(PIXEL_PWM_PHY, NUM_PIX, brightness=PIX_BRIGHT_MAX,
+                           auto_write=False)
 ##### /PIN OBJECTS #####
 
 def map_range(a, b, s):
@@ -152,6 +174,12 @@ def rotate_to_angle(current_angle, dest_angle, attack, speed=0.08):
 def pause(s):
     '''pause for s seconds using monotonic timer (non blocking)
     change in direction_switch will break out of pause
+
+    Args:
+        s(real): seconds to pause
+
+    Returns:
+        bool: true if pause was interrupted by a switch state change
     '''
     t = time.monotonic()
     limit_switch.update()
@@ -177,7 +205,14 @@ def pause(s):
     return break_out
 
 def find_index(current_angle, program, attack=True):
-    '''find the first tuple in the list closest to current_angle'''
+    '''find the first tuple who's 0th element is closest to current_angle
+
+    Args:
+        current_angle(real): angle of arm
+        program(list of tuple): attack/retreat program
+        attack(bool): true - search for first element that is >= current_angle
+                      false - search for first element that is <= current_angle
+    '''
 
     # for attack
     for i, val in enumerate(program):
@@ -213,29 +248,49 @@ is_parked = True
 # timeout time expired
 is_timedout = False
 
-# Attack routines
-peek_a_boo = [(62, .3, None), (None, None, 1),
+# Attack/Retreat routines
+
+## TODO:  move to external file
+
+
+att_peek_a_boo = [(62, .3, None), (None, None, 1),
               (HOME_LOW+2, .7, None), (None, None, .5),
               (62, .3, None), (None, None, 1),
               (HOME_LOW+2, .7, None), (None, None, .5),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
-attack_standard = [(90, .8, None),
-                   (110, .7, None),
-                   (150, .7, None),
-                   (HOME_HIGH, .05, None)]
+att_standard = [(90, .8, None, RED),
+                   (110, .7, None, RED),
+                   (HOME_HIGH - 15, .7, None, RED),
+                   (HOME_HIGH, .1, None, RED)]
 
-retreat_standard = [(150, .9, None),
-                    (70, .7, None),
-                    (60, .4, None),
-                    (50, .2, None),
-                    (HOME_LOW, .05, None)]
+att_array = [att_peek_a_boo, att_standard]
 
-attack_program = peek_a_boo
-retreat_program = retreat_standard
+
+ret_standard = [(150, .6, None),
+                (70, .6, None),
+                (60, .4, None),
+                (50, .2, None),
+                (HOME_LOW, .05, None),
+                (None, None, 0.25)]
+
+ret_aggressive = [(150, .9, None),
+               (70, .9, None),
+               (50, .6, None),
+               (HOME_LOW, 0.5, None),
+               (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
+
+ret_array = []
+
+
+attack_program = att_standard
+retreat_program = ret_aggressive
+attack = None
 
 current_angle = HOME_LOW + 1
+
+color = BLACK
 ##### /GLOBALS #####
 
 # make sure the arm is parked to start
@@ -259,6 +314,9 @@ while True:
         # reset the timout and shutdown bools
         is_timedout = False
         is_shutdown = False
+    else:
+        pixels.fill(BLACK)
+        pixels.show()
 
     if is_parked and is_timedout and not is_shutdown:
         print('sending shutdown pulse')
@@ -268,47 +326,76 @@ while True:
         is_shutdown = True
 
     if direction_switch.value == False:
-        print('**********ATTACK!**********')
+        msg = '**********ATTACK!**********'
+        attack = True
+        program = attack_program
+    elif direction_switch.value == True and limit_switch.value == False:
+        msg = '**********RETREAT!**********'
+        attack = False
+        program = retreat_program
+    else:
+        msg = 'none'
+        attack = None
 
-        attack_index = find_index(current_angle=current_angle,
-                                  program=attack_program, attack=True)
-        # grab just the most appropriate slice of the program
-        attack_slice = attack_program[attack_index:]
+    if attack is not None:
+        print(msg)
 
-        # run the slice of the program
-        for i in attack_slice:
+        program_index = find_index(current_angle=current_angle,
+                        program=program, attack=attack)
+        program_slice = program[program_index:]
+
+        for i in program_slice:
+            try:
+                color = i[3]
+            except IndexError:
+                color = BLACK
+            print(f'color: {color}')
+            pixels.fill(color)
+            pixels.write()
+            # check if this program step is a pause step
             if i[2]:
                 break_out = pause(i[2])
             else:
                 current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                           dest_angle=i[0],
-                                                           attack=True,
-                                                           speed=i[1])
-            if break_out:
-                print('breaking out of attack for loop')
-                break
-
-
-    if direction_switch.value == True and limit_switch.value == False:
-        print('**********RETREAT!**********')
-
-        retreat_index = find_index(current_angle=current_angle,
-                                   program=retreat_program, attack=False)
-        retreat_slice = retreat_program[attack_index:]
-
-
-        for i in retreat_slice:
-            if i[2]:
-                break_out = pause(i[2])
-            else:
-                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-                                                           dest_angle=i[0],
-                                                           attack=False,
-                                                           speed=i[1])
+                                           dest_angle=i[0],
+                                           attack=attack,
+                                           speed=i[1])
 
             if break_out:
-                print('breaking out of retreat for loop')
+                print('breaking out of program loop')
                 break
+
+    # if direction_switch.value == False:
+    #     print('**********ATTACK!**********')
+    #     attack = True
+    #     program = attack_program
+    # elif direction_switch.value == True and limit_switch.value == False:
+    #     print('**********RETREAT!**********')
+    #     # OOPS! This should likely be attack =- TRUE for find index
+    #     # attack_index = find_index(current_angle=current_angle,
+    #     #                           program=attack_program, attack=True)
+    #     attack = False
+    #     program = retreat_program
+    # else:
+    #     attack = None
+    #
+    # if attack is not None:
+    #     program_index = find_index(current_angle=current_angle,
+    #                                program=program, attack=True)
+    #     program_slice = retreat_program[program_index:]
+    #
+    #
+    #     for i in program_slice:
+    #         if i[2]:
+    #             break_out = pause(i[2])
+    #         else:
+    #             current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+    #                                                        dest_angle=i[0],
+    #                                                        attack=False,
+    #                                                        speed=i[1])
+    #         if break_out:
+    #             print('breaking out of program "for" loop')
+    #             break
 
 
     if limit_switch.value != limit_switch_last:
