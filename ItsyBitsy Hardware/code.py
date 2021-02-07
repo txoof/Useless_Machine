@@ -348,6 +348,7 @@ while True:
                 color = i[3]
             except IndexError:
                 color = BLACK
+                print(f'color: {color}')
             pixels.fill(color)
             pixels.write()
             # check if this program step is a pause step
