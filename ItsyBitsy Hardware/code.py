@@ -312,7 +312,7 @@ ret_array = [ret_standard, ret_aggressive]
 attack_program = att_peek_a_boo
 retreat_program = ret_aggressive
 
-att_test = att_hurry_wait
+att_test = att_ever_slower
 ret_test = ret_standard
 
 attack = None
