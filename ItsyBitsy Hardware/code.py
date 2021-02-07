@@ -301,6 +301,7 @@ attack = None
 current_angle = HOME_LOW + 1
 
 color = BLACK
+seed = int.from_bytes(urandom(4), 'big')
 ##### /GLOBALS #####
 
 # make sure the arm is parked to start
@@ -338,13 +339,15 @@ while True:
         is_shutdown = True
 
     if direction_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
         msg = '**********ATTACK!**********'
         attack = True
-        program = attack_program
+        program = random.choice(att_array)
     elif direction_switch.value == True and limit_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
         msg = '**********RETREAT!**********'
         attack = False
-        program = retreat_program
+        program = random.choice(ret_array)
     else:
         msg = 'none'
         attack = None
