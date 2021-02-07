@@ -325,18 +325,18 @@ while True:
         is_shutdown = True
 
     if direction_switch.value == False:
-        if heart_beat(3):
-            print('**********ATTACK!**********')
+        msg = '**********ATTACK!**********'
         attack = True
     elif direction_switch.value == True and limit_switch.value == False:
-        if heart_beat(3):
-            print('**********RETREAT!**********')
+        msg = '**********RETREAT!**********'
         attack = False
     else:
+        msg = 'none'
         attack = None
 
     if attack is not None:
-
+        if heart_beat(1):
+            print(msg)
 
     # if direction_switch.value == False:
     #     print('**********ATTACK!**********')
