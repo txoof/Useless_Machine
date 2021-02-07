@@ -336,12 +336,12 @@ while True:
         attack = None
 
     if attack is not None:
-        retreat_index = find_index(current_angle=current_angle,
+        program_index = find_index(current_angle=current_angle,
                                    program=retreat_program, attack=False)
-        retreat_slice = retreat_program[attack_index:]
+        program_slice = retreat_program[program_index:]
 
 
-        for i in retreat_slice:
+        for i in program_slice:
             if i[2]:
                 break_out = pause(i[2])
             else:
@@ -350,7 +350,7 @@ while True:
                                                            attack=False,
                                                            speed=i[1])
             if break_out:
-                print('breaking out of retreat for loop')
+                print('breaking out of program "for" loop')
                 break
 
 
