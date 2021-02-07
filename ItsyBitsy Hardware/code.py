@@ -269,7 +269,7 @@ is_timedout = False
 
 att_peek_a_boo = [(62, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
-              (62, .3, None, PINK), (None, None, 1, PINK),
+              (67, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
               (HOME_HIGH-10, .6, None, ORANGE),
               (HOME_HIGH, .1, None, ORANGE)]
