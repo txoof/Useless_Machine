@@ -274,6 +274,12 @@ att_standard = [(90, .8, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
 
+att_hurry_wait = [(90, .9, None, GREEN),
+                  (130, .9, None, GREEN),
+                  (150, .9, None, GREEN),
+                  (None, None, 4, BLACK),
+                  (HOME_HIGH, .1, NONE, GREEN)]
+
 att_array = [att_peek_a_boo, att_standard]
 
 
@@ -293,8 +299,12 @@ ret_aggressive = [(150, .9, None, NAVY),
 ret_array = [ret_standard, ret_aggressive]
 
 
-# attack_program = att_peek_a_boo
-# retreat_program = ret_aggressive
+attack_program = att_peek_a_boo
+retreat_program = ret_aggressive
+
+att_test = att_hurry_wait
+ret_test = ret_standard
+
 attack = None
 
 current_angle = HOME_LOW + 1
@@ -340,11 +350,15 @@ while True:
         msg = '**********ATTACK!**********'
         attack = True
         program = random.choice(att_array)
+        if att_test:
+            program = att_test
     elif direction_switch.value == True and limit_switch.value == False:
         seed = int.from_bytes(urandom(4), 'big')
         msg = '**********RETREAT!**********'
         attack = False
         program = random.choice(ret_array)
+        if ret_test:
+            program = ret_test
     else:
         msg = 'none'
         attack = None
