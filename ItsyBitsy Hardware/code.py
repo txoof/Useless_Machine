@@ -257,8 +257,8 @@ att_peek_a_boo = [(62, .3, None), (None, None, 1),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
-att_standard = [(90, .8, None, ORANGE),
-                   (110, .7, None, ORANGE),
+att_standard = [(90, .8, None, RED),
+                   (110, .7, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
 
