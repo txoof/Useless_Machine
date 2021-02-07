@@ -47,7 +47,6 @@ CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 NAVY = (0, 0, 128)
 PURPLE = (180, 0, 255)
-
 BLACK = (0, 0, 0)
 
 
@@ -62,6 +61,9 @@ RESOLUTION_MAX = 6 # largest angle steps to take when moving
 # max, min angle
 ANGLE_MIN = 0
 ANGLE_MAX = 180
+
+# soft landing program step for parking arm
+SOFT_LANDING = (None, None, 0.25)
 
 ##### /CONSTANTS #####
 
@@ -300,10 +302,25 @@ ret_standard = [(150, .6, None, BLUE),
                 (HOME_LOW, .05, None, BLUE),
                 (None, None, 0.25)]
 
+ret_just_checking = [(150, .5, None, BLUE),
+                     (None, None, .5, NAVY),
+                     (120, .5, None, BLUE),
+                     (None, None. .5, NAVY),
+                     (150, .5, None, RED),
+                     (50, .8, None, BLUE),
+                     (None, None, .5, Navy),
+                     (62, .3, None, RED),
+                     (None, None, .5, Navy),
+                     (50, .1, None, BLUE),
+                     (None, None, .5, Navy),
+                     (62, .3, None, RED),
+                     (50, .1, None, BLUE),
+                     (HOME_LOW, 0.05, None, BLUE)]
+
 ret_aggressive = [(150, .9, None, NAVY),
                (70, .9, None, NAVY),
                (50, .6, None, NAVY),
-               (HOME_LOW, 0.5, None, NAVY),
+               (HOME_LOW, 0.05, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
 
@@ -368,6 +385,8 @@ while True:
         msg = '**********RETREAT!**********'
         attack = False
         program = random.choice(ret_array)
+        if not program[-1] == SOFT_LANDING:
+            program.append(SOFT_LANDING)
         if ret_test:
             program = ret_test
     else:
