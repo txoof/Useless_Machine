@@ -332,10 +332,7 @@ ret_aggressive = [(150, .9, None, NAVY),
 
 ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
-
-# attack_program = att_standard
-# retreat_program = ret_aggressive
-
+# set these equal to a particular program to override random choice
 att_test = None
 ret_test = None
 
