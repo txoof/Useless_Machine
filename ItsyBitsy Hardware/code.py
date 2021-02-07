@@ -285,6 +285,7 @@ ret_aggressive = [(150, .9, None),
 
 attack_program = att_standard
 retreat_program = ret_aggressive
+attack = None
 
 current_angle = HOME_LOW + 1
 
@@ -322,6 +323,17 @@ while True:
         time.sleep(1)
         relay_pin.value = False
         is_shutdown = True
+
+    if direction_switch.value == False:
+        print('**********ATTACK!**********')
+        attack = True
+    elif direction_switch.value == True and limit_switch.value == False:
+        print('**********RETREAT!**********')
+        attack = False
+    else:
+        attack = None
+
+
 
     # if direction_switch.value == False:
     #     print('**********ATTACK!**********')
