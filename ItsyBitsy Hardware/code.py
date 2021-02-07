@@ -283,12 +283,12 @@ att_hurry_wait = [(90, .9, None, GREEN),
                   (None, None, 4, BLACK),
                   (HOME_HIGH, .1, None, GREEN)]
 
-att_ever_slower = [(90, .6, None, RED),
-                   (110, .5, None, RED_LT),
-                   (130, .4, None, ORANGE_LT),
-                   (145, .3, None, ORANGE),
-                   (150, .1, None, PINK),
-                   (HOME_HIGH, .1, None, PINK)]
+att_ever_slower = [(90, .4, None, RED),
+                   (110, .3, None, RED_LT),
+                   (130, .2, None, ORANGE_LT),
+                   (145, .1, None, ORANGE),
+                   (150, .05, None, PINK),
+                   (HOME_HIGH, .03, None, PINK)]
 
 att_array = [att_peek_a_boo, att_standard, att_hurry_wait]
 
