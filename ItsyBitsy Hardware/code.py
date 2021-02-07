@@ -307,7 +307,7 @@ seed = int.from_bytes(urandom(4), 'big')
 # make sure the arm is parked to start
 go_to_angle(current_angle)
 time.sleep(.1)
-random.seed(urandom(3))
+seed = int.from_bytes(urandom(4), 'big')
 
 while True:
     if heart_beat(1.5):
