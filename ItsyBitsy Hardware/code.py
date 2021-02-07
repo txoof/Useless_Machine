@@ -294,8 +294,8 @@ ret_aggressive = [(150, .9, None, NAVY),
 ret_array = [ret_standard, ret_aggressive]
 
 
-attack_program = att_peek_a_boo
-retreat_program = ret_aggressive
+# attack_program = att_peek_a_boo
+# retreat_program = ret_aggressive
 attack = None
 
 current_angle = HOME_LOW + 1
