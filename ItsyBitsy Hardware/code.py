@@ -4,6 +4,7 @@ import time
 import pulseio
 import neopixel
 from microcontroller import cpu
+from os import urandom
 
 
 
@@ -310,6 +311,7 @@ while True:
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
         print(f'CPU Temperature: {cpu.temperature}')
+        print(f'Random Number: {urandom}'')
     limit_switch.update()
     direction_switch.update()
 
