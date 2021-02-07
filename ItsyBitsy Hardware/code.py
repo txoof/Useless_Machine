@@ -426,7 +426,7 @@ while True:
                                            speed=i[1])
 
             if break_out:
-                print('breaking out of program loop')
+                print('breaking out of program')
                 break
 
     if limit_switch.value != limit_switch_last:
