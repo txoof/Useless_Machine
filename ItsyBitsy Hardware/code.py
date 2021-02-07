@@ -278,7 +278,7 @@ att_hurry_wait = [(90, .9, None, GREEN),
                   (130, .9, None, GREEN),
                   (150, .9, None, GREEN),
                   (None, None, 4, BLACK),
-                  (HOME_HIGH, .1, NONE, GREEN)]
+                  (HOME_HIGH, .1, None, GREEN)]
 
 att_array = [att_peek_a_boo, att_standard]
 
