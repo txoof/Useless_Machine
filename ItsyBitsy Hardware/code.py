@@ -327,9 +327,11 @@ while True:
     if direction_switch.value == False:
         msg = '**********ATTACK!**********'
         attack = True
+        program = attack_program
     elif direction_switch.value == True and limit_switch.value == False:
         msg = '**********RETREAT!**********'
         attack = False
+        program = retreat_program
     else:
         msg = 'none'
         attack = None
@@ -337,6 +339,23 @@ while True:
     if attack is not None:
         if heart_beat(1):
             print(msg)
+        program_index = find_index(current_angle=current_angle,
+                        program=program, attack=attack)
+        program_slice = program[program_index:]
+
+        for i in program_slice:
+            # check if this program step is a pause step
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                           dest_angle=i[0],
+                                           attack=attack,
+                                           speed=i[1])
+
+            if break_out:
+                print('breaking out of program loop')
+                break
 
     # if direction_switch.value == False:
     #     print('**********ATTACK!**********')
