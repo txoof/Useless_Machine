@@ -290,7 +290,7 @@ att_ever_slower = [(90, .3, None, RED),
                    (150, .02, None, PINK),
                    (HOME_HIGH, .01, None, PINK)]
 
-att_array = [att_peek_a_boo, att_standard, att_hurry_wait]
+att_array = [att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
 
 
 ret_standard = [(150, .6, None, BLUE),
@@ -306,10 +306,11 @@ ret_aggressive = [(150, .9, None, NAVY),
                (HOME_LOW, 0.5, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
+
 ret_array = [ret_standard, ret_aggressive]
 
 
-attack_program = att_peek_a_boo
+attack_program = att_standard
 retreat_program = ret_aggressive
 
 att_test = att_ever_slower
