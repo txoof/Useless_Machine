@@ -257,16 +257,13 @@ att_peek_a_boo = [(62, .3, None), (None, None, 1),
               (HOME_HIGH-10, .6, None),
               (HOME_HIGH, .1, None)]
 
-att_standard = [(90, .8, None),
-                   (110, .7, None),
-                   (HOME_HIGH - 15, .7, None),
-                   (HOME_HIGH, .1, None)]
-att_array = [att_peek_a_boo, att_standard]
-
-att_color = [(90, .8, None, ORANGE),
+att_standard = [(90, .8, None, ORANGE),
                    (110, .7, None, ORANGE),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
+
+att_array = [att_peek_a_boo, att_standard]
+
 
 ret_standard = [(150, .6, None),
                 (70, .6, None),
@@ -280,7 +277,7 @@ ret_aggressive = [(150, .9, None),
                (50, .6, None),
                (HOME_LOW, 0.5, None),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
-
+ret_array = []
 
 
 attack_program = att_color
