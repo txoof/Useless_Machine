@@ -199,7 +199,14 @@ def pause(s):
     return break_out
 
 def find_index(current_angle, program, attack=True):
-    '''find the first tuple in the list closest to current_angle'''
+    '''find the first tuple who's 0th element is closest to current_angle
+
+    Args:
+        current_angle(real): angle of arm
+        program(list of tuple): attack/retreat program
+        attack(bool): true - search for first element that is >= current_angle
+                      false - search for first element that is <= current_angle
+    '''
 
     # for attack
     for i, val in enumerate(program):
@@ -310,8 +317,6 @@ while True:
 
     if direction_switch.value == False:
         print('**********ATTACK!**********')
-        pixels.fill(RED)
-        pixels.show()
         attack_index = find_index(current_angle=current_angle,
                                   program=attack_program, attack=True)
         # grab just the most appropriate slice of the program
@@ -333,8 +338,6 @@ while True:
 
     if direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
-        pixels.fill(BLUE)
-        pixels.show()
         attack_index = find_index(current_angle=current_angle,
                                   program=attack_program, attack=True)
 
