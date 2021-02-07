@@ -327,11 +327,11 @@ ret_aggressive = [(150, .9, None, NAVY),
 ret_array = [ret_standard, ret_aggressive]
 
 
-attack_program = att_standard
-retreat_program = ret_aggressive
+# attack_program = att_standard
+# retreat_program = ret_aggressive
 
-att_test = att_ever_slower
-ret_test = ret_standard
+att_test = None
+ret_test = ret_just_checking
 
 attack = None
 
