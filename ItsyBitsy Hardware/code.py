@@ -248,8 +248,11 @@ is_parked = True
 # timeout time expired
 is_timedout = False
 
-# Attack routines
+# Attack/Retreat routines
+
 ## TODO:  move to external file
+
+
 att_peek_a_boo = [(62, .3, None), (None, None, 1),
               (HOME_LOW+2, .7, None), (None, None, .5),
               (62, .3, None), (None, None, 1),
