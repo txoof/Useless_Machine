@@ -3,6 +3,8 @@ import digitalio
 import time
 import pulseio
 import neopixel
+from microcontroller import cpu
+
 
 
 
