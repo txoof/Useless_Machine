@@ -1,6 +1,7 @@
 # UM Development Notes
 
 ## Benchmarks
+* 21.02.07 Add colors
 * 21.01.31 shutdown if arm is parked
 * 21.01.30 Arm runs appropriate part of program on attack
 * 21.01.30 Arm can pause
