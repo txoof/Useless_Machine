@@ -326,18 +326,20 @@ while True:
     if direction_switch.value == False:
         print('**********ATTACK!**********')
         attack = True
+        program = attack_program
     elif direction_switch.value == True and limit_switch.value == False:
         print('**********RETREAT!**********')
         # OOPS! This should likely be attack =- TRUE for find index
         # attack_index = find_index(current_angle=current_angle,
         #                           program=attack_program, attack=True)
         attack = False
+        program = retreat_program
     else:
         attack = None
 
     if attack is not None:
         program_index = find_index(current_angle=current_angle,
-                                   program=retreat_program, attack=False)
+                                   program=program, attack=attack)
         program_slice = retreat_program[program_index:]
 
 
