@@ -251,13 +251,15 @@ def find_index(current_angle, program, attack=True):
 ## TODO:  move to external file
 
 
+# coy
 att_peek_a_boo = [(62, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
-              (67, .3, None, PINK), (None, None, 1, PINK),
+              (70, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
               (HOME_HIGH-10, .6, None, ORANGE),
               (HOME_HIGH, .1, None, ORANGE)]
 
+# standard in and out
 att_standard = [(90, .8, None, RED),
                    (110, .7, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
@@ -267,7 +269,7 @@ att_standard = [(90, .8, None, RED),
 att_hurry_wait = [(90, .9, None, GREEN),
                   (130, .9, None, GREEN),
                   (150, .9, None, GREEN),
-                  (None, None, 4, BLACK),
+                  (None, None, 4, GREEN_DK),
                   (HOME_HIGH, .1, None, GREEN)]
 
 
@@ -339,6 +341,8 @@ is_parked = True
 # timeout time expired
 is_timedout = False
 
+first_run = True
+
 attack = None
 
 # set initial angle
@@ -385,16 +389,30 @@ while True:
         seed = int.from_bytes(urandom(4), 'big')
         msg = '**********ATTACK!**********'
         attack = True
-        program = random.choice(att_array)
+
+        # always run standard program on first run
+        if first_run:
+            program = att_array[0]
+        else:
+            program = random.choice(att_array)
+
+        # override with test attack
         if att_test:
             program = att_test
     elif direction_switch.value == True and limit_switch.value == False:
         seed = int.from_bytes(urandom(4), 'big')
         msg = '**********RETREAT!**********'
         attack = False
-        program = random.choice(ret_array)
+
         if not program[-1] == SOFT_LANDING:
             program.append(SOFT_LANDING)
+        # always run standard program on boot
+        if first_run:
+            program = ret_array[0]
+        else:
+            program = random.choice(ret_array)
+
+        # override with test retreat
         if ret_test:
             program = ret_test
     else:
