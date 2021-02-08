@@ -43,6 +43,7 @@ ORANGE_LT = (255,69,0)
 PINK = (255, 20, 147)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
+GREEN_DK = (85,107,47)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 NAVY = (0, 0, 128)
@@ -262,11 +263,13 @@ att_standard = [(90, .8, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
 
+#hurry up and wait
 att_hurry_wait = [(90, .9, None, GREEN),
                   (130, .9, None, GREEN),
                   (150, .9, None, GREEN),
                   (None, None, 4, BLACK),
                   (HOME_HIGH, .1, None, GREEN)]
+
 
 att_ever_slower = [(90, .3, None, RED),
                    (110, .2, None, RED_LT),
@@ -275,7 +278,7 @@ att_ever_slower = [(90, .3, None, RED),
                    (150, .02, None, PINK),
                    (HOME_HIGH, .01, None, PINK)]
 
-att_array = [att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
+att_array = [att_standard, att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
 
 
 ret_standard = [(150, .6, None, BLUE),
