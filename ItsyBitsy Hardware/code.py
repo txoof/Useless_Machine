@@ -409,6 +409,7 @@ while True:
         # always run standard program on boot
         if first_run:
             program = ret_array[0]
+            first_run = false
         else:
             program = random.choice(ret_array)
 
