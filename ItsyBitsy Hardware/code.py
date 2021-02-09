@@ -63,7 +63,8 @@ RESOLUTION_MAX = 6 # largest angle steps to take when moving
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
-# soft landing program step for parking arm
+# soft landing program step for parking arm - this should always be the last
+# step for a retreat program 
 SOFT_LANDING = (None, None, 0.25)
 
 ##### /CONSTANTS #####
