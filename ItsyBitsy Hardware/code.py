@@ -355,12 +355,8 @@ seed = int.from_bytes(urandom(4), 'big')
 ##### /GLOBALS #####
 
 # make sure the arm is parked to start
-# go_to_angle(current_angle)
-go_to_angle(90)
-time.sleep(.5)
-# servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
-
-# servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle = 0, frequency = 0)
+go_to_angle(current_angle)
+time.sleep(.1)
 
 #
 # while True:
