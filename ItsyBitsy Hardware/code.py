@@ -64,7 +64,7 @@ ANGLE_MIN = 0
 ANGLE_MAX = 180
 
 # soft landing program step for parking arm - this should always be the last
-# step for a retreat program 
+# step for a retreat program
 SOFT_LANDING = (None, None, 0.25)
 
 ##### /CONSTANTS #####
