@@ -358,105 +358,105 @@ seed = int.from_bytes(urandom(4), 'big')
 go_to_angle(current_angle)
 time.sleep(.1)
 
-#
-# while True:
-#     if heart_beat(1.5):
-#         if not is_shutdown:
-#             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
-#         if is_shutdown:
-#             print('idle: relay off')
-#     limit_switch.update()
-#     direction_switch.update()
-#
-#     is_parked = True if limit_switch.value and direction_switch.value else False
-#     is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
-#
-#     if is_parked == False:
-#         # reset the shutdown timer
-#         # shutdown_timer = time.monotonic()
-#         # reset the timout and shutdown bools
-#         is_timedout = False
-#         is_shutdown = False
-#     else:
-#         pixels.fill(BLACK)
-#         pixels.show()
-#
-#     if is_parked and is_timedout and not is_shutdown:
-#         print('sending shutdown pulse')
-#         relay_pin.value = True
-#         time.sleep(1)
-#         relay_pin.value = False
-#         is_shutdown = True
-#
-#     if direction_switch.value == False:
-#         seed = int.from_bytes(urandom(4), 'big')
-#         msg = '**********ATTACK!**********'
-#         attack = True
-#
-#         # always run standard program on first run
-#         if first_run:
-#             program = att_array[0]
-#         else:
-#             program = random.choice(att_array)
-#
-#         # override with test attack
-#         if att_test:
-#             program = att_test
-#     elif direction_switch.value == True and limit_switch.value == False:
-#         seed = int.from_bytes(urandom(4), 'big')
-#         msg = '**********RETREAT!**********'
-#         attack = False
-#
-#         if not program[-1] == SOFT_LANDING:
-#             program.append(SOFT_LANDING)
-#         # always run standard program on boot
-#         if first_run:
-#             program = ret_array[0]
-#             first_run = False
-#         else:
-#             program = random.choice(ret_array)
-#
-#         # override with test retreat
-#         if ret_test:
-#             program = ret_test
-#     else:
-#         msg = 'none'
-#         attack = None
-#
-#     if attack is not None:
-#         print(msg)
-#
-#         program_index = find_index(current_angle=current_angle,
-#                         program=program, attack=attack)
-#         program_slice = program[program_index:]
-#
-#         for i in program_slice:
-#             # reset shutdown_timer while loop is running
-#             shutdown_timer = time.monotonic()
-#
-#             try:
-#                 color = i[3]
-#             except IndexError:
-#                 color = BLACK
-#             print(f'color: {color}')
-#             pixels.fill(color)
-#             pixels.write()
-#             # check if this program step is a pause step
-#             if i[2]:
-#                 break_out = pause(i[2])
-#             else:
-#                 current_angle, break_out = rotate_to_angle(current_angle=current_angle,
-#                                            dest_angle=i[0],
-#                                            attack=attack,
-#                                            speed=i[1])
-#
-#             if break_out:
-#                 print('breaking out of program')
-#                 break
-#
-#     if limit_switch.value != limit_switch_last:
-#         print(f'limit switch state: {limit_switch.value}')
-#         limit_switch_last = limit_switch.value
-#     if direction_switch.value != direction_switch_last:
-#         print(f'direction switch state: {direction_switch.value}')
-#         direction_switch_last = direction_switch.value
+
+while True:
+    if heart_beat(1.5):
+        if not is_shutdown:
+            print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+        if is_shutdown:
+            print('idle: relay off')
+    limit_switch.update()
+    direction_switch.update()
+
+    is_parked = True if limit_switch.value and direction_switch.value else False
+    is_timedout = True if time.monotonic() - shutdown_timer >= SHUTDOWN_TIMEOUT else False
+
+    if is_parked == False:
+        # reset the shutdown timer
+        # shutdown_timer = time.monotonic()
+        # reset the timout and shutdown bools
+        is_timedout = False
+        is_shutdown = False
+    else:
+        pixels.fill(BLACK)
+        pixels.show()
+
+    if is_parked and is_timedout and not is_shutdown:
+        print('sending shutdown pulse')
+        relay_pin.value = True
+        time.sleep(1)
+        relay_pin.value = False
+        is_shutdown = True
+
+    if direction_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
+        msg = '**********ATTACK!**********'
+        attack = True
+
+        # always run standard program on first run
+        if first_run:
+            program = att_array[0]
+        else:
+            program = random.choice(att_array)
+
+        # override with test attack
+        if att_test:
+            program = att_test
+    elif direction_switch.value == True and limit_switch.value == False:
+        seed = int.from_bytes(urandom(4), 'big')
+        msg = '**********RETREAT!**********'
+        attack = False
+
+        if not program[-1] == SOFT_LANDING:
+            program.append(SOFT_LANDING)
+        # always run standard program on boot
+        if first_run:
+            program = ret_array[0]
+            first_run = False
+        else:
+            program = random.choice(ret_array)
+
+        # override with test retreat
+        if ret_test:
+            program = ret_test
+    else:
+        msg = 'none'
+        attack = None
+
+    if attack is not None:
+        print(msg)
+
+        program_index = find_index(current_angle=current_angle,
+                        program=program, attack=attack)
+        program_slice = program[program_index:]
+
+        for i in program_slice:
+            # reset shutdown_timer while loop is running
+            shutdown_timer = time.monotonic()
+
+            try:
+                color = i[3]
+            except IndexError:
+                color = BLACK
+            print(f'color: {color}')
+            pixels.fill(color)
+            pixels.write()
+            # check if this program step is a pause step
+            if i[2]:
+                break_out = pause(i[2])
+            else:
+                current_angle, break_out = rotate_to_angle(current_angle=current_angle,
+                                           dest_angle=i[0],
+                                           attack=attack,
+                                           speed=i[1])
+
+            if break_out:
+                print('breaking out of program')
+                break
+
+    if limit_switch.value != limit_switch_last:
+        print(f'limit switch state: {limit_switch.value}')
+        limit_switch_last = limit_switch.value
+    if direction_switch.value != direction_switch_last:
+        print(f'direction switch state: {direction_switch.value}')
+        direction_switch_last = direction_switch.value
