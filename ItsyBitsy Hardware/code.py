@@ -360,6 +360,7 @@ time.sleep(.5)
 # servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
 servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle = 0, frequency = 0)
+go_to_angle(50)
 
 #
 # while True:
