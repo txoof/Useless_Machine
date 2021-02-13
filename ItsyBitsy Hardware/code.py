@@ -1,7 +1,8 @@
 import board
 import digitalio
 import time
-import pulseio
+# import pulseio
+import pwmio
 import neopixel
 from os import urandom
 import random
@@ -97,7 +98,7 @@ relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 
 # servo pwm OUTPUT
-servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
+servo = pwmio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
 
 # NeoPixel pwm OUTPUT
@@ -359,8 +360,7 @@ go_to_angle(90)
 time.sleep(.5)
 # servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
-servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle = 0, frequency = 0)
-go_to_angle(50)
+# servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle = 0, frequency = 0)
 
 #
 # while True:
