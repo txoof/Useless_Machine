@@ -282,7 +282,11 @@ att_ever_slower = [(90, .3, None, RED),
                    (150, .02, None, PINK),
                    (HOME_HIGH, .01, None, PINK)]
 
-att_array = [att_standard, att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
+att_array = [att_standard, att_peek_a_boo, att_hurry_wait, att_ever_slower]
+att_dict = {'A.Standard': att_standard,
+            'A.Peek A Boo': att_peek_a_boo,
+            'A.Hurry Up and Wait': att_hurry_wait,
+            'A.Ever Slower': att_ever_slower}
 
 
 ret_standard = [(150, .6, None, BLUE),
@@ -334,11 +338,21 @@ ret_aggressive = [(150, .9, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
 
-ret_array = [ret_standard, ret_aggressive, ret_just_checking]
+
+ret_array = [ret_standard, ret_aggressive, ret_just_checking, ret_ever_slower]
+ret_dict = {'R.Standard': ret_standard,
+            'R.Aggressive': ret_aggressive,
+            'R.Just Checking, Don\'t Trust Ya': ret_just_checking,
+            'R.Ever Slower': ret_ever_slower}
+
+# Set default programs
+att_default = 'A.Standard'
+ret_default = 'R.Standard'
 
 # set these equal to a particular program to override random choice
-att_test = att_standard
-ret_test = ret_ever_slower
+# set to `None` for random choice
+att_test = None
+ret_test = None
 
 # last state of limit switch
 limit_switch_last = None
@@ -409,12 +423,18 @@ while True:
 
         # always run standard program on first run
         if first_run:
-            program = att_array[0]
+            print(f'first run after boot using default program: {att_default}')
+            program = att_dict[att_default]
         else:
-            program = random.choice(att_array)
+            # program = random.choice(att_array)
+            program_name = random.choice(list(att_dict.keys()))
+            print(f'PROGRAM: {program_name}')
+            program = att_dict[program_name]
+
 
         # override with test attack
         if att_test:
+            print('using test attack program')
             program = att_test
     elif direction_switch.value == True and limit_switch.value == False:
         seed = int.from_bytes(urandom(4), 'big')
@@ -425,13 +445,19 @@ while True:
             program.append(SOFT_LANDING)
         # always run standard program on boot
         if first_run:
-            program = ret_array[0]
+            print(f'first run after boot using default program: {ret_default}')
+            program = ret_dict[ret_default]
+            # set first_run to False
             first_run = False
         else:
-            program = random.choice(ret_array)
+            program_name = random.choice(list(ret_dict.keys()))
+            print(f'PROGRAM: {program_name}')
+            program = ret_dict[program_name]
+
 
         # override with test retreat
         if ret_test:
+            print('using test attack program')
             program = ret_test
     else:
         msg = 'none'
