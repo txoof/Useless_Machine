@@ -334,11 +334,13 @@ ret_aggressive = [(150, .9, None, NAVY),
                (None, None, 0.25)] # all retreat programs need this at the end to ensure it stops
 
 
-ret_array = [ret_standard, ret_aggressive, ret_just_checking]
+
+ret_array = [ret_standard, ret_aggressive, ret_just_checking, ret_ever_slower]
 
 # set these equal to a particular program to override random choice
-att_test = att_standard
-ret_test = ret_ever_slower
+# set to `None` for random choice
+att_test = None
+ret_test = None
 
 # last state of limit switch
 limit_switch_last = None
