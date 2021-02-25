@@ -1,7 +1,8 @@
 import board
 import digitalio
 import time
-import pulseio
+# import pulseio
+import pwmio
 import neopixel
 from os import urandom
 import random
@@ -29,7 +30,7 @@ DIRECTION_SWITCH_PHY = board.D7
 SERVO_PWM_PHY = board.D10
 
 # send +3v pulse to switch off relay
-RELAY_OFF_PHY = board.D12
+RELAY_OFF_PHY = board.D13
 
 # NeoPixel driver PIN
 PIXEL_PWM_PHY = board.A1
@@ -43,6 +44,7 @@ ORANGE_LT = (255,69,0)
 PINK = (255, 20, 147)
 YELLOW = (255, 150, 0)
 GREEN = (0, 255, 0)
+GREEN_DK = (85,107,47)
 CYAN = (0, 255, 255)
 BLUE = (0, 0, 255)
 NAVY = (0, 0, 128)
@@ -62,7 +64,8 @@ RESOLUTION_MAX = 6 # largest angle steps to take when moving
 ANGLE_MIN = 0
 ANGLE_MAX = 180
 
-# soft landing program step for parking arm
+# soft landing program step for parking arm - this should always be the last
+# step for a retreat program
 SOFT_LANDING = (None, None, 0.25)
 
 ##### /CONSTANTS #####
@@ -95,7 +98,7 @@ relay_pin = digitalio.DigitalInOut(RELAY_OFF_PHY)
 relay_pin.direction = digitalio.Direction.OUTPUT
 
 # servo pwm OUTPUT
-servo = pulseio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
+servo = pwmio.PWMOut(SERVO_PWM_PHY, duty_cycle=2**15, frequency=50)
 
 
 # NeoPixel pwm OUTPUT
@@ -250,23 +253,27 @@ def find_index(current_angle, program, attack=True):
 ## TODO:  move to external file
 
 
+# coy
 att_peek_a_boo = [(62, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
-              (67, .3, None, PINK), (None, None, 1, PINK),
+              (70, .3, None, PINK), (None, None, 1, PINK),
               (HOME_LOW+2, .7, None, CYAN), (None, None, .5, CYAN),
               (HOME_HIGH-10, .6, None, ORANGE),
               (HOME_HIGH, .1, None, ORANGE)]
 
+# standard in and out
 att_standard = [(90, .8, None, RED),
                    (110, .7, None, RED),
                    (HOME_HIGH - 15, .7, None, RED),
                    (HOME_HIGH, .1, None, RED)]
 
+#hurry up and wait
 att_hurry_wait = [(90, .9, None, GREEN),
                   (130, .9, None, GREEN),
                   (150, .9, None, GREEN),
-                  (None, None, 4, BLACK),
+                  (None, None, 4, GREEN_DK),
                   (HOME_HIGH, .1, None, GREEN)]
+
 
 att_ever_slower = [(90, .3, None, RED),
                    (110, .2, None, RED_LT),
@@ -275,7 +282,7 @@ att_ever_slower = [(90, .3, None, RED),
                    (150, .02, None, PINK),
                    (HOME_HIGH, .01, None, PINK)]
 
-att_array = [att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
+att_array = [att_standard, att_peek_a_boo, att_standard, att_hurry_wait, att_ever_slower]
 
 
 ret_standard = [(150, .6, None, BLUE),
@@ -283,13 +290,27 @@ ret_standard = [(150, .6, None, BLUE),
                 (60, .4, None, BLUE),
                 (50, .2, None, BLUE),
                 (HOME_LOW, .05, None, BLUE),
-                (None, None, 0.25)]
+                (None, None, .25)]
+
+ret_ever_slower = [(150, .3, None, RED),
+                   (145, .2, None, RED_LT),
+                   (130, .1, None, ORANGE_LT),
+                   (110, .05, None, ORANGE),
+                   (90, .02, None, PINK),
+                   (HOME_LOW - 5, .01, None, PINK),
+                   (HOME_LOW, .05, None, BLUE),
+                   (None, None, .25)]
+
+                   # (90, .3, None, RED),
+                   # (110, .2, None, RED_LT),
+                   # (130, .1, None, ORANGE_LT),
+                   # (145, .05, None, ORANGE),
+                   # (150, .02, None, PINK),
+                   # (HOME_HIGH, .01, None, PINK)]
 
 ret_just_checking = [(150, .5, None, BLUE),
                      (None, None, 1, NAVY),
                      (120, .5, None, BLUE),
-                     (None, None, 1, NAVY),
-                     (150, .5, None, RED),
                      (None, None, 1, NAVY),
                      (50, .8, None, BLUE),
                      (None, None, .5, NAVY),
@@ -316,8 +337,8 @@ ret_aggressive = [(150, .9, None, NAVY),
 ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
 # set these equal to a particular program to override random choice
-att_test = None
-ret_test = None
+att_test = att_standard
+ret_test = ret_ever_slower
 
 # last state of limit switch
 limit_switch_last = None
@@ -336,6 +357,8 @@ is_parked = True
 # timeout time expired
 is_timedout = False
 
+first_run = True
+
 attack = None
 
 # set initial angle
@@ -349,10 +372,13 @@ seed = int.from_bytes(urandom(4), 'big')
 go_to_angle(current_angle)
 time.sleep(.1)
 
+
 while True:
     if heart_beat(1.5):
         if not is_shutdown:
             print(f'time to shutdown: {time.monotonic() - shutdown_timer - SHUTDOWN_TIMEOUT}')
+        if is_shutdown:
+            print('idle: relay off')
     limit_switch.update()
     direction_switch.update()
 
@@ -380,16 +406,31 @@ while True:
         seed = int.from_bytes(urandom(4), 'big')
         msg = '**********ATTACK!**********'
         attack = True
-        program = random.choice(att_array)
+
+        # always run standard program on first run
+        if first_run:
+            program = att_array[0]
+        else:
+            program = random.choice(att_array)
+
+        # override with test attack
         if att_test:
             program = att_test
     elif direction_switch.value == True and limit_switch.value == False:
         seed = int.from_bytes(urandom(4), 'big')
         msg = '**********RETREAT!**********'
         attack = False
-        program = random.choice(ret_array)
+
         if not program[-1] == SOFT_LANDING:
             program.append(SOFT_LANDING)
+        # always run standard program on boot
+        if first_run:
+            program = ret_array[0]
+            first_run = False
+        else:
+            program = random.choice(ret_array)
+
+        # override with test retreat
         if ret_test:
             program = ret_test
     else:
@@ -405,7 +446,7 @@ while True:
 
         for i in program_slice:
             # reset shutdown_timer while loop is running
-            shutdown_timer = time.monotonic()
+            # shutdown_timer = time.monotonic()
 
             try:
                 color = i[3]
@@ -424,7 +465,10 @@ while True:
                                            speed=i[1])
 
             if break_out:
-                print('breaking out of program loop')
+                print('breaking out of attack/retreat program')
+                # reset the shutdown timer to start counting down after
+                # program is executed
+                shutdown_timer = time.monotonic()
                 break
 
     if limit_switch.value != limit_switch_last:
