@@ -323,7 +323,7 @@ ret_aggressive = [(150, .9, None, NAVY),
 ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
 # set these equal to a particular program to override random choice
-att_test = None
+att_test = att_standard
 ret_test = ret_just_checking
 
 # last state of limit switch
