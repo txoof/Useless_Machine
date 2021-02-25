@@ -324,7 +324,7 @@ ret_array = [ret_standard, ret_aggressive, ret_just_checking]
 
 # set these equal to a particular program to override random choice
 att_test = None
-ret_test = None
+ret_test = ret_just_checking
 
 # last state of limit switch
 limit_switch_last = None
