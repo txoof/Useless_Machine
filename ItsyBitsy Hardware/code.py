@@ -446,7 +446,7 @@ while True:
 
         for i in program_slice:
             # reset shutdown_timer while loop is running
-            shutdown_timer = time.monotonic()
+            # shutdown_timer = time.monotonic()
 
             try:
                 color = i[3]
