@@ -295,10 +295,10 @@ ret_standard = [(150, .6, None, BLUE),
 ret_ever_slower = [(150, .3, None, RED),
                    (145, .2, None, RED_LT),
                    (130, .1, None, ORANGE_LT),
-                   (110, .05, None, ORANGE),
-                   (90, .02, None, PINK),
-                   (HOME_LOW - 5, .01, None, PINK),
-                   (HOME_LOW, .05, None, BLUE),
+                   (80, .05, None, ORANGE),
+                   (50, .02, None, PINK),
+                   # (HOME_LOW - 5, .01, None, PINK),
+                   (HOME_LOW, .01, None, BLUE),
                    (None, None, .25)]
 
                    # (90, .3, None, RED),
@@ -466,6 +466,9 @@ while True:
 
             if break_out:
                 print('breaking out of attack/retreat program')
+                # reset the shutdown timer to start counting down after
+                # program is executed
+                shutdown_timer = time.monotonic()
                 break
 
     if limit_switch.value != limit_switch_last:
