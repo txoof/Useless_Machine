@@ -452,11 +452,12 @@ while True:
         else:
             program_name = random.choice(list(ret_dict.keys()))
             print(f'PROGRAM: {program_name}')
-            program = ret_dict[program_name]            
+            program = ret_dict[program_name]
 
 
         # override with test retreat
         if ret_test:
+            print('using test attack program')            
             program = ret_test
     else:
         msg = 'none'
