@@ -297,7 +297,7 @@ ret_ever_slower = [(150, .3, None, RED),
                    (130, .1, None, ORANGE_LT),
                    (110, .05, None, ORANGE),
                    (90, .02, None, PINK),
-                   (HOME_LOW - 5, 0.1, None, PINK),
+                   (HOME_LOW - 5, 0.01, None, PINK),
                    (HOME_LOW, .05, None, BLUE),
                    (None, None, .25)]
 
