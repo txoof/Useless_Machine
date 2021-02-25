@@ -290,14 +290,27 @@ ret_standard = [(150, .6, None, BLUE),
                 (60, .4, None, BLUE),
                 (50, .2, None, BLUE),
                 (HOME_LOW, .05, None, BLUE),
-                (None, None, 0.25)]
+                (None, None, .25)]
+
+ret_ever_slower = [(150, .3, None, RED),
+                   (145, .2, None, RED_LT),
+                   (130, .1, None, ORANGE_LT),
+                   (110, .05, None, ORANGE),
+                   (90, .02, None, PINK),
+                   (HOME_LOW, .05, None, BLUE),
+                   (None, None, .25)]
+
+                   # (90, .3, None, RED),
+                   # (110, .2, None, RED_LT),
+                   # (130, .1, None, ORANGE_LT),
+                   # (145, .05, None, ORANGE),
+                   # (150, .02, None, PINK),
+                   # (HOME_HIGH, .01, None, PINK)]
 
 ret_just_checking = [(150, .5, None, BLUE),
                      (None, None, 1, NAVY),
                      (120, .5, None, BLUE),
                      (None, None, 1, NAVY),
-                     # (135, .5, None, RED),
-                     # (None, None, 1, PINK),
                      (50, .8, None, BLUE),
                      (None, None, .5, NAVY),
                      (62, .3, None, RED),
