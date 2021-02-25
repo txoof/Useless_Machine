@@ -465,7 +465,7 @@ while True:
                                            speed=i[1])
 
             if break_out:
-                print('breaking out of program')
+                print('breaking out of attack/retreat program')
                 break
 
     if limit_switch.value != limit_switch_last:
