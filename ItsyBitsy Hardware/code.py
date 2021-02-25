@@ -446,7 +446,7 @@ while True:
         # always run standard program on boot
         if first_run:
             print(f'first run after boot using default program: {ret_default}')
-            program = att_dict[program_name]
+            program = att_dict[ret_default]
             # set first_run to False
             first_run = False
         else:
@@ -457,7 +457,7 @@ while True:
 
         # override with test retreat
         if ret_test:
-            print('using test attack program')            
+            print('using test attack program')
             program = ret_test
     else:
         msg = 'none'
