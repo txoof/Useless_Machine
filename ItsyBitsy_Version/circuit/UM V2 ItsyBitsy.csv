@@ -1,0 +1,14 @@
+"Part";"Value";"Device";"Package";"Description";"ALLIED_NUMBER";"DESCRIPTION";"HEIGHT";"MANUFACTURER_NAME";"MANUFACTURER_PART_NUMBER";"MOUSER_PART_NUMBER";"MOUSER_PRICE-STOCK";"POPULARITY";"PROD_ID";"RS_PART_NUMBER";"RS_PRICE-STOCK";"SF_ID";"SPICEPREFIX";
+"C1";"470";"CPOL-USE2,5-6E";"E2,5-6E";"POLARIZED CAPACITOR, American symbol";"";"";"";"";"";"";"";"";"";"";"";"";"C";
+"D1";"1N4004";"1N4004";"DO41-10";"DIODE";"";"";"";"";"";"";"";"82";"";"";"";"";"";
+"DIRECTIONSW";"Direction Sw";"CONN_04POLAR";"MOLEX-1X4";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";"";"";"CONN-08186";"";"";"PRT-08231";"";
+"EXTPOWER";"Limit Sw";"CONN_02POLAR";"MOLEX-1X2";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";"";"";"";"";"";"PRT-09918";"";
+"K1";"DS2E-SL2-DC5V";"DS2E-SL2-DC5V";"DS2ESL2DC5V";"Low Signal Relays - PCB 2A 5VDC DPDT LATCHING PCB";"70158678";"Low Signal Relays - PCB 2A 5VDC DPDT LATCHING PCB";"10.2mm";"Panasonic";"DS2E-SL2-DC5V";"";"";"";"";"";"";"";"";
+"LED1";"LTST-C930KRKT";"LTST-C930KRKT";"LTSTC930KRKT";"LED, Red LTST-C930KRKT, Lite-On 631 nm 3125 (1210) SMD package";"";"LED, Red LTST-C930KRKT, Lite-On 631 nm 3125 (1210) SMD package";"2.5mm";"Lite-On";"LTST-C930KRKT";"859-LTST-C930KRKT";"https://www.mouser.com/Search/Refine.aspx?Keyword=859-LTST-C930KRKT";"";"";"1689768";"http://uk.rs-online.com/web/p/products/1689768";"";"";
+"LIMITSW";"Limit Sw";"CONN_02POLAR";"MOLEX-1X2";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";"";"";"";"";"";"PRT-09918";"";
+"NEOPIXEL";"7x";"CONN_03POLAR";"MOLEX-1X3";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";"";"";"CONN-08625";"";"";"PRT-08096";"";
+"Q1";"2N3904";"MPS2222A-NPN-TO92-CBE";"TO92-CBE";"NPN Transistror";"";"";"";"";"";"";"";"0";"";"";"";"";"";
+"R1";"100";"R-US_M1206";"M1206";"RESISTOR, American symbol";"";"";"";"";"";"";"";"";"";"";"";"";"R";
+"R2";"220";"R-US_M1206";"M1206";"RESISTOR, American symbol";"";"";"";"";"";"";"";"";"";"";"";"";"R";
+"SERVO";"1051 M";"CONN_03POLAR";"MOLEX-1X3";"Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections";"";"";"";"";"";"";"";"";"CONN-08625";"";"";"PRT-08096";"";
+"U$1";"ITSYBITSY3V";"ITSYBITSY3V";"ITSYBITSY3V";"AdaFruit ItsyBitsy M4 3V";"";"";"";"";"";"";"";"";"";"";"";"";"";
